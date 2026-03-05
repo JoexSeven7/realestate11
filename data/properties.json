@@ -1,0 +1,78 @@
+{
+  "properties": [
+    {
+      "id": 1,
+      "title": "Luxury Villa in Lekki",
+      "slug": "luxury-villa-lekki",
+      "type": "residential",
+      "status": "sale",
+      "location": "lagos",
+      "address": "Lekki Phase 1, Lagos",
+      "bedrooms": 5,
+      "bathrooms": 4,
+      "size": 450,
+      "price": 150000000,
+      "priceDisplay": "₦150,000,000",
+      "features": ["parking", "pool", "garden", "security"],
+      "amenities": ["Swimming Pool", "Garden", "24/7 Security", "Parking Space", "Smart Home System"],
+      "image": "images/build1.jpeg",
+      "images": [
+        "images/build1.jpeg",
+        "images/build2.jpeg",
+        "images/build3.jpeg"
+      ],
+      "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1. This masterpiece features modern architecture, premium finishes, and state-of-the-art amenities. The spacious living areas are perfect for entertaining, while the private bedrooms offer serene retreats. With a sparkling swimming pool, lush garden, and round-the-clock security, this property offers the ultimate in comfort and peace of mind.",
+      "highlights": [
+        "5 en-suite bedrooms with walk-in closets",
+        "Modern open-plan kitchen with premium appliances",
+        "Private swimming pool and landscaped garden",
+        "Smart home automation system",
+        "24/7 security with CCTV surveillance"
+      ],
+      "yearBuilt": 2022,
+      "parkingSpaces": 4,
+      "featured": true,
+      "createdAt": "2024-01-15"
+    },
+    {
+      "id": 2,
+      "title": "Modern Apartment in Victoria Island",
+      "slug": "modern-apartment-vi",
+      "type": "residential",
+      "status": "rent",
+      "location": "lagos",
+      "address": "Victoria Island, Lagos",
+      "bedrooms": 3,
+      "bathrooms": 2,
+      "size": 180,
+      "price": 2500000,
+      "priceDisplay": "₦2,500,000/year",
+      "features": ["parking", "security", "gym"],
+      "amenities": ["Gym Access", "24/7 Security", "Parking Space", "Elevator", "Backup Power"],
+      "image": "images/build2.jpeg",
+      "images": [
+        "images/build2.jpeg",
+        "images/build4.jpeg",
+        "images/build5.jpeg"
+      ],
+      "description": "Contemporary 3-bedroom apartment in the heart of Victoria Island. This modern residence offers stunning city views, premium finishes, and convenient access to Lagos's business district. The open-concept living space is flooded with natural light, featuring a sleek kitchen and spacious bedrooms. Building amenities include a fully equipped gym, elevator access, and reliable backup power.",
+      "highlights": [
+        "3 spacious bedrooms with built-in wardrobes",
+        "Modern kitchen with granite countertops",
+        "Access to building gym and facilities",
+        "Strategic location near business hubs",
+        "Reliable power and water supply"
+      ],
+      "yearBuilt": 2021,
+      "parkingSpaces": 2,
+      "featured": true,
+      "createdAt": "2024-02-01"
+    }
+  ],
+  "metadata": {
+    "total": 2,
+    "lastUpdated": "2024-02-24",
+    "organization": "ATHARRYS PROPERTIES LIMITED",
+    "note": "This file can be expanded to add more properties as the organization grows. Simply add new property objects to the 'properties' array following the same structure."
+  }
+}

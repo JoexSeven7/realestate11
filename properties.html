@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Browse our extensive collection of properties for sale and rent. Find your perfect home or investment opportunity with ATHARRYS PROPERTIES LIMITED.">
+    <meta name="keywords" content="properties for sale, properties for rent, real estate listings, ATHARRYS PROPERTIES">
+    <title>Properties | ATHARRYS PROPERTIES LIMITED</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        primary: '#1a2744',
+                        secondary: '#8b2635',
+                        accent: '#ffffff',
+                        dark: '#1a2744',
+                        light: '#f3f4f6',
+                        maroon: '#8b2635',
+                        maroonDark: '#6b1a1a',
+                        navy: '#1a2744',
+                        navyLight: '#2a3754',
+                        gradientStart: '#1a2744',
+                        gradientEnd: '#8b2635'
+                    },
+                    backgroundImage: {
+                        'gradient-royal': 'linear-gradient(135deg, #1a2744 0%, #8b2635 100%)',
+                        'gradient-royal-light': 'linear-gradient(135deg, #2a3754 0%, #a63645 100%)'
+                    }
+                }
+            }
+        }
+    </script>
+</head>
+<body class="font-sans antialiased">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-md fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0">
+                    <a href="index.html" class="flex items-center">
+                        <img src="images/logo.png" alt="ATHARRYS PROPERTIES" class="h-12 w-auto">
+                    </a>
+                </div>
+                <button class="md:hidden p-2 rounded-lg hover:bg-gray-100" id="navToggle" aria-label="Toggle navigation">
+                    <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
+                    <span class="block w-6 h-0.5 bg-gray-600"></span>
+                </button>
+                <ul class="hidden md:flex space-x-8 items-center" id="navMenu">
+                    <li><a href="index.html" class="text-gray-700 hover:text-primary transition-colors">Home</a></li>
+                    <li><a href="properties.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Properties</a></li>
+                    <li><a href="about.html" class="text-gray-700 hover:text-primary transition-colors">About Us</a></li>
+                    <li><a href="services.html" class="text-gray-700 hover:text-primary transition-colors">Services</a></li>
+                    <li><a href="blog.html" class="text-gray-700 hover:text-primary transition-colors">Blog</a></li>
+                    <li><a href="contact.html" class="bg-secondary text-white px-6 py-2 rounded-lg hover:bg-maroonDark transition-colors">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="md:hidden hidden bg-white border-t" id="mobileMenu">
+            <ul class="px-4 py-4 space-y-3">
+                <li><a href="index.html" class="block text-gray-700 hover:text-primary">Home</a></li>
+                <li><a href="properties.html" class="block text-primary font-semibold">Properties</a></li>
+                <li><a href="about.html" class="block text-gray-700 hover:text-primary">About Us</a></li>
+                <li><a href="services.html" class="block text-gray-700 hover:text-primary">Services</a></li>
+                <li><a href="blog.html" class="block text-gray-700 hover:text-primary">Blog</a></li>
+                <li><a href="contact.html" class="block bg-primary text-white px-6 py-2 rounded-lg text-center">Contact Us</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="relative pt-32 pb-20 bg-cover bg-center bg-no-repeat" style="background-image: url('images/properties-header.jpg');">
+        <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Our Properties</h1>
+            <p class="text-xl text-gray-200 mb-6">Discover your perfect property from our extensive collection</p>
+            <nav class="flex justify-center items-center gap-2 text-gray-300">
+                <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                <span>/</span>
+                <span class="text-white">Properties</span>
+            </nav>
+        </div>
+    </section>
+
+    <!-- Properties Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col lg:flex-row gap-8">
+                <!-- Filters Sidebar -->
+                <aside class="lg:w-1/4">
+                    <div class="bg-white p-6 rounded-xl shadow-lg sticky top-24">
+                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Search Properties</h3>
+                        <form id="propertySearchForm" class="space-y-4">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
+                                <input type="text" id="searchInput" placeholder="Search by name or location..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
+                                <select id="filterType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">All Types</option>
+                                    <option value="residential">Residential</option>
+                                    <option value="commercial">Commercial</option>
+                                    <option value="land">Land</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                                <select id="filterStatus" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">All Status</option>
+                                    <option value="sale">For Sale</option>
+                                    <option value="rent">For Rent</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                                <select id="filterLocation" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">All Locations</option>
+                                    <option value="lagos">Lagos</option>
+                                    <option value="abuja">Abuja</option>
+                                    <option value="portharcourt">Port Harcourt</option>
+                                    <option value="ibadan">Ibadan</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
+                                <select id="filterBedrooms" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                    <option value="">Any</option>
+                                    <option value="1">1+</option>
+                                    <option value="2">2+</option>
+                                    <option value="3">3+</option>
+                                    <option value="4">4+</option>
+                                    <option value="5">5+</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">Features</label>
+                                <div class="space-y-2">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" value="parking" class="w-4 h-4 text-primary rounded focus:ring-primary">
+                                        <span class="text-gray-700">Parking</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" value="pool" class="w-4 h-4 text-primary rounded focus:ring-primary">
+                                        <span class="text-gray-700">Swimming Pool</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" value="garden" class="w-4 h-4 text-primary rounded focus:ring-primary">
+                                        <span class="text-gray-700">Garden</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" value="security" class="w-4 h-4 text-primary rounded focus:ring-primary">
+                                        <span class="text-gray-700">24/7 Security</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" value="gym" class="w-4 h-4 text-primary rounded focus:ring-primary">
+                                        <span class="text-gray-700">Gym</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="checkbox" value="elevator" class="w-4 h-4 text-primary rounded focus:ring-primary">
+                                        <span class="text-gray-700">Elevator</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button type="submit" class="w-full bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors">Apply Filters</button>
+                            <button type="button" class="w-full border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors" id="resetFilters">Reset Filters</button>
+                        </form>
+                    </div>
+                </aside>
+
+                <!-- Properties Grid -->
+                <div class="lg:w-3/4">
+                    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
+                        <div class="text-gray-600">
+                            <span id="resultsCount" class="font-semibold text-gray-900">12</span> Properties Found
+                        </div>
+                        <div class="flex items-center gap-4">
+                            <div class="flex gap-2">
+                                <button class="view-btn p-2 rounded-lg bg-primary text-white" data-view="grid" aria-label="Grid view">
+                                    <i class="fas fa-th-large"></i>
+                                </button>
+                                <button class="view-btn p-2 rounded-lg bg-gray-200 text-gray-600 hover:bg-gray-300" data-view="list" aria-label="List view">
+                                    <i class="fas fa-list"></i>
+                                </button>
+                            </div>
+                            <select id="sortProperties" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                                <option value="featured">Featured</option>
+                                <option value="newest">Newest First</option>
+                                <option value="oldest">Oldest First</option>
+                                <option value="price-high">Price: High to Low</option>
+                                <option value="price-low">Price: Low to High</option>
+                                <option value="size">Size (sqm)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- Properties Grid - Dynamically populated from JSON -->
+                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="propertiesGrid">
+                        <!-- Loading state -->
+                        <div class="col-span-full text-center py-12" id="loadingState">
+                            <i class="fas fa-spinner fa-spin text-4xl text-primary mb-4"></i>
+                            <p class="text-gray-600">Loading properties...</p>
+                        </div>
+                    </div>
+
+                    <!-- Pagination (hidden for small property counts) -->
+                    <div class="flex justify-center items-center gap-2 mt-10 hidden" id="pagination">
+                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-400 cursor-not-allowed"><i class="fas fa-chevron-left"></i></button>
+                        <button class="px-4 py-2 rounded-lg bg-primary text-white">1</button>
+                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300">2</button>
+                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300">3</button>
+                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300"><i class="fas fa-chevron-right"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="py-20 bg-gradient-to-r from-[#1a2744] via-[#3a4a64] to-[#8b2635]">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Can't Find What You're Looking For?</h2>
+            <p class="text-xl text-blue-100 mb-8">Let us help you find your perfect property. Contact our team today for personalized assistance.</p>
+            <a href="contact.html" class="inline-block bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Contact Us Today</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-16">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                <div>
+                    <img src="images/logo.png" alt="ATHARRYS PROPERTIES" class="h-12 w-auto mb-6">
+                    <p class="text-gray-400 mb-6">ATHARRYS PROPERTIES LIMITED is your trusted partner in real estate solutions. With over 15 years of experience, we deliver excellence in property management, sales, and investments.</p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Quick Links</h3>
+                    <ul class="space-y-3">
+                        <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                        <li><a href="properties.html" class="text-gray-400 hover:text-white transition-colors">Properties</a></li>
+                        <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Services</a></li>
+                        <li><a href="blog.html" class="text-gray-400 hover:text-white transition-colors">Blog</a></li>
+                        <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Our Services</h3>
+                    <ul class="space-y-3">
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Property Sales</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Property Management</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Commercial Real Estate</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Property Valuation</a></li>
+                        <li><a href="services.html" class="text-gray-400 hover:text-white transition-colors">Consultation Services</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-6">Contact Us</h3>
+                    <ul class="space-y-3 text-gray-400">
+                        <li class="flex items-start gap-3">
+                            <i class="fas fa-map-marker-alt mt-1"></i>
+                            <span>123 Adetokunbo Ademola Street, Victoria Island, Lagos</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-phone"></i>
+                            <span>+234 801 234 5678</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-envelope"></i>
+                            <span>info@atharrysproperties.com</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fas fa-clock"></i>
+                            <span>Mon - Fri: 8:00 AM - 6:00 PM</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                <p class="text-gray-400 text-sm">&copy; 2024 ATHARRYS PROPERTIES LIMITED. All rights reserved.</p>
+                <div class="flex gap-6 mt-4 md:mt-0">
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Privacy Policy</a>
+                    <a href="#" class="text-gray-400 hover:text-white text-sm transition-colors">Terms of Service</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Back to Top Button -->
+    <button class="fixed bottom-8 right-8 bg-secondary text-white w-12 h-12 rounded-full shadow-lg hover:bg-maroonDark transition-colors opacity-0 invisible" id="backToTop" aria-label="Back to top">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <script src="js/main.js"></script>
+    <script src="js/properties.js"></script>
+</body>
+</html>

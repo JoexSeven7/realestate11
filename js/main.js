@@ -1,0 +1,501 @@
+// Main JavaScript for ATHARRYS PROPERTIES website
+
+// Global properties data for homepage
+let propertiesData = [];
+
+// Fetch properties from JSON file
+async function fetchProperties() {
+    try {
+        const response = await fetch('data/properties.json');
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        propertiesData = data.properties;
+        return propertiesData;
+    } catch (error) {
+        console.error('Error loading properties:', error);
+        
+        // Check if running from file:// protocol
+        const isFileProtocol = window.location.protocol === 'file:';
+        if (isFileProtocol) {
+            console.warn('This site needs to be served from a web server. Please use Live Server or deploy to a web server.');
+        }
+        return [];
+    }
+}
+
+// Generate property card HTML for homepage
+function generatePropertyCard(property) {
+    const statusBadge = property.status === 'sale' 
+        ? '<span class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">For Sale</span>'
+        : '<span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">For Rent</span>';
+    
+    const featuredBadge = property.featured 
+        ? '<span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>'
+        : '';
+    
+    // Handle different property types for display
+    let specsDisplay = '';
+    if (property.type === 'commercial') {
+        specsDisplay = `
+            <span><i class="fas fa-building mr-1"></i> ${property.floors || 'Multi'} Floors</span>
+            <span><i class="fas fa-ruler-combined mr-1"></i> ${property.size} sqm</span>
+        `;
+    } else if (property.type === 'land') {
+        specsDisplay = `
+            <span><i class="fas fa-ruler-combined mr-1"></i> ${property.size} sqm</span>
+        `;
+    } else {
+        specsDisplay = `
+            <span><i class="fas fa-bed mr-1"></i> ${property.bedrooms} Beds</span>
+            <span><i class="fas fa-bath mr-1"></i> ${property.bathrooms} Baths</span>
+            <span><i class="fas fa-ruler-combined mr-1"></i> ${property.size} sqm</span>
+        `;
+    }
+    
+    return `
+        <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div class="relative">
+                <img src="${property.image}" alt="${property.title}" class="w-full h-48 object-cover" onerror="this.src='images/build1.jpeg'">
+                ${featuredBadge}
+                ${statusBadge}
+                <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors favorite-btn" data-id="${property.id}">
+                    <i class="far fa-heart text-gray-600"></i>
+                </button>
+            </div>
+            <div class="p-5">
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">${property.title}</h3>
+                <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> ${property.address}</p>
+                <div class="flex justify-between text-sm text-gray-600 mb-4">
+                    ${specsDisplay}
+                </div>
+                <div class="flex items-center justify-between mb-4">
+                    <span class="text-xl font-bold text-primary">${property.priceDisplay}</span>
+                </div>
+                <a href="property-detail.html?id=${property.id}" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
+            </div>
+        </div>
+    `;
+}
+
+// Render featured properties on homepage
+function renderFeaturedProperties(properties) {
+    const carouselTrack = document.getElementById('carouselTrack');
+    if (!carouselTrack) return;
+    
+    // Get featured properties or first 4 properties
+    const featuredProperties = properties.filter(p => p.featured).slice(0, 4);
+    const displayProperties = featuredProperties.length > 0 ? featuredProperties : properties.slice(0, 4);
+    
+    if (displayProperties.length === 0) {
+        carouselTrack.innerHTML = `
+            <div class="col-span-full text-center py-12">
+                <p class="text-gray-600">No properties available at the moment.</p>
+            </div>
+        `;
+        return;
+    }
+    
+    const propertiesHTML = displayProperties.map(generatePropertyCard).join('');
+    carouselTrack.innerHTML = propertiesHTML;
+    
+    // Attach favorite button listeners
+    attachFavoriteListeners();
+}
+
+// Attach favorite button listeners
+function attachFavoriteListeners() {
+    const favoriteButtons = document.querySelectorAll('.favorite-btn');
+    favoriteButtons.forEach(btn => {
+        btn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const icon = this.querySelector('i');
+            icon.classList.toggle('far');
+            icon.classList.toggle('fas');
+            icon.classList.toggle('text-red-500');
+            
+            // Save to localStorage
+            const propertyId = this.dataset.id;
+            let favorites = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+            
+            if (favorites.includes(propertyId)) {
+                favorites = favorites.filter(id => id !== propertyId);
+            } else {
+                favorites.push(propertyId);
+            }
+            
+            localStorage.setItem('propertyFavorites', JSON.stringify(favorites));
+        });
+    });
+    
+    // Restore favorite states from localStorage
+    const favorites = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+    favoriteButtons.forEach(btn => {
+        if (favorites.includes(btn.dataset.id)) {
+            const icon = btn.querySelector('i');
+            icon.classList.remove('far');
+            icon.classList.add('fas', 'text-red-500');
+        }
+    });
+}
+
+document.addEventListener('DOMContentLoaded', async function() {
+    // Load properties for homepage
+    await fetchProperties();
+    renderFeaturedProperties(propertiesData);
+    
+    // Mobile Navigation Toggle
+    const navToggle = document.getElementById('navToggle');
+    const mobileMenu = document.getElementById('mobileMenu');
+    
+    if (navToggle && mobileMenu) {
+        navToggle.addEventListener('click', function() {
+            mobileMenu.classList.toggle('hidden');
+        });
+    }
+
+    // Navbar Scroll Effect
+    const navbar = document.getElementById('navbar');
+    let lastScroll = 0;
+    
+    window.addEventListener('scroll', function() {
+        const currentScroll = window.pageYOffset;
+        
+        if (currentScroll > 100) {
+            navbar.classList.add('shadow-lg');
+        } else {
+            navbar.classList.remove('shadow-lg');
+        }
+        
+        lastScroll = currentScroll;
+    });
+
+    // Back to Top Button
+    const backToTop = document.getElementById('backToTop');
+    
+    if (backToTop) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 300) {
+                backToTop.classList.remove('opacity-0', 'invisible');
+                backToTop.classList.add('opacity-100', 'visible');
+            } else {
+                backToTop.classList.add('opacity-0', 'invisible');
+                backToTop.classList.remove('opacity-100', 'visible');
+            }
+        });
+        
+        backToTop.addEventListener('click', function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        });
+    }
+
+    // Animated Counter for Stats
+    const counters = document.querySelectorAll('[data-count]');
+    
+    counters.forEach(counter => {
+        const target = parseInt(counter.getAttribute('data-count'));
+        const duration = 2000;
+        const step = target / (duration / 16);
+        let current = 0;
+        
+        const updateCounter = () => {
+            current += step;
+            if (current < target) {
+                counter.textContent = Math.floor(current);
+                requestAnimationFrame(updateCounter);
+            } else {
+                counter.textContent = target;
+            }
+        };
+        
+        // Start animation when element is in view
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    updateCounter();
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        
+        observer.observe(counter);
+    });
+
+    // Newsletter Form
+    const newsletterForm = document.getElementById('newsletterForm');
+    
+    if (newsletterForm) {
+        newsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = document.getElementById('newsletterEmail').value;
+            
+            // Simulate form submission
+            alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
+            newsletterForm.reset();
+        });
+    }
+
+    // Sidebar Newsletter Form
+    const sidebarNewsletterForm = document.getElementById('sidebarNewsletterForm');
+    
+    if (sidebarNewsletterForm) {
+        sidebarNewsletterForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const email = sidebarNewsletterForm.querySelector('input[type="email"]').value;
+            
+            // Simulate form submission
+            alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
+            sidebarNewsletterForm.reset();
+        });
+    }
+
+    // Blog Search Form
+    const blogSearchForm = document.getElementById('blogSearchForm');
+    
+    if (blogSearchForm) {
+        blogSearchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const searchTerm = document.getElementById('blogSearchInput').value;
+            alert('Searching for: ' + searchTerm);
+        });
+    }
+
+    // Quick Search Form
+    const quickSearchForm = document.getElementById('quickSearchForm');
+    
+    if (quickSearchForm) {
+        quickSearchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const propertyType = document.getElementById('propertyType').value;
+            const location = document.getElementById('location').value;
+            
+            // Redirect to properties page with filters
+            window.location.href = 'properties.html?type=' + propertyType + '&location=' + location;
+        });
+    }
+
+    // FAQ Accordion
+    const faqQuestions = document.querySelectorAll('.faq-question');
+    
+    faqQuestions.forEach(question => {
+        question.addEventListener('click', function() {
+            const answer = this.nextElementSibling;
+            const icon = this.querySelector('i');
+            
+            // Toggle answer visibility
+            answer.classList.toggle('hidden');
+            
+            // Rotate icon
+            icon.classList.toggle('rotate-180');
+        });
+    });
+
+    // Smooth scroll for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function(e) {
+            e.preventDefault();
+            const target = document.querySelector(this.getAttribute('href'));
+            
+            if (target) {
+                target.scrollIntoView({
+                    behavior: 'smooth',
+                    block: 'start'
+                });
+            }
+        });
+    });
+
+    // Property favorite buttons
+    const favoriteButtons = document.querySelectorAll('.property-favorite');
+    
+    favoriteButtons.forEach(button => {
+        button.addEventListener('click', function(e) {
+            e.preventDefault();
+            const icon = this.querySelector('i');
+            
+            if (icon.classList.contains('far')) {
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-red-500');
+            } else {
+                icon.classList.remove('fas', 'text-red-500');
+                icon.classList.add('far');
+            }
+        });
+    });
+
+    // Map tabs for contact page
+    const mapTabs = document.querySelectorAll('.map-tab');
+    const officeCards = document.querySelectorAll('.office-card');
+    const officeMap = document.getElementById('officeMap');
+    
+    if (mapTabs.length > 0) {
+        const mapUrls = {
+            lagos: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.728639489274!2d3.4472!3d6.4398!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf53280e7648d%3A0x4d01e5de6b847fe!2sVictoria%20Island%2C%20Lagos!5e0!3m2!1sen!2sng!4v1234567890',
+            abuja: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.728639489274!2d7.4952!3d9.0579!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b8c8c8c8c8%3A0x4d01e5de6b847fe!2sAsokoro%2C%20Abuja!5e0!3m2!1sen!2sng!4v1234567890',
+            portharcourt: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.728639489274!2d7.0134!3d4.8156!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x104e0b8c8c8c8c8%3A0x4d01e5de6b847fe!2sGRA%2C%20Port%20Harcourt!5e0!3m2!1sen!2sng!4v1234567890'
+        };
+        
+        mapTabs.forEach(tab => {
+            tab.addEventListener('click', function() {
+                const location = this.getAttribute('data-location');
+                
+                // Update active tab
+                mapTabs.forEach(t => {
+                    t.classList.remove('bg-primary', 'text-white');
+                    t.classList.add('bg-gray-200', 'text-gray-700');
+                });
+                this.classList.remove('bg-gray-200', 'text-gray-700');
+                this.classList.add('bg-primary', 'text-white');
+                
+                // Update office cards
+                officeCards.forEach(card => {
+                    if (card.getAttribute('data-location') === location) {
+                        card.classList.remove('hidden');
+                    } else {
+                        card.classList.add('hidden');
+                    }
+                });
+                
+                // Update map
+                if (officeMap && mapUrls[location]) {
+                    officeMap.src = mapUrls[location];
+                }
+            });
+        });
+    }
+
+    // View toggle for properties page
+    const viewBtns = document.querySelectorAll('.view-btn');
+    const propertiesGrid = document.getElementById('propertiesGrid');
+    
+    if (viewBtns.length > 0 && propertiesGrid) {
+        viewBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const view = this.getAttribute('data-view');
+                
+                // Update active button
+                viewBtns.forEach(b => {
+                    b.classList.remove('bg-primary', 'text-white');
+                    b.classList.add('bg-gray-200', 'text-gray-600');
+                });
+                this.classList.remove('bg-gray-200', 'text-gray-600');
+                this.classList.add('bg-primary', 'text-white');
+                
+                // Update grid layout
+                if (view === 'list') {
+                    propertiesGrid.classList.remove('grid-cols-1', 'md:grid-cols-2', 'xl:grid-cols-3');
+                    propertiesGrid.classList.add('grid-cols-1');
+                } else {
+                    propertiesGrid.classList.remove('grid-cols-1');
+                    propertiesGrid.classList.add('grid-cols-1', 'md:grid-cols-2', 'xl:grid-cols-3');
+                }
+            });
+        });
+    }
+
+    // Contact Agent Form
+    const contactAgentForm = document.getElementById('contactAgentForm');
+    
+    if (contactAgentForm) {
+        contactAgentForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const name = document.getElementById('contactName').value;
+            const email = document.getElementById('contactEmail').value;
+            const phone = document.getElementById('contactPhone').value;
+            const message = document.getElementById('contactMessage').value;
+            
+            // Simulate form submission
+            alert('Thank you ' + name + '! Your message has been sent. Our agent will contact you shortly.');
+            contactAgentForm.reset();
+        });
+    }
+
+    // Schedule Viewing Form
+    const scheduleViewingForm = document.getElementById('scheduleViewingForm');
+    
+    if (scheduleViewingForm) {
+        scheduleViewingForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const date = document.getElementById('viewingDate').value;
+            const time = document.getElementById('viewingTime').value;
+            
+            // Simulate form submission
+            alert('Thank you! Your viewing has been scheduled for ' + date + ' at ' + time + '. Our agent will confirm the appointment.');
+            scheduleViewingForm.reset();
+        });
+    }
+
+    // Download Brochure
+    const downloadBrochure = document.getElementById('downloadBrochure');
+    
+    if (downloadBrochure) {
+        downloadBrochure.addEventListener('click', function() {
+            alert('Property brochure download started!');
+        });
+    }
+
+    // Start Virtual Tour
+    const startTour = document.getElementById('startTour');
+    
+    if (startTour) {
+        startTour.addEventListener('click', function() {
+            alert('Virtual tour feature coming soon!');
+        });
+    }
+
+    // Contact Form
+    const contactForm = document.getElementById('contactForm');
+    
+    if (contactForm) {
+        contactForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const firstName = document.getElementById('firstName').value;
+            const lastName = document.getElementById('lastName').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const subject = document.getElementById('subject').value;
+            const message = document.getElementById('message').value;
+            
+            // Simulate form submission
+            alert('Thank you ' + firstName + '! Your message has been sent. We will get back to you within 24 hours.');
+            contactForm.reset();
+        });
+    }
+
+    // Property Search Form
+    const propertySearchForm = document.getElementById('propertySearchForm');
+    
+    if (propertySearchForm) {
+        propertySearchForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            alert('Search filters applied!');
+        });
+    }
+
+    // Reset Filters
+    const resetFilters = document.getElementById('resetFilters');
+    
+    if (resetFilters) {
+        resetFilters.addEventListener('click', function() {
+            if (propertySearchForm) {
+                propertySearchForm.reset();
+            }
+        });
+    }
+
+    // Sort Properties
+    const sortProperties = document.getElementById('sortProperties');
+    
+    if (sortProperties) {
+        sortProperties.addEventListener('change', function() {
+            const sortBy = this.value;
+            alert('Properties sorted by: ' + sortBy);
+        });
+    }
+
+    console.log('ATHARRYS PROPERTIES website loaded successfully!');
+});
