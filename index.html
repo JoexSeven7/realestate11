@@ -6,8 +6,8 @@
     <meta name="description" content="ATHARRYS PROPERTIES LIMITED - Your trusted partner in real estate solutions, property management, and investment opportunities.">
     <meta name="keywords" content="real estate, property management, commercial real estate, property sales, ATHARRYS PROPERTIES">
     <title>ATHARRYS PROPERTIES LIMITED | Real Estate Solutions</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -177,7 +177,7 @@
                     <!-- Property Card 2 -->
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
-                            <img src="images/property2.jpg" alt="Modern Apartment" class="w-full h-48 object-cover">
+                            <img src="images/build2.jpeg" alt="Modern Apartment" class="w-full h-48 object-cover">
                             <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
                             <span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">For Rent</span>
                             <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors">
@@ -198,7 +198,7 @@
                     <!-- Property Card 3 -->
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
-                            <img src="images/property3.jpg" alt="Commercial Building" class="w-full h-48 object-cover">
+                            <img src="images/build3.jpeg" alt="Commercial Building" class="w-full h-48 object-cover">
                             <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
                             <span class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">For Sale</span>
                             <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors">
@@ -219,7 +219,7 @@
                     <!-- Property Card 4 -->
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
-                            <img src="images/property4.jpg" alt="Penthouse" class="w-full h-48 object-cover">
+                            <img src="images/build5.jpeg" alt="Penthouse" class="w-full h-48 object-cover">
                             <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
                             <span class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">For Sale</span>
                             <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors">
@@ -366,7 +366,7 @@
                     </div>
                     <p class="text-gray-600 mb-6">"ATHARRYS PROPERTIES made buying my first home an absolute breeze. Their team was professional, knowledgeable, and always available to answer my questions. I couldn't be happier with my new home!"</p>
                     <div class="flex items-center gap-4">
-                        <img src="images/client1.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover">
+                        <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-semibold">CO</div>
                         <div>
                             <h4 class="font-semibold text-gray-900">Chinedu Okafor</h4>
                             <p class="text-sm text-gray-600">Homeowner</p>
@@ -383,7 +383,7 @@
                     </div>
                     <p class="text-gray-600 mb-6">"As an investor, I've worked with many real estate companies. ATHARRYS stands out for their market knowledge and integrity. They've helped me build a profitable property portfolio."</p>
                     <div class="flex items-center gap-4">
-                        <img src="images/client2.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover">
+                        <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-semibold">NA</div>
                         <div>
                             <h4 class="font-semibold text-gray-900">Ngozi Adeleke</h4>
                             <p class="text-sm text-gray-600">Property Investor</p>
@@ -400,7 +400,7 @@
                     </div>
                     <p class="text-gray-600 mb-6">"Their property management service is exceptional. They handle everything efficiently, and I never have to worry about my rental properties. Highly recommended!"</p>
                     <div class="flex items-center gap-4">
-                        <img src="images/client3.jpg" alt="Client" class="w-12 h-12 rounded-full object-cover">
+                        <div class="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-semibold">EN</div>
                         <div>
                             <h4 class="font-semibold text-gray-900">Emeka Nnamdi</h4>
                             <p class="text-sm text-gray-600">Landlord</p>
@@ -416,8 +416,8 @@
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Stay Updated with Our Newsletter</h2>
             <p class="text-xl text-blue-100 mb-8">Subscribe to receive the latest property listings, market insights, and exclusive offers directly in your inbox.</p>
-            <!-- REPLACE 'YOUR_FORMSPREE_ID' WITH YOUR ACTUAL FORMSPREE FORM ID -->
-            <form id="newsletterForm" action="https://formspree.io/f/YOUR_FORMSPREE_ID" method="POST" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+            <!-- Replace FORMSPREE_ID with your Formspree form ID from https://formspree.io -->
+            <form id="newsletterForm" action="https://formspree.io/f/FORMSPREE_ID" method="POST" class="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
                 <input type="email" id="newsletterEmail" name="email" placeholder="Enter your email address" required class="flex-1 px-6 py-4 rounded-lg focus:ring-2 focus:ring-white focus:outline-none">
                 <button type="submit" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Subscribe</button>
             </form>

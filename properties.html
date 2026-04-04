@@ -6,8 +6,8 @@
     <meta name="description" content="Browse our extensive collection of properties for sale and rent. Find your perfect home or investment opportunity with ATHARRYS PROPERTIES LIMITED.">
     <meta name="keywords" content="properties for sale, properties for rent, real estate listings, ATHARRYS PROPERTIES">
     <title>Properties | ATHARRYS PROPERTIES LIMITED</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="css/output.css">
+    <link rel="stylesheet" href="css/fontawesome.min.css">
     <script>
         tailwind.config = {
             theme: {
@@ -33,6 +33,53 @@
             }
         }
     </script>
+    <style>
+        /* Custom scrollbar */
+        .custom-scrollbar::-webkit-scrollbar { width: 6px; height: 6px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: #f1f1f1; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #1a2744; border-radius: 3px; }
+        .custom-scrollbar::-webkit-scrollbar-thumb:hover { background: #8b2635; }
+        
+        /* Property card hover effects */
+        .property-card { transition: all 0.3s ease; }
+        .property-card:hover { transform: translateY(-5px); }
+        .property-card:hover .property-image { transform: scale(1.05); }
+        
+        /* View transitions */
+        .view-container { transition: opacity 0.3s ease; }
+        .view-container.hidden { display: none; opacity: 0; }
+        
+        /* Map styles */
+        #mapView { height: 500px; width: 100%; border-radius: 0.75rem; }
+        .map-marker { 
+            background: #8b2635; color: white; padding: 8px 12px; 
+            border-radius: 8px; font-weight: 600; cursor: pointer;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        }
+        .map-marker:hover { background: #1a2744; }
+        
+        /* Slider styles */
+        .property-slider { scroll-behavior: smooth; }
+        .property-slider::-webkit-scrollbar { display: none; }
+        
+        /* Table styles */
+        .property-table { border-collapse: collapse; width: 100%; }
+        .property-table th { 
+            background: #1a2744; color: white; padding: 12px; 
+            text-align: left; font-weight: 600;
+        }
+        .property-table td { 
+            padding: 12px; border-bottom: 1px solid #e5e7eb; 
+        }
+        .property-table tr:hover { background: #f9fafb; }
+        
+        /* Animated badge */
+        .badge-pulse { animation: badge-pulse 2s infinite; }
+        @keyframes badge-pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+    </style>
 </head>
 <body class="font-sans antialiased">
     <!-- Navigation -->
@@ -73,7 +120,7 @@
     </nav>
 
     <!-- Page Header -->
-    <section class="relative pt-32 pb-20 bg-cover bg-center bg-no-repeat" style="background-image: url('images/properties-header.jpg');">
+    <section class="relative pt-32 pb-20 bg-cover bg-center bg-no-repeat" style="background-image: url('images/build4.jpeg');">
         <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Our Properties</h1>
@@ -86,137 +133,212 @@
         </div>
     </section>
 
-    <!-- Properties Section -->
+    <!-- Properties Section - NEW DESIGN -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Filters Sidebar -->
-                <aside class="lg:w-1/4">
-                    <div class="bg-white p-6 rounded-xl shadow-lg sticky top-24">
-                        <h3 class="text-xl font-semibold text-gray-900 mb-6">Search Properties</h3>
-                        <form id="propertySearchForm" class="space-y-4">
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
-                                <input type="text" id="searchInput" placeholder="Search by name or location..." class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
-                                <select id="filterType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option value="">All Types</option>
-                                    <option value="residential">Residential</option>
-                                    <option value="commercial">Commercial</option>
-                                    <option value="land">Land</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
-                                <select id="filterStatus" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option value="">All Status</option>
-                                    <option value="sale">For Sale</option>
-                                    <option value="rent">For Rent</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                                <select id="filterLocation" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option value="">All Locations</option>
-                                    <option value="lagos">Lagos</option>
-                                    <option value="abuja">Abuja</option>
-                                    <option value="portharcourt">Port Harcourt</option>
-                                    <option value="ibadan">Ibadan</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
-                                <select id="filterBedrooms" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                    <option value="">Any</option>
-                                    <option value="1">1+</option>
-                                    <option value="2">2+</option>
-                                    <option value="3">3+</option>
-                                    <option value="4">4+</option>
-                                    <option value="5">5+</option>
-                                </select>
-                            </div>
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">Features</label>
-                                <div class="space-y-2">
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="parking" class="w-4 h-4 text-primary rounded focus:ring-primary">
-                                        <span class="text-gray-700">Parking</span>
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="pool" class="w-4 h-4 text-primary rounded focus:ring-primary">
-                                        <span class="text-gray-700">Swimming Pool</span>
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="garden" class="w-4 h-4 text-primary rounded focus:ring-primary">
-                                        <span class="text-gray-700">Garden</span>
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="security" class="w-4 h-4 text-primary rounded focus:ring-primary">
-                                        <span class="text-gray-700">24/7 Security</span>
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="gym" class="w-4 h-4 text-primary rounded focus:ring-primary">
-                                        <span class="text-gray-700">Gym</span>
-                                    </label>
-                                    <label class="flex items-center gap-2 cursor-pointer">
-                                        <input type="checkbox" value="elevator" class="w-4 h-4 text-primary rounded focus:ring-primary">
-                                        <span class="text-gray-700">Elevator</span>
-                                    </label>
-                                </div>
-                            </div>
-                            <button type="submit" class="w-full bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors">Apply Filters</button>
-                            <button type="button" class="w-full border-2 border-primary text-primary px-6 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors" id="resetFilters">Reset Filters</button>
-                        </form>
+            
+            <!-- View Tabs -->
+            <div class="bg-white rounded-xl shadow-lg p-4 mb-8">
+                <div class="flex flex-wrap items-center justify-between gap-4">
+                    <!-- View Type Tabs -->
+                    <div class="flex flex-wrap gap-2">
+                        <button class="view-tab-btn px-4 py-2 rounded-lg bg-primary text-white font-semibold flex items-center gap-2" data-view="grid">
+                            <i class="fas fa-th-large"></i> Grid
+                        </button>
+                        <button class="view-tab-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 flex items-center gap-2" data-view="list">
+                            <i class="fas fa-list"></i> List
+                        </button>
+                        <button class="view-tab-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 flex items-center gap-2" data-view="map">
+                            <i class="fas fa-map"></i> Map
+                        </button>
+                        <button class="view-tab-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 flex items-center gap-2" data-view="table">
+                            <i class="fas fa-table"></i> Table
+                        </button>
+                        <button class="view-tab-btn px-4 py-2 rounded-lg bg-gray-200 text-gray-700 font-semibold hover:bg-gray-300 flex items-center gap-2" data-view="slider">
+                            <i class="fas fa-images"></i> Gallery
+                        </button>
                     </div>
-                </aside>
-
-                <!-- Properties Grid -->
-                <div class="lg:w-3/4">
-                    <div class="flex flex-col sm:flex-row justify-between items-center mb-6 gap-4">
-                        <div class="text-gray-600">
-                            <span id="resultsCount" class="font-semibold text-gray-900">12</span> Properties Found
+                    
+                    <!-- Search & Sort -->
+                    <div class="flex flex-wrap items-center gap-4">
+                        <div class="relative">
+                            <input type="text" id="searchInput" placeholder="Search properties..." 
+                                class="pl-10 pr-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent w-64">
+                            <i class="fas fa-search absolute left-3 top-1/2 -translate-y-1/2 text-gray-400"></i>
                         </div>
-                        <div class="flex items-center gap-4">
-                            <div class="flex gap-2">
-                                <button class="view-btn p-2 rounded-lg bg-primary text-white" data-view="grid" aria-label="Grid view">
-                                    <i class="fas fa-th-large"></i>
-                                </button>
-                                <button class="view-btn p-2 rounded-lg bg-gray-200 text-gray-600 hover:bg-gray-300" data-view="list" aria-label="List view">
-                                    <i class="fas fa-list"></i>
-                                </button>
-                            </div>
-                            <select id="sortProperties" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
-                                <option value="featured">Featured</option>
-                                <option value="newest">Newest First</option>
-                                <option value="oldest">Oldest First</option>
-                                <option value="price-high">Price: High to Low</option>
-                                <option value="price-low">Price: Low to High</option>
-                                <option value="size">Size (sqm)</option>
-                            </select>
-                        </div>
-                    </div>
-
-                    <!-- Properties Grid - Dynamically populated from JSON -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6" id="propertiesGrid">
-                        <!-- Loading state -->
-                        <div class="col-span-full text-center py-12" id="loadingState">
-                            <i class="fas fa-spinner fa-spin text-4xl text-primary mb-4"></i>
-                            <p class="text-gray-600">Loading properties...</p>
-                        </div>
-                    </div>
-
-                    <!-- Pagination (hidden for small property counts) -->
-                    <div class="flex justify-center items-center gap-2 mt-10 hidden" id="pagination">
-                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-400 cursor-not-allowed"><i class="fas fa-chevron-left"></i></button>
-                        <button class="px-4 py-2 rounded-lg bg-primary text-white">1</button>
-                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300">2</button>
-                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300">3</button>
-                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300"><i class="fas fa-chevron-right"></i></button>
+                        <select id="sortProperties" class="px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="featured">Featured First</option>
+                            <option value="newest">Newest First</option>
+                            <option value="price-high">Price: High to Low</option>
+                            <option value="price-low">Price: Low to High</option>
+                            <option value="size">Size: Largest</option>
+                        </select>
                     </div>
                 </div>
             </div>
+
+            <!-- Filters Panel (Collapsible) -->
+            <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                <div class="flex items-center justify-between mb-4 cursor-pointer" id="filtersToggle">
+                    <h3 class="text-lg font-semibold text-gray-900 flex items-center gap-2">
+                        <i class="fas fa-filter text-primary"></i> Advanced Filters
+                    </h3>
+                    <i class="fas fa-chevron-down text-gray-500 transition-transform" id="filtersChevron"></i>
+                </div>
+                <div id="filtersPanel" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
+                        <select id="filterType" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">All Types</option>
+                            <option value="residential">Residential</option>
+                            <option value="commercial">Commercial</option>
+                            <option value="land">Land</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Status</label>
+                        <select id="filterStatus" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">All Status</option>
+                            <option value="sale">For Sale</option>
+                            <option value="rent">For Rent</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
+                        <select id="filterLocation" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">All Locations</option>
+                            <option value="lagos">Lagos</option>
+                            <option value="abuja">Abuja</option>
+                            <option value="portharcourt">Port Harcourt</option>
+                            <option value="ibadan">Ibadan</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Bedrooms</label>
+                        <select id="filterBedrooms" class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                            <option value="">Any</option>
+                            <option value="1">1+</option>
+                            <option value="2">2+</option>
+                            <option value="3">3+</option>
+                            <option value="4">4+</option>
+                            <option value="5">5+</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="flex gap-4 mt-4">
+                    <button id="applyFilters" class="bg-secondary text-white px-6 py-2 rounded-lg font-semibold hover:bg-maroonDark transition-colors">
+                        <i class="fas fa-search mr-2"></i> Apply Filters
+                    </button>
+                    <button id="resetFilters" class="border-2 border-primary text-primary px-6 py-2 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors">
+                        <i class="fas fa-redo mr-2"></i> Reset
+                    </button>
+                </div>
+            </div>
+
+            <!-- Results Count -->
+            <div class="flex items-center justify-between mb-6">
+                <div class="text-gray-600">
+                    <span id="resultsCount" class="font-bold text-primary text-lg">0</span> Properties Found
+                </div>
+                <div class="flex gap-2" id="quickFilters">
+                    <button class="quick-filter px-3 py-1 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="featured">Featured</button>
+                    <button class="quick-filter px-3 py-1 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="sale">For Sale</button>
+                    <button class="quick-filter px-3 py-1 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="rent">For Rent</button>
+                    <button class="quick-filter px-3 py-1 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="new">New Listings</button>
+                </div>
+            </div>
+
+            <!-- ==================== VIEW: GRID ==================== -->
+            <div id="gridView" class="view-container">
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="gridContainer">
+                    <!-- Properties loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- ==================== VIEW: LIST ==================== -->
+            <div id="listView" class="view-container hidden">
+                <div class="space-y-4" id="listContainer">
+                    <!-- Properties loaded dynamically -->
+                </div>
+            </div>
+
+            <!-- ==================== VIEW: MAP ==================== -->
+            <div id="mapView" class="view-container hidden">
+                <div class="bg-white rounded-xl shadow-lg p-6 h-full flex flex-col">
+                    <h3 class="text-xl font-semibold mb-4">Property Locations</h3>
+                    <div class="flex-1 relative bg-gray-100 rounded-lg overflow-hidden" id="mapContainer">
+                        <!-- Map placeholder - would integrate with Google Maps in production -->
+                        <div class="absolute inset-0 flex items-center justify-center bg-gray-200">
+                            <div class="text-center">
+                                <i class="fas fa-map-marked-alt text-6xl text-gray-400 mb-4"></i>
+                                <p class="text-gray-600">Map View</p>
+                                <p class="text-sm text-gray-500">Properties shown as markers</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== VIEW: TABLE ==================== -->
+            <div id="tableView" class="view-container hidden">
+                <div class="bg-white rounded-xl shadow-lg overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="property-table" id="tableContainer">
+                            <thead>
+                                <tr>
+                                    <th>Property</th>
+                                    <th>Type</th>
+                                    <th>Location</th>
+                                    <th>Price</th>
+                                    <th>Size</th>
+                                    <th>Status</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <!-- Properties loaded dynamically -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- ==================== VIEW: SLIDER/GALLERY ==================== -->
+            <div id="sliderView" class="view-container hidden">
+                <div class="relative">
+                    <!-- Featured Property Hero -->
+                    <div class="bg-white rounded-xl shadow-lg overflow-hidden mb-8" id="sliderHero">
+                        <!-- Main featured property -->
+                    </div>
+                    
+                    <!-- Slider Navigation -->
+                    <button class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100" id="sliderPrev">
+                        <i class="fas fa-chevron-left text-gray-700"></i>
+                    </button>
+                    <button class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 bg-white p-3 rounded-full shadow-lg hover:bg-gray-100" id="sliderNext">
+                        <i class="fas fa-chevron-right text-gray-700"></i>
+                    </button>
+                    
+                    <!-- Thumbnails -->
+                    <div class="flex gap-4 overflow-x-auto py-4 custom-scrollbar" id="sliderThumbnails">
+                        <!-- Thumbnails loaded dynamically -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Loading State -->
+            <div id="loadingState" class="text-center py-12">
+                <i class="fas fa-spinner fa-spin text-4xl text-primary mb-4"></i>
+                <p class="text-gray-600">Loading properties...</p>
+            </div>
+
+            <!-- No Results -->
+            <div id="noResults" class="text-center py-12 hidden">
+                <i class="fas fa-search text-4xl text-gray-400 mb-4"></i>
+                <p class="text-gray-600 text-lg">No properties found matching your criteria.</p>
+                <button onclick="resetAllFilters()" class="mt-4 text-primary hover:underline">Reset Filters</button>
+            </div>
+
         </div>
     </section>
 
