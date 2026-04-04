@@ -3,6 +3,130 @@
 // Global properties data for homepage
 let propertiesData = [];
 
+// Embedded fallback data - used when fetch fails (e.g., when opened from file://)
+const embeddedPropertiesData = [
+    {
+        "id": 1,
+        "title": "Luxury Villa in Lekki",
+        "slug": "luxury-villa-lekki",
+        "type": "residential",
+        "status": "sale",
+        "location": "lagos",
+        "address": "Lekki Phase 1, Lagos",
+        "bedrooms": 5,
+        "bathrooms": 4,
+        "size": 450,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "pool", "garden", "security"],
+        "image": "images/build1.jpeg",
+        "images": ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"],
+        "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1.",
+        "featured": true,
+        "createdAt": "2024-01-15"
+    },
+    {
+        "id": 2,
+        "title": "Modern Apartment in Victoria Island",
+        "slug": "modern-apartment-vi",
+        "type": "residential",
+        "status": "rent",
+        "location": "lagos",
+        "address": "Victoria Island, Lagos",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "size": 180,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "security", "gym"],
+        "image": "images/build2.jpeg",
+        "images": ["images/build2.jpeg", "images/build4.jpeg", "images/build5.jpeg"],
+        "description": "Contemporary 3-bedroom apartment in the heart of Victoria Island.",
+        "featured": true,
+        "createdAt": "2024-02-01"
+    },
+    {
+        "id": 3,
+        "title": "Executive Office Space in Abuja",
+        "slug": "executive-office-abuja",
+        "type": "commercial",
+        "status": "rent",
+        "location": "abuja",
+        "address": "Central Business District, Abuja",
+        "bedrooms": 0,
+        "bathrooms": 4,
+        "size": 350,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "security", "elevator", "gym"],
+        "image": "images/build3.jpeg",
+        "images": ["images/build3.jpeg", "images/build5.jpeg", "images/build6.jpeg"],
+        "description": "Premium office space in the heart of Abuja's business district.",
+        "featured": false,
+        "createdAt": "2024-02-10"
+    },
+    {
+        "id": 4,
+        "title": "Beachfront Plot in Port Harcourt",
+        "slug": "beachfront-plot-ph",
+        "type": "land",
+        "status": "sale",
+        "location": "portharcourt",
+        "address": "Oil Mill Field, Port Harcourt",
+        "bedrooms": 0,
+        "bathrooms": 0,
+        "size": 1200,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["security"],
+        "image": "images/build4.jpeg",
+        "images": ["images/build4.jpeg", "images/build1.jpeg", "images/build2.jpeg"],
+        "description": "Prime beachfront plot perfect for development.",
+        "featured": true,
+        "createdAt": "2024-02-15"
+    },
+    {
+        "id": 5,
+        "title": "Penthouse Suite in Ikoyi",
+        "slug": "penthouse-ikoyi",
+        "type": "residential",
+        "status": "sale",
+        "location": "lagos",
+        "address": "Ikoyi, Lagos",
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "size": 320,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "pool", "security", "elevator"],
+        "image": "images/build5.jpeg",
+        "images": ["images/build5.jpeg", "images/build6.jpeg", "images/build1.jpeg"],
+        "description": "Luxurious penthouse with panoramic views of Ikoyi.",
+        "featured": true,
+        "createdAt": "2024-02-20"
+    },
+    {
+        "id": 6,
+        "title": "Commercial Plaza in Ibadan",
+        "slug": "commercial-plaza-ibadan",
+        "type": "commercial",
+        "status": "sale",
+        "location": "ibadan",
+        "address": "Ring Road, Ibadan",
+        "bedrooms": 0,
+        "bathrooms": 8,
+        "size": 2500,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "security", "elevator"],
+        "image": "images/build6.jpeg",
+        "images": ["images/build6.jpeg", "images/build3.jpeg", "images/build4.jpeg"],
+        "description": "Multi-story commercial plaza in prime location.",
+        "featured": false,
+        "createdAt": "2024-02-25"
+    }
+];
+
 // Fetch properties from JSON file
 async function fetchProperties() {
     try {
@@ -19,7 +143,9 @@ async function fetchProperties() {
         // Check if running from file:// protocol
         const isFileProtocol = window.location.protocol === 'file:';
         if (isFileProtocol) {
-            console.warn('This site needs to be served from a web server. Please use Live Server or deploy to a web server.');
+            console.warn('Running from file:// protocol - using embedded fallback data');
+            propertiesData = embeddedPropertiesData;
+            return propertiesData;
         }
         return [];
     }
@@ -69,9 +195,6 @@ function generatePropertyCard(property) {
                 <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> ${property.address}</p>
                 <div class="flex justify-between text-sm text-gray-600 mb-4">
                     ${specsDisplay}
-                </div>
-                <div class="flex items-center justify-between mb-4">
-                    <span class="text-xl font-bold text-primary">${property.priceDisplay}</span>
                 </div>
                 <a href="property-detail.html?id=${property.id}" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
             </div>
@@ -225,17 +348,40 @@ document.addEventListener('DOMContentLoaded', async function() {
         observer.observe(counter);
     });
 
-    // Newsletter Form
+    // Newsletter Form - Handle Formspree submission
     const newsletterForm = document.getElementById('newsletterForm');
     
     if (newsletterForm) {
-        newsletterForm.addEventListener('submit', function(e) {
+        newsletterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = document.getElementById('newsletterEmail').value;
+            const submitBtn = newsletterForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
             
-            // Simulate form submission
-            alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
-            newsletterForm.reset();
+            submitBtn.textContent = 'Subscribing...';
+            submitBtn.disabled = true;
+            
+            try {
+                const response = await fetch(newsletterForm.action, {
+                    method: 'POST',
+                    body: new FormData(newsletterForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
+                    newsletterForm.reset();
+                } else {
+                    alert('There was a problem subscribing. Please try again.');
+                }
+            } catch (error) {
+                alert('There was a problem subscribing. Please try again.');
+            } finally {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
         });
     }
 
@@ -247,9 +393,26 @@ document.addEventListener('DOMContentLoaded', async function() {
             e.preventDefault();
             const email = sidebarNewsletterForm.querySelector('input[type="email"]').value;
             
-            // Simulate form submission
-            alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
-            sidebarNewsletterForm.reset();
+            // Check if it's a Formspree form
+            if (sidebarNewsletterForm.action && sidebarNewsletterForm.action.includes('formspree')) {
+                // Handle Formspree submission
+                fetch(sidebarNewsletterForm.action, {
+                    method: 'POST',
+                    body: new FormData(sidebarNewsletterForm),
+                    headers: { 'Accept': 'application/json' }
+                }).then(response => {
+                    if (response.ok) {
+                        alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
+                        sidebarNewsletterForm.reset();
+                    } else {
+                        alert('There was a problem subscribing. Please try again.');
+                    }
+                });
+            } else {
+                // Simulate form submission
+                alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
+                sidebarNewsletterForm.reset();
+            }
         });
     }
 

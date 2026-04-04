@@ -1,42 +1,39 @@
 // Contact page JavaScript
 
 document.addEventListener('DOMContentLoaded', function() {
-    // Contact Form
+    // Contact Form - Handle Formspree submission
     const contactForm = document.getElementById('contactForm');
     
     if (contactForm) {
-        contactForm.addEventListener('submit', function(e) {
+        contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             
-            const firstName = document.getElementById('firstName').value;
-            const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
-            const subject = document.getElementById('subject').value;
-            const propertyInterest = document.getElementById('propertyInterest').value;
-            const message = document.getElementById('message').value;
-            const newsletter = document.getElementById('newsletter').checked;
+            const submitBtn = contactForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
             
-            // Validate form
-            if (!firstName || !lastName || !email || !phone || !subject || !message) {
-                alert('Please fill in all required fields.');
-                return;
+            try {
+                const response = await fetch(contactForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    alert('Thank you! Your message has been sent successfully. We will get back to you within 24 hours.');
+                    contactForm.reset();
+                } else {
+                    alert('There was a problem sending your message. Please try again or contact us directly.');
+                }
+            } catch (error) {
+                alert('There was a problem sending your message. Please try again or contact us directly.');
+            } finally {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
             }
-            
-            // Simulate form submission
-            console.log('Form submitted:', {
-                firstName,
-                lastName,
-                email,
-                phone,
-                subject,
-                propertyInterest,
-                message,
-                newsletter
-            });
-            
-            alert('Thank you ' + firstName + ' ' + lastName + '! Your message has been sent. We will get back to you within 24 hours.');
-            contactForm.reset();
         });
     }
     

@@ -4,6 +4,58 @@
 let currentProperty = null;
 let allProperties = [];
 
+// Embedded fallback data - used when fetch fails (e.g., when opened from file://)
+const embeddedPropertiesData = [
+    {
+        "id": 1,
+        "title": "Luxury Villa in Lekki",
+        "slug": "luxury-villa-lekki",
+        "type": "residential",
+        "status": "sale",
+        "location": "lagos",
+        "address": "Lekki Phase 1, Lagos",
+        "bedrooms": 5,
+        "bathrooms": 4,
+        "size": 450,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "pool", "garden", "security"],
+        "amenities": ["Swimming Pool", "Garden", "24/7 Security", "Parking Space", "Smart Home System"],
+        "image": "images/build1.jpeg",
+        "images": ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"],
+        "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1. This masterpiece features modern architecture, premium finishes, and state-of-the-art amenities.",
+        "highlights": ["5 en-suite bedrooms", "Modern open-plan kitchen", "Private swimming pool", "Smart home automation", "24/7 security"],
+        "yearBuilt": 2022,
+        "parkingSpaces": 4,
+        "featured": true,
+        "createdAt": "2024-01-15"
+    },
+    {
+        "id": 2,
+        "title": "Modern Apartment in Victoria Island",
+        "slug": "modern-apartment-vi",
+        "type": "residential",
+        "status": "rent",
+        "location": "lagos",
+        "address": "Victoria Island, Lagos",
+        "bedrooms": 3,
+        "bathrooms": 2,
+        "size": 180,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "security", "gym"],
+        "amenities": ["Gym Access", "24/7 Security", "Parking Space", "Elevator", "Backup Power"],
+        "image": "images/build2.jpeg",
+        "images": ["images/build2.jpeg", "images/build4.jpeg", "images/build5.jpeg"],
+        "description": "Contemporary 3-bedroom apartment in the heart of Victoria Island.",
+        "highlights": ["3 spacious bedrooms", "Modern kitchen", "Access to building gym", "Strategic location", "Reliable power"],
+        "yearBuilt": 2021,
+        "parkingSpaces": 2,
+        "featured": true,
+        "createdAt": "2024-02-01"
+    }
+];
+
 // DOM Elements
 const mainImage = document.getElementById('mainImage');
 const thumbnails = document.querySelectorAll('.thumbnail');
@@ -27,9 +79,15 @@ async function fetchProperties() {
         
         // Check if running from file:// protocol
         const isFileProtocol = window.location.protocol === 'file:';
-        const errorMessage = isFileProtocol 
-            ? 'This page needs to be served from a web server. Please use a local development server (like Live Server in VS Code) or deploy to a web server.'
-            : 'Unable to load property details. Please check your connection and try again later.';
+        
+        // Use embedded fallback data when fetch fails
+        if (isFileProtocol) {
+            console.warn('Running from file:// protocol - using embedded fallback data');
+            allProperties = embeddedPropertiesData;
+            return allProperties;
+        }
+        
+        const errorMessage = 'Unable to load property details. Please check your connection and try again later.';
         
         showError(errorMessage);
         return [];
@@ -305,42 +363,83 @@ function initContactModal() {
 
 // Initialize forms
 function initForms() {
-    // Contact Agent Form
+    // Contact Agent Form - Handle Formspree submission
     const contactAgentForm = document.getElementById('contactAgentForm');
     
     if (contactAgentForm) {
-        contactAgentForm.addEventListener('submit', function(e) {
+        contactAgentForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const name = document.getElementById('contactName').value;
-            const email = document.getElementById('contactEmail').value;
-            const phone = document.getElementById('contactPhone').value;
-            const message = document.getElementById('contactMessage').value;
+            const submitBtn = contactAgentForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Sending...';
+            submitBtn.disabled = true;
             
-            // Simulate form submission
-            alert('Thank you ' + name + '! Your message has been sent. Our agent will contact you shortly.');
-            contactAgentForm.reset();
-            
-            // Close modal
-            const contactModal = document.getElementById('contactModal');
-            if (contactModal) {
-                contactModal.classList.add('hidden');
-                contactModal.classList.remove('flex');
+            try {
+                const response = await fetch(contactAgentForm.action, {
+                    method: 'POST',
+                    body: new FormData(contactAgentForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const name = document.getElementById('contactName').value;
+                    alert('Thank you ' + name + '! Your message has been sent. Our agent will contact you shortly.');
+                    contactAgentForm.reset();
+                    
+                    // Close modal
+                    const contactModal = document.getElementById('contactModal');
+                    if (contactModal) {
+                        contactModal.classList.add('hidden');
+                        contactModal.classList.remove('flex');
+                    }
+                } else {
+                    alert('There was a problem sending your message. Please try again.');
+                }
+            } catch (error) {
+                alert('There was a problem sending your message. Please try again.');
+            } finally {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
             }
         });
     }
     
-    // Schedule Viewing Form
+    // Schedule Viewing Form - Handle Formspree submission
     const scheduleViewingForm = document.getElementById('scheduleViewingForm');
     
     if (scheduleViewingForm) {
-        scheduleViewingForm.addEventListener('submit', function(e) {
+        scheduleViewingForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const date = document.getElementById('viewingDate').value;
-            const time = document.getElementById('viewingTime').value;
+            const submitBtn = scheduleViewingForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn.textContent;
+            submitBtn.textContent = 'Scheduling...';
+            submitBtn.disabled = true;
             
-            // Simulate form submission
-            alert('Thank you! Your viewing has been scheduled for ' + date + ' at ' + time + '. Our agent will confirm the appointment.');
-            scheduleViewingForm.reset();
+            try {
+                const response = await fetch(scheduleViewingForm.action, {
+                    method: 'POST',
+                    body: new FormData(scheduleViewingForm),
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+                
+                if (response.ok) {
+                    const date = document.getElementById('viewingDate').value;
+                    const time = document.getElementById('viewingTime').value;
+                    alert('Thank you! Your viewing has been scheduled for ' + date + ' at ' + time + '. Our agent will confirm the appointment.');
+                    scheduleViewingForm.reset();
+                } else {
+                    alert('There was a problem scheduling your viewing. Please try again.');
+                }
+            } catch (error) {
+                alert('There was a problem scheduling your viewing. Please try again.');
+            } finally {
+                submitBtn.textContent = originalBtnText;
+                submitBtn.disabled = false;
+            }
         });
     }
 }
