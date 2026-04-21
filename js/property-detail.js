@@ -5,7 +5,7 @@ let currentProperty = null;
 let allProperties = [];
 
 // Embedded fallback data - used when fetch fails (e.g., when opened from file://)
-const embeddedPropertiesData = [
+const propertyDetailData = [
     {
         "id": 1,
         "title": "Luxury Villa in Lekki",
@@ -21,10 +21,10 @@ const embeddedPropertiesData = [
         "priceDisplay": "Contact for price",
         "features": ["parking", "pool", "garden", "security"],
         "amenities": ["Swimming Pool", "Garden", "24/7 Security", "Parking Space", "Smart Home System"],
-        "image": "images/build1.jpeg",
-        "images": ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"],
-        "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1. This masterpiece features modern architecture, premium finishes, and state-of-the-art amenities.",
-        "highlights": ["5 en-suite bedrooms", "Modern open-plan kitchen", "Private swimming pool", "Smart home automation", "24/7 security"],
+        "image": "images/house2.jpeg",
+        "images": ["images/house2.jpeg", "images/house3.jpeg", "images/house4.jpeg"],
+        "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1. This masterpiece features modern architecture, premium finishes, and state-of-the-art amenities. The spacious living areas are perfect for entertaining, while the private bedrooms offer serene retreats. With a sparkling swimming pool, lush garden, and round-the-clock security, this property offers the ultimate in comfort and peace of mind.",
+        "highlights": ["5 en-suite bedrooms with walk-in closets", "Modern open-plan kitchen with premium appliances", "Private swimming pool and landscaped garden", "Smart home automation system", "24/7 security with CCTV surveillance"],
         "yearBuilt": 2022,
         "parkingSpaces": 4,
         "featured": true,
@@ -47,12 +47,108 @@ const embeddedPropertiesData = [
         "amenities": ["Gym Access", "24/7 Security", "Parking Space", "Elevator", "Backup Power"],
         "image": "images/build2.jpeg",
         "images": ["images/build2.jpeg", "images/build4.jpeg", "images/build5.jpeg"],
-        "description": "Contemporary 3-bedroom apartment in the heart of Victoria Island.",
-        "highlights": ["3 spacious bedrooms", "Modern kitchen", "Access to building gym", "Strategic location", "Reliable power"],
+        "description": "Contemporary 3-bedroom apartment in the heart of Victoria Island. This modern residence offers stunning city views, premium finishes, and convenient access to Lagos's business district. The open-concept living space is flooded with natural light, featuring a sleek kitchen and spacious bedrooms. Building amenities include a fully equipped gym, elevator access, and reliable backup power.",
+        "highlights": ["3 spacious bedrooms with built-in wardrobes", "Modern kitchen with granite countertops", "Access to building gym and facilities", "Strategic location near business hubs", "Reliable power and water supply"],
         "yearBuilt": 2021,
         "parkingSpaces": 2,
         "featured": true,
         "createdAt": "2024-02-01"
+    },
+    {
+        "id": 3,
+        "title": "Executive Office Space in Abuja",
+        "slug": "executive-office-abuja",
+        "type": "commercial",
+        "status": "rent",
+        "location": "abuja",
+        "address": "Central Business District, Abuja",
+        "bedrooms": 0,
+        "bathrooms": 4,
+        "size": 350,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "security", "elevator", "gym"],
+        "amenities": ["24/7 Security", "Elevator Access", "Backup Power", "Parking Space", "Conference Room"],
+        "image": "images/build3.jpeg",
+        "images": ["images/build3.jpeg", "images/build5.jpeg", "images/build6.jpeg"],
+        "description": "Premium office space in the heart of Abuja's business district. This contemporary workspace offers modern amenities, reliable power supply, and 24-hour security. Perfect for businesses seeking a prestigious address with all conveniences.",
+        "highlights": ["Strategically located in CBD", "Modern office layout with flexible spaces", "24/7 security and access control", "Reliable backup power and water supply", "Ample parking space"],
+        "yearBuilt": 2020,
+        "parkingSpaces": 10,
+        "featured": false,
+        "createdAt": "2024-02-10"
+    },
+    {
+        "id": 4,
+        "title": "Beachfront Plot in Port Harcourt",
+        "slug": "beachfront-plot-ph",
+        "type": "land",
+        "status": "sale",
+        "location": "portharcourt",
+        "address": "Oil Mill Field, Port Harcourt",
+        "bedrooms": 0,
+        "bathrooms": 0,
+        "size": 1200,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["security"],
+        "amenities": ["24/7 Security", "Perimeter Fence"],
+        "image": "images/build4.jpeg",
+        "images": ["images/build4.jpeg", "images/build1.jpeg", "images/build2.jpeg"],
+        "description": "Prime beachfront plot perfect for development. This extensive land parcel offers great investment potential with beach access and secure perimeter.",
+        "highlights": ["Prime beachfront location", "Large land area for development", "Secure perimeter fencing", "Investment potential", "Clear title"],
+        "yearBuilt": null,
+        "parkingSpaces": 0,
+        "featured": true,
+        "createdAt": "2024-02-15"
+    },
+    {
+        "id": 5,
+        "title": "Penthouse Suite in Ikoyi",
+        "slug": "penthouse-ikoyi",
+        "type": "residential",
+        "status": "sale",
+        "location": "lagos",
+        "address": "Ikoyi, Lagos",
+        "bedrooms": 4,
+        "bathrooms": 4,
+        "size": 320,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "pool", "security", "elevator"],
+        "amenities": ["Private Pool", "24/7 Security", "Elevator Access", "Parking Space", "Smart Home System"],
+        "image": "images/build5.jpeg",
+        "images": ["images/build5.jpeg", "images/build6.jpeg", "images/build1.jpeg"],
+        "description": "Luxurious penthouse with panoramic views of Ikoyi. This exclusive residence offers the ultimate in luxury living with private amenities and premium finishes.",
+        "highlights": ["Panoramic city views", "Private swimming pool", "Smart home automation", "Private elevator access", "Premium finishes throughout"],
+        "yearBuilt": 2023,
+        "parkingSpaces": 3,
+        "featured": true,
+        "createdAt": "2024-02-20"
+    },
+    {
+        "id": 6,
+        "title": "Commercial Plaza in Ibadan",
+        "slug": "commercial-plaza-ibadan",
+        "type": "commercial",
+        "status": "sale",
+        "location": "ibadan",
+        "address": "Ring Road, Ibadan",
+        "bedrooms": 0,
+        "bathrooms": 8,
+        "size": 2500,
+        "price": 0,
+        "priceDisplay": "Contact for price",
+        "features": ["parking", "security", "elevator"],
+        "amenities": ["24/7 Security", "Elevator Access", "Backup Power", "Parking Space"],
+        "image": "images/build6.jpeg",
+        "images": ["images/build6.jpeg", "images/build3.jpeg", "images/build4.jpeg"],
+        "description": "Multi-story commercial plaza in prime location. This income-generating property offers excellent rental potential with multiple units and prime positioning.",
+        "highlights": ["Prime commercial location", "Multiple rental units", "Reliable power and water", "24/7 security", "Strong rental income potential"],
+        "yearBuilt": 2019,
+        "parkingSpaces": 20,
+        "featured": false,
+        "createdAt": "2024-02-25"
     }
 ];
 
@@ -63,6 +159,7 @@ const galleryPrev = document.getElementById('galleryPrev');
 const galleryNext = document.getElementById('galleryNext');
 let currentImageIndex = 0;
 let propertyImages = [];
+
 
 // Fetch properties from JSON file
 async function fetchProperties() {
@@ -77,20 +174,10 @@ async function fetchProperties() {
     } catch (error) {
         console.error('Error loading properties:', error);
         
-        // Check if running from file:// protocol
-        const isFileProtocol = window.location.protocol === 'file:';
-        
-        // Use embedded fallback data when fetch fails
-        if (isFileProtocol) {
-            console.warn('Running from file:// protocol - using embedded fallback data');
-            allProperties = embeddedPropertiesData;
-            return allProperties;
-        }
-        
-        const errorMessage = 'Unable to load property details. Please check your connection and try again later.';
-        
-        showError(errorMessage);
-        return [];
+        // Always use embedded fallback when fetch fails
+        console.warn('Using embedded fallback data');
+        allProperties = propertyDetailData;
+        return allProperties;
     }
 }
 
@@ -166,7 +253,7 @@ function updatePageContent(property) {
     }
     
     // Update featured badge
-    const featuredBadge = document.querySelector('.bg-accent.text-white.px-4');
+    const featuredBadge = document.querySelector('.bg-accent');
     if (featuredBadge && !property.featured) {
         featuredBadge.style.display = 'none';
     }
@@ -231,10 +318,10 @@ function updatePageContent(property) {
         propertyInput.value = property.title;
     }
     
-    // Update schedule viewing form
-    const viewingPropertyInput = document.querySelector('input[name="viewingProperty"]');
-    if (viewingPropertyInput) {
-        viewingPropertyInput.value = property.title;
+    // Update schedule viewing form property name
+    const viewingPropertyNameInput = document.getElementById('viewingPropertyName');
+    if (viewingPropertyNameInput) {
+        viewingPropertyNameInput.value = property.title;
     }
 }
 
@@ -454,15 +541,17 @@ function initShareButtons() {
             const url = window.location.href;
             const title = currentProperty ? currentProperty.title : 'Property Details';
             
-            if (this.classList.contains('facebook')) {
-                window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
-            } else if (this.classList.contains('twitter')) {
-                window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
-            } else if (this.classList.contains('whatsapp')) {
-                window.open(`https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`, '_blank');
-            } else if (this.classList.contains('email')) {
-                window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
-            }
+             if (this.classList.contains('facebook')) {
+                 window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`, '_blank');
+             } else if (this.classList.contains('twitter')) {
+                 window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(title)}&url=${encodeURIComponent(url)}`, '_blank');
+             } else if (this.classList.contains('tiktok')) {
+                 window.open(`https://www.tiktok.com/share?url=${encodeURIComponent(url)}&text=${encodeURIComponent(title)}`, '_blank');
+             } else if (this.classList.contains('whatsapp')) {
+                 window.open(`https://wa.me/?text=${encodeURIComponent(title + ' ' + url)}`, '_blank');
+             } else if (this.classList.contains('email')) {
+                 window.location.href = `mailto:?subject=${encodeURIComponent(title)}&body=${encodeURIComponent(url)}`;
+             }
         });
     });
 }

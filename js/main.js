@@ -19,8 +19,8 @@ const embeddedPropertiesData = [
         "price": 0,
         "priceDisplay": "Contact for price",
         "features": ["parking", "pool", "garden", "security"],
-        "image": "images/build1.jpeg",
-        "images": ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"],
+        "image": "images/house2.jpeg",
+        "images": ["images/house2.jpeg", "images/house3.jpeg", "images/house5.jpeg"],
         "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1.",
         "featured": true,
         "createdAt": "2024-01-15"
@@ -158,7 +158,7 @@ function generatePropertyCard(property) {
         : '<span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">For Rent</span>';
     
     const featuredBadge = property.featured 
-        ? '<span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>'
+        ? '<span class="absolute top-4 left-4 bg-accent text-green-500 px-3 py-1 rounded-full text-sm font-semibold">Featured</span>'
         : '';
     
     // Handle different property types for display

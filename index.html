@@ -20,7 +20,7 @@
                         <img src="images/logo.png" alt="ATHARRYS PROPERTIES" class="h-12 w-auto">
                     </a>
                 </div>
-                <button class="md:hidden p-2 rounded-lg hover:bg-navy" id="navToggle" aria-label="Toggle navigation">
+                <button class="md:hidden p-2 rounded-lg hover:bg-gray-100" id="navToggle" aria-label="Toggle navigation">
                     <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
                     <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
                     <span class="block w-6 h-0.5 bg-gray-600"></span>
@@ -49,21 +49,21 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('images/build4.jpeg');">
+    <section class="relative pt-20 md:pt-0 min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('images/house2.jpeg');">
         <div class="absolute inset-0 bg-gradient-to-r from-[#1a2744]/90 via-[#3a4a64]/80 to-[#8b2635]/90"></div>
-        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight">Your Dream Property Awaits</h1>
+        <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 md:pt-0">
+            <h1 class="text-4xl md:text-6xl font-bold text-white mb-6 leading-tight pt-8 md:pt-0">Your Dream Property Awaits</h1>
             <p class="text-xl md:text-2xl text-gray-200 mb-8 max-w-3xl mx-auto">Discover exceptional real estate opportunities with ATHARRYS PROPERTIES LIMITED. Your trusted partner in property management and investment.</p>
             <div class="flex flex-col sm:flex-row gap-4 justify-center mb-12">
                 <a href="properties.html" class="bg-secondary text-white px-8 py-4 rounded-lg font-semibold hover:bg-maroonDark transition-colors">Browse Properties</a>
                 <a href="contact.html" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Get in Touch</a>
             </div>
             <!-- Quick Search -->
-            <div class="bg-white rounded-xl shadow-2xl p-6 max-w-4xl mx-auto">
+            <div class="bg-white rounded-xl shadow-2xl p-6 max-w-4xl mx-auto ">
                 <form id="quickSearchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
-                        <select id="propertyType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <select id="propertyType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-transparent">
                             <option value="">All Types</option>
                             <option value="residential">Residential</option>
                             <option value="commercial">Commercial</option>
@@ -72,7 +72,7 @@
                     </div>
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                        <select id="location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                        <select id="location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-transparent">
                             <option value="">All Locations</option>
                             <option value="lagos">Lagos</option>
                             <option value="abuja">Abuja</option>
@@ -85,6 +85,30 @@
                         </button>
                     </div>
                 </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6">
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    <span class="text-gray-700">Expert Property Valuation</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    <span class="text-gray-700">Transparent Transactions</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    <span class="text-gray-700">24/7 Customer Support</span>
+                </div>
+                <div class="flex items-center gap-3">
+                    <i class="fas fa-check-circle text-green-500 text-xl"></i>
+                    <span class="text-gray-700">Legal Documentation Support</span>
+                </div>
             </div>
         </div>
     </section>
@@ -132,8 +156,7 @@
                     <!-- Property Card 1 -->
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
-                            <img src="images/build1.jpeg" alt="Luxury Villa" class="w-full h-48 object-cover">
-                            <span class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
+                            <img src="images/house2.jpeg" alt="Luxury Villa" class="w-full h-48 object-cover">
                             <span class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">For Sale</span>
                             <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors">
                                 <i class="far fa-heart text-gray-600"></i>
@@ -154,7 +177,7 @@
                     <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
                             <img src="images/build2.jpeg" alt="Modern Apartment" class="w-full h-48 object-cover">
-                            <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
+                            <span class="absolute top-4 left-4 bg-accent text-green-500 px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
                             <span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">For Rent</span>
                             <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors">
                                 <i class="far fa-heart text-gray-600"></i>
@@ -230,7 +253,7 @@
             <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
                 <div class="relative">
                     <img src="images/intro.jpeg" alt="About ATHARRYS PROPERTIES" class="rounded-2xl shadow-2xl">
-                    <div class="absolute -bottom-6 -right-6 bg-primary text-white p-6 rounded-xl shadow-xl">
+                    <div class="absolute bottom-0 right-4 translate-y-1/2 md:bottom-[-1.5rem] md:right-[-1.5rem] md:translate-y-0 bg-primary text-white p-6 rounded-xl shadow-xl">
                         <span class="text-4xl font-bold">7+</span>
                         <p class="text-sm">Years of Excellence</p>
                     </div>
@@ -240,24 +263,6 @@
                     <p class="text-xl text-primary mb-6">Your Trusted Real Estate Partner Since 2019</p>
                     <p class="text-gray-600 mb-4">At ATHARRYS PROPERTIES LIMITED, we believe that finding the perfect property should be an exciting journey, not a stressful one. With over 7 years of experience in the Nigerian real estate market, we've helped thousands of families, investors, and businesses find their ideal properties.</p>
                     <p class="text-gray-600 mb-6">Our commitment to excellence, integrity, and customer satisfaction has made us one of the most trusted names in real estate. Whether you're buying, selling, renting, or investing, our team of experts is here to guide you every step of the way.</p>
-                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-8">
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                            <span class="text-gray-700">Expert Property Valuation</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                            <span class="text-gray-700">Transparent Transactions</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                            <span class="text-gray-700">24/7 Customer Support</span>
-                        </div>
-                        <div class="flex items-center gap-3">
-                            <i class="fas fa-check-circle text-green-500 text-xl"></i>
-                            <span class="text-gray-700">Legal Documentation Support</span>
-                        </div>
-                    </div>
                     <a href="about.html" class="inline-block bg-secondary text-white px-8 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors">Learn More About Us</a>
                 </div>
             </div>
@@ -404,14 +409,14 @@
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-12">
                 <div>
                     <img src="images/logo.png" alt="ATHARRYS PROPERTIES" class="h-12 w-auto mb-6">
                     <p class="text-gray-400 mb-6">ATHARRYS PROPERTIES LIMITED is your trusted partner in real estate solutions. With over 15 years of experience, we deliver excellence in property management, sales, and investments.</p>
                     <div class="flex gap-4">
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Twitter"><i class="fab fa-twitter"></i></a>
-                        <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/share/14c1jmGXyEo/?mibextid=wwXIfr" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.tiktok.com/@atharryshomes?_r=1&_t=ZS-95VFMLOwd1N" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                        <a href="https://www.instagram.com/atharrys_homes?igsh=dXd0emlzdG16NGhk&utm_source=qr" target="_blank" rel="noopener noreferrer" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
                         <a href="#" class="w-10 h-10 bg-gray-800 rounded-full flex items-center justify-center hover:bg-primary transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
@@ -449,7 +454,7 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-envelope"></i>
-                            <span>info@atharrysproperties.com</span>
+                            <span style="word-break: break-all;">info@atharrysproperties.com</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-clock"></i>
