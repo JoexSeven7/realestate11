@@ -461,6 +461,11 @@ function initForms() {
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
+            // Show global loader
+            if (typeof showLoader === 'function') {
+                showLoader();
+            }
+            
             try {
                 const response = await fetch(contactAgentForm.action, {
                     method: 'POST',
@@ -489,6 +494,9 @@ function initForms() {
             } finally {
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
+                if (typeof hideLoader === 'function') {
+                    setTimeout(hideLoader, 1200);
+                }
             }
         });
     }
@@ -503,6 +511,11 @@ function initForms() {
             const originalBtnText = submitBtn.textContent;
             submitBtn.textContent = 'Scheduling...';
             submitBtn.disabled = true;
+            
+            // Show global loader
+            if (typeof showLoader === 'function') {
+                showLoader();
+            }
             
             try {
                 const response = await fetch(scheduleViewingForm.action, {
@@ -526,6 +539,9 @@ function initForms() {
             } finally {
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
+                if (typeof hideLoader === 'function') {
+                    setTimeout(hideLoader, 1200);
+                }
             }
         });
     }

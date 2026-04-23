@@ -24,6 +24,9 @@ module.exports = {
         'gradient-royal': 'linear-gradient(135deg, #1a2744 0%, #8b2635 100%)',
         'gradient-royal-light': 'linear-gradient(135deg, #2a3754 0%, #a63645 100%)',
       },
+      animation: {
+        'spin': 'spin 1s linear infinite',
+      },
     },
   },
   plugins: [],

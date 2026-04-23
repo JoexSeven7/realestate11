@@ -13,6 +13,11 @@ document.addEventListener('DOMContentLoaded', function() {
             submitBtn.textContent = 'Sending...';
             submitBtn.disabled = true;
             
+            // Show global loader
+            if (typeof showLoader === 'function') {
+                showLoader();
+            }
+            
             try {
                 const response = await fetch(contactForm.action, {
                     method: 'POST',
@@ -33,6 +38,10 @@ document.addEventListener('DOMContentLoaded', function() {
             } finally {
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
+                // Hide loader after 1.2 second delay so user sees completion
+                if (typeof hideLoader === 'function') {
+                    setTimeout(hideLoader, 1200);
+                }
             }
         });
     }

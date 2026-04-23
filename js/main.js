@@ -3,6 +3,153 @@
 // Global properties data for homepage
 let propertiesData = [];
 
+// ============================================
+// LOADING OVERLAY
+// ============================================
+
+// Create and inject loading overlay into the page
+function createLoadingOverlay() {
+    if (document.getElementById('loading-overlay')) return;
+    
+    const overlay = document.createElement('div');
+    overlay.id = 'loading-overlay';
+    overlay.setAttribute('aria-live', 'polite');
+    overlay.setAttribute('aria-atomic', 'true');
+    overlay.innerHTML = `
+        <div class="fixed inset-0 bg-gray-900/90 backdrop-blur-md z-[9999] hidden items-center justify-center">
+            <div class="flex flex-col items-center gap-6">
+                <div class="relative">
+                    <div class="w-20 h-20 rounded-full border-4 border-gray-200"></div>
+                    <div class="w-20 h-20 rounded-full border-6 border-blue-500 border-t-transparent absolute top-0 left-0 animate-spin"></div>
+                </div>
+                <div class="text-center">
+                    <p class="text-blue-800 text-lg tracking-wider">
+                        Loading<span class="loading-dots"></span>
+                    </p>
+                   
+                </div>
+            </div>
+        </div>
+    `;
+    document.body.appendChild(overlay);
+    
+    // Add animated dots CSS
+    if (!document.getElementById('loading-dots-style')) {
+        const style = document.createElement('style');
+        style.id = 'loading-dots-style';
+        style.textContent = `
+            .loading-dots::after {
+                content: '';
+                animation: loading-dots 1.5s steps(4, end) infinite;
+            }
+            @keyframes loading-dots {
+                0%, 20% { content: ''; }
+                40% { content: '.'; }
+                60% { content: '..'; }
+                80%, 100% { content: '...'; }
+            }
+        `;
+        document.head.appendChild(style);
+    }
+}
+
+function showLoader() {
+    const el = document.getElementById('loading-overlay');
+    if (el) el.querySelector('div').classList.remove('hidden');
+}
+
+function hideLoader() {
+    const el = document.getElementById('loading-overlay');
+    if (el) el.querySelector('div').classList.add('hidden');
+}
+
+// Initialize
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createLoadingOverlay);
+} else {
+    createLoadingOverlay();
+}
+
+// Show loading overlay
+function showLoader() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) {
+        overlay.querySelector('div').classList.remove('hidden');
+        overlay.querySelector('div').classList.add('flex');
+    }
+}
+
+// Hide loading overlay
+function hideLoader() {
+    const overlay = document.getElementById('loading-overlay');
+    if (overlay) {
+        overlay.querySelector('div').classList.add('hidden');
+        overlay.querySelector('div').classList.remove('flex');
+    }
+}
+
+// Initialize loading overlay when DOM is ready
+if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', createLoadingOverlay);
+} else {
+    createLoadingOverlay();
+}
+
+// ============================================
+// INTERNAL LINK NAVIGATION WITH LOADER
+// ============================================
+
+// Add click handlers to all internal links and buttons that navigate
+document.addEventListener('DOMContentLoaded', function() {
+    // Find all internal navigation links (excludes external links, form buttons, etc.)
+    const internalLinks = document.querySelectorAll('a[href^="."], a[href^="/"], a[href^="index.html"], a[href^="properties.html"], a[href^="about.html"], a[href^="services.html"], a[href^="blog.html"], a[href^="contact.html"], a[href^="property-detail.html"], a[href^="blog-post.html"]');
+    
+    internalLinks.forEach(link => {
+        link.addEventListener('click', function(e) {
+            // Skip if link has target="_blank" or download attribute
+            if (this.target === '_blank' || this.hasAttribute('download')) {
+                return;
+            }
+            // Skip if link has class that indicates it shouldn't trigger loader
+            if (this.classList.contains('no-loader')) {
+                return;
+            }
+            // Skip if it's a hash-only link (same page anchor)
+            if (this.getAttribute('href') && this.getAttribute('href').startsWith('#')) {
+                return;
+            }
+            
+            e.preventDefault();
+            showLoader();
+            
+            // Longer delay to showcase the loader (800ms)
+            setTimeout(() => {
+                window.location.href = this.getAttribute('href');
+            }, 800);
+        });
+    });
+
+    // Also handle buttons that navigate (like Contact Us buttons that go to contact.html)
+    const navButtons = document.querySelectorAll('button[onclick*="location.href"], button[data-navigate]');
+    navButtons.forEach(btn => {
+        btn.addEventListener('click', function() {
+            const target = this.getAttribute('onclick')?.match(/location\.href\s*=\s*['"](.+?)['"]/)?.[1] 
+                        || this.getAttribute('data-navigate');
+            if (target && !target.startsWith('http')) {
+                showLoader();
+                setTimeout(() => {
+                    window.location.href = target;
+                }, 800);
+            }
+        });
+    });
+});
+
+// Hide loader when page is fully loaded (useful for page refreshes/back navigation)
+window.addEventListener('load', function() {
+    setTimeout(hideLoader, 500);
+});
+
 // Embedded fallback data - used when fetch fails (e.g., when opened from file://)
 const embeddedPropertiesData = [
     {
@@ -361,6 +508,11 @@ document.addEventListener('DOMContentLoaded', async function() {
             submitBtn.textContent = 'Subscribing...';
             submitBtn.disabled = true;
             
+            // Show global loader
+            if (typeof showLoader === 'function') {
+                showLoader();
+            }
+            
             try {
                 const response = await fetch(newsletterForm.action, {
                     method: 'POST',
@@ -381,6 +533,9 @@ document.addEventListener('DOMContentLoaded', async function() {
             } finally {
                 submitBtn.textContent = originalBtnText;
                 submitBtn.disabled = false;
+                if (typeof hideLoader === 'function') {
+                    setTimeout(hideLoader, 1200);
+                }
             }
         });
     }
@@ -389,29 +544,52 @@ document.addEventListener('DOMContentLoaded', async function() {
     const sidebarNewsletterForm = document.getElementById('sidebarNewsletterForm');
     
     if (sidebarNewsletterForm) {
-        sidebarNewsletterForm.addEventListener('submit', function(e) {
+        sidebarNewsletterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
             const email = sidebarNewsletterForm.querySelector('input[type="email"]').value;
+            const submitBtn = sidebarNewsletterForm.querySelector('button[type="submit"]');
+            const originalBtnText = submitBtn?.textContent || 'Subscribe';
             
-            // Check if it's a Formspree form
-            if (sidebarNewsletterForm.action && sidebarNewsletterForm.action.includes('formspree')) {
-                // Handle Formspree submission
-                fetch(sidebarNewsletterForm.action, {
-                    method: 'POST',
-                    body: new FormData(sidebarNewsletterForm),
-                    headers: { 'Accept': 'application/json' }
-                }).then(response => {
+            if (submitBtn) {
+                submitBtn.textContent = 'Subscribing...';
+                submitBtn.disabled = true;
+            }
+            
+            // Show global loader
+            if (typeof showLoader === 'function') {
+                showLoader();
+            }
+            
+            try {
+                if (sidebarNewsletterForm.action && sidebarNewsletterForm.action.includes('formspree')) {
+                    const response = await fetch(sidebarNewsletterForm.action, {
+                        method: 'POST',
+                        body: new FormData(sidebarNewsletterForm),
+                        headers: { 'Accept': 'application/json' }
+                    });
+                    
                     if (response.ok) {
                         alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
                         sidebarNewsletterForm.reset();
                     } else {
                         alert('There was a problem subscribing. Please try again.');
                     }
-                });
-            } else {
-                // Simulate form submission
-                alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
-                sidebarNewsletterForm.reset();
+                } else {
+                    // Simulate form submission
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
+                    sidebarNewsletterForm.reset();
+                }
+            } catch (error) {
+                alert('There was a problem subscribing. Please try again.');
+            } finally {
+                if (submitBtn) {
+                    submitBtn.textContent = originalBtnText;
+                    submitBtn.disabled = false;
+                }
+                if (typeof hideLoader === 'function') {
+                    setTimeout(hideLoader, 500);
+                }
             }
         });
     }
