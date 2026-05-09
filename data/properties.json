@@ -17,9 +17,9 @@
       "amenities": ["Swimming Pool", "Garden", "24/7 Security", "Parking Space", "Smart Home System"],
       "image": "images/housevideo1.jpeg",
       "images": [
-        "images/house2.jpeg",
+        "images/house4.jpeg",
         "images/house3.jpeg",
-        "images/house4.jpeg"
+        "images/house7.jpeg"
       ],
       "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1. This masterpiece features modern architecture, premium finishes, and state-of-the-art amenities. The spacious living areas are perfect for entertaining, while the private bedrooms offer serene retreats. With a sparkling swimming pool, lush garden, and round-the-clock security, this property offers the ultimate in comfort and peace of mind.",
       "highlights": [
@@ -49,11 +49,11 @@
       "priceDisplay": "Contact for price",
       "features": ["parking", "security", "gym"],
       "amenities": ["Gym Access", "24/7 Security", "Parking Space", "Elevator", "Backup Power"],
-      "image": "images/build2.jpeg",
+      "image": "images/house24.jpeg",
       "images": [
-        "images/build2.jpeg",
-        "images/build4.jpeg",
-        "images/build5.jpeg"
+        "images/house17.jpeg",
+        "images/house18.jpeg",
+        "images/house10.jpeg"
       ],
       "description": "Contemporary 3-bedroom apartment in the heart of Victoria Island. This modern residence offers stunning city views, premium finishes, and convenient access to Lagos's business district. The open-concept living space is flooded with natural light, featuring a sleek kitchen and spacious bedrooms. Building amenities include a fully equipped gym, elevator access, and reliable backup power.",
       "highlights": [
@@ -83,11 +83,11 @@
       "priceDisplay": "Contact for price",
       "features": ["parking", "security", "elevator", "gym"],
       "amenities": ["24/7 Security", "Elevator Access", "Backup Power", "Parking Space", "Conference Room"],
-      "image": "images/build3.jpeg",
+      "image": "images/build6.jpeg",
       "images": [
-        "images/build3.jpeg",
-        "images/build5.jpeg",
-        "images/build6.jpeg"
+        "images/build6.jpeg",
+        "images/build4.jpeg",
+        "images/build1.jpeg"
       ],
       "description": "Premium office space in the heart of Abuja's business district. This contemporary workspace offers modern amenities, reliable power supply, and 24-hour security. Perfect for businesses seeking a prestigious address with all conveniences.",
       "highlights": [
@@ -100,7 +100,7 @@
       "yearBuilt": 2020,
       "parkingSpaces": 10,
       "floors": 5,
-      "featured": false,
+      "featured": true,
       "createdAt": "2024-02-10"
     },
     {
@@ -118,11 +118,9 @@
       "priceDisplay": "Contact for price",
       "features": ["security"],
       "amenities": ["24/7 Security", "Perimeter Fence"],
-      "image": "images/build4.jpeg",
+      "image": "images/house2.jpeg",
       "images": [
-        "images/build4.jpeg",
-        "images/build1.jpeg",
-        "images/build2.jpeg"
+        "images/.house2.jpeg"
       ],
       "description": "Prime beachfront plot perfect for development. This extensive land parcel offers great investment potential with beach access and secure perimeter.",
       "highlights": [
@@ -152,11 +150,10 @@
       "priceDisplay": "Contact for price",
       "features": ["parking", "pool", "security", "elevator"],
       "amenities": ["Private Pool", "24/7 Security", "Elevator Access", "Parking Space", "Smart Home System"],
-      "image": "images/build5.jpeg",
+      "image": "images/house27.jpeg",
       "images": [
-        "images/build5.jpeg",
-        "images/build6.jpeg",
-        "images/build1.jpeg"
+        "images/house27.jpeg",
+        "images/house26.jpeg"  
       ],
       "description": "Luxurious penthouse with panoramic views of Ikoyi. This exclusive residence offers the ultimate in luxury living with private amenities and premium finishes.",
       "highlights": [
@@ -186,11 +183,10 @@
       "priceDisplay": "Contact for price",
       "features": ["parking", "security", "elevator"],
       "amenities": ["24/7 Security", "Elevator Access", "Backup Power", "Parking Space"],
-      "image": "images/build6.jpeg",
+      "image": "images/build2.jpeg",
       "images": [
-        "images/build6.jpeg",
-        "images/build3.jpeg",
-        "images/build4.jpeg"
+        "images/build2.jpeg"
+      
       ],
       "description": "Multi-story commercial plaza in prime location. This income-generating property offers excellent rental potential with multiple units and prime positioning.",
       "highlights": [
