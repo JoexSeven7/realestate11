@@ -55,9 +55,9 @@
          { id: 3, title: "Executive Office Space in Abuja", slug: "executive-office-abuja", type: "commercial", status: "rent", location: "abuja", address: "Central Business District, Abuja", bedrooms: 0, bathrooms: 4, size: 350, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "elevator", "gym"], image: "images/build3.jpeg", images: ["images/build3.jpeg", "images/build5.jpeg", "images/build6.jpeg"], description: "Premium office space in the heart of Abuja's business district.", featured: false, createdAt: "2024-02-10" },
          { id: 4, title: "Beachfront Plot in Port Harcourt", slug: "beachfront-plot-ph", type: "land", status: "sale", location: "portharcourt", address: "Oil Mill Field, Port Harcourt", bedrooms: 0, bathrooms: 0, size: 1200, price: 0, priceDisplay: "Contact for price", features: ["security"], image: "images/build4.jpeg", images: ["images/build4.jpeg", "images/build1.jpeg", "images/build2.jpeg"], description: "Prime beachfront plot perfect for development.", featured: true, createdAt: "2024-02-15" },
          { id: 5, title: "Penthouse Suite in Ikoyi", slug: "penthouse-ikoyi", type: "residential", status: "sale", location: "lagos", address: "Ikoyi, Lagos", bedrooms: 4, bathrooms: 4, size: 320, price: 0, priceDisplay: "Contact for price", features: ["parking", "pool", "security", "elevator"], image: "images/build5.jpeg", images: ["images/build5.jpeg", "images/build6.jpeg", "images/build1.jpeg"], description: "Luxurious penthouse with panoramic views of Ikoyi.", featured: true, createdAt: "2024-02-20" },
-         { id: 6, title: "Commercial Plaza in Ibadan", slug: "commercial-plaza-ibadan", type: "commercial", status: "sale", location: "ibadan", address: "Ring Road, Ibadan", bedrooms: 0, bathrooms: 8, size: 2500, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "elevator"], image: "images/build6.jpeg", images: ["images/build6.jpeg", "images/build3.jpeg", "images/build4.jpeg"], description: "Multi-story commercial plaza in prime location.", featured: false, createdAt: "2024-02-25" },
-         { id: 7, title: "Luxury Shortlet Apartment", slug: "luxury-shortlet-apartment", type: "residential", status: "shortlet", location: "lagos", address: "Victoria Island, Lagos", bedrooms: 2, bathrooms: 2, size: 120, price: 150000, priceDisplay: "₦150,000/night", features: ["parking", "pool", "gym", "security", "wifi", "kitchen"], image: "images/build1.jpeg", images: ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"], description: "Experience luxury short-term living in this stunning 2-bedroom apartment with breathtaking city views. This modern residence offers premium finishes and state-of-the-art amenities perfect for business travelers and tourists seeking comfort and convenience.", featured: true, createdAt: "2024-03-01" }
-     ];
+          { id: 7, title: "Commercial Plaza in Ibadan", slug: "commercial-plaza-ibadan", type: "commercial", status: "sale", location: "ibadan", address: "Ring Road, Ibadan", bedrooms: 0, bathrooms: 8, size: 2500, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "elevator"], image: "images/build6.jpeg", images: ["images/build6.jpeg", "images/build3.jpeg", "images/build4.jpeg"], description: "Multi-story commercial plaza in prime location.", featured: false, createdAt: "2024-02-25" },
+          { id: 1, title: "Luxury Shortlet Apartment", slug: "luxury-shortlet-apartment", type: "residential", status: "shortlet", location: "lagos", address: "Victoria Island, Lagos", bedrooms: 2, bathrooms: 2, size: 120, price: 150000, priceDisplay: "₦150,000/night", features: ["parking", "pool", "gym", "security", "wifi", "kitchen"], image: "images/build1.jpeg", images: ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"], description: "Experience luxury short-term living in this stunning 2-bedroom apartment with breathtaking city views. This modern residence offers premium finishes and state-of-the-art amenities perfect for business travelers and tourists seeking comfort and convenience.", featured: true, createdAt: "2024-03-01" }
+      ];
 
     // ===== LOAD PROPERTIES =====
     async function loadProperties() {
@@ -98,11 +98,29 @@
     function sortPropertiesFn(properties, sortBy) {
         const sorted = [...properties];
         switch(sortBy) {
-            case 'newest': return sorted.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-            case 'price-high': return sorted.sort((a, b) => (b.price || 0) - (a.price || 0));
-            case 'price-low': return sorted.sort((a, b) => (a.price || 0) - (b.price || 0));
-            case 'size': return sorted.sort((a, b) => (b.size || 0) - (a.size || 0));
-            case 'featured': default: return sorted.sort((a, b) => (b.featured ? 1 : 0) - (a.featured ? 1 : 0));
+            case 'newest': return sorted.sort((a, b) => {
+                if (a.id === 1 || b.id === 1) return a.id === 1 ? -1 : 1;
+                return new Date(b.createdAt) - new Date(a.createdAt);
+            });
+            case 'price-high': return sorted.sort((a, b) => {
+                if (a.id === 1 || b.id === 1) return a.id === 1 ? -1 : 1;
+                return (b.price || 0) - (a.price || 0);
+            });
+            case 'price-low': return sorted.sort((a, b) => {
+                if (a.id === 1 || b.id === 1) return a.id === 1 ? -1 : 1;
+                return (a.price || 0) - (b.price || 0);
+            });
+            case 'size': return sorted.sort((a, b) => {
+                if (a.id === 1 || b.id === 1) return a.id === 1 ? -1 : 1;
+                return (b.size || 0) - (a.size || 0);
+            });
+            case 'featured': default: return sorted.sort((a, b) => {
+                if (a.id === 1 || b.id === 1) return a.id === 1 ? -1 : 1;
+                const aShortlet = a.status === 'shortlet' ? 1 : 0;
+                const bShortlet = b.status === 'shortlet' ? 1 : 0;
+                if (bShortlet !== aShortlet) return bShortlet - aShortlet;
+                return (b.featured ? 1 : 0) - (a.featured ? 1 : 0);
+            });
         }
     }
 

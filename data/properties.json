@@ -1,6 +1,46 @@
 {
   "properties": [
     {
+        "id": 1,
+        "title": "Luxury Shortlet Apartment",
+       "slug": "luxury-shortlet-apartment",
+       "type": "residential",
+       "status": "shortlet",
+       "location": "Lekki Ikate",
+       "address": "Lekki Ikate, Lagos",
+       "bedrooms": 5,
+       "bathrooms": 6,
+       "size": 120,
+       "price": 150000,
+       "priceDisplay": "₦150,000/night",
+       "features": ["parking", "pool", "gym", "security", "wifi", "kitchen"],
+       "amenities": ["Swimming Pool", "Gym Access", "24/7 Security", "Parking Space", "High-speed WiFi", "Fully Equipped Kitchen", "Housekeeping Service", "Concierge"],
+     "image": "images/house7.jpeg",
+     "images": [
+       "images/house7.jpeg",
+       "images/housevideo1.jpeg",
+       "images/house9.jpeg",
+       "images/house1.jpeg",
+       "images/house3.jpeg",
+       "images/house4.jpeg"
+     ],
+     "description": "Experience luxury short-term living in this stunning 2-bedroom apartment with breathtaking city views. This modern residence offers premium finishes and state-of-the-art amenities perfect for business travelers and tourists seeking comfort and convenience.",
+     "highlights": [
+       "2 spacious bedrooms with en-suite bathrooms",
+       "Modern open-plan kitchen with premium appliances",
+       "Private balcony with panoramic city views",
+       "Access to building gym and swimming pool",
+       "24/7 security with concierge service",
+       "High-speed WiFi and smart TV",
+       "Weekly housekeeping service included",
+       "Walking distance to restaurants, shopping malls, and business district"
+     ],
+     "yearBuilt": 2023,
+     "parkingSpaces": 1,
+     "featured": true,
+     "createdAt": "2024-03-01"
+   },
+    {
       "id": 2,
       "title": "Royal pine estate, Lekki",
       "slug": "modern-apartment-vi",
@@ -167,50 +207,11 @@
       "floors": 4,
       "featured": false,
       "createdAt": "2024-02-25"
-    },
-     {
-        "id": 7,
-        "title": "Luxury Shortlet Apartment",
-        "slug": "luxury-shortlet-apartment",
-        "type": "residential",
-        "status": "shortlet",
-        "location": "Lekki Ikate",
-        "address": "Lekki Ikate, Lagos",
-        "bedrooms": 5,
-        "bathrooms": 6,
-        "size": 120,
-        "price": 150000,
-        "priceDisplay": "₦150,000/night",
-        "features": ["parking", "pool", "gym", "security", "wifi", "kitchen"],
-        "amenities": ["Swimming Pool", "Gym Access", "24/7 Security", "Parking Space", "High-speed WiFi", "Fully Equipped Kitchen", "Housekeeping Service", "Concierge"],
-      "image": "images/house7.jpeg",
-      "images": [
-        "images/house7.jpeg",
-        "images/housevideo1.jpeg",
-        "images/house9.jpeg",
-        "images/house1.jpeg",
-        "images/house3.jpeg",
-        "images/house4.jpeg"
-      ],
-      "description": "Experience luxury short-term living in this stunning 2-bedroom apartment with breathtaking city views. This modern residence offers premium finishes and state-of-the-art amenities perfect for business travelers and tourists seeking comfort and convenience.",
-      "highlights": [
-        "2 spacious bedrooms with en-suite bathrooms",
-        "Modern open-plan kitchen with premium appliances",
-        "Private balcony with panoramic city views",
-        "Access to building gym and swimming pool",
-        "24/7 security with concierge service",
-        "High-speed WiFi and smart TV",
-        "Weekly housekeeping service included",
-        "Walking distance to restaurants, shopping malls, and business district"
-      ],
-      "yearBuilt": 2023,
-      "parkingSpaces": 1,
-      "featured": true,
-      "createdAt": "2024-03-01"
     }
+     
   ],
    "metadata": {
-     "total": 7,
+     "total": 6,
      "lastUpdated": "2024-02-24",
      "organization": "ATHARRYS PROPERTIES LIMITED",
      "note": "This file can be expanded to add more properties as the organization grows. Simply add new property objects to the 'properties' array following the same structure."
