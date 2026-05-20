@@ -202,14 +202,14 @@
       "featured": false,
       "createdAt": "2024-02-25"
     },
-    {
-      "id": 7,
-      "title": "Luxury Shortlet Apartment",
-      "slug": "luxury-shortlet-apartment",
-      "type": "residential",
-      "status": "shortlet",
-      "location": "lagos",
-      "address": "Victoria Island, Lagos",
+     {
+       "id": 7,
+       "title": "Luxury Shortlet Apartment",
+       "slug": "luxury-shortlet-apartment",
+       "type": "residential",
+       "status": "shortlet",
+       "location": "Lekki Ikate",
+       "address": "Lekki Ikate, Lagos",
       "bedrooms": 2,
       "bathrooms": 2,
       "size": 120,
