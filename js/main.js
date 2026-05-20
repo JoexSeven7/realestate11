@@ -16,7 +16,7 @@ function createLoadingOverlay() {
     overlay.setAttribute('aria-live', 'polite');
     overlay.setAttribute('aria-atomic', 'true');
     overlay.innerHTML = `
-        <div class="fixed inset-0 bg-gray-900/90 backdrop-blur-md z-[9999] hidden items-center justify-center">
+        <div class="fixed inset-0 bg-gray-300/90 backdrop-blur-md z-[9999] hidden items-center justify-center">
             <div class="flex flex-col items-center gap-6">
                 <div class="relative">
                     <div class="w-20 h-20 rounded-full border-4 border-gray-200"></div>
@@ -302,7 +302,9 @@ async function fetchProperties() {
 function generatePropertyCard(property) {
     const statusBadge = property.status === 'sale' 
         ? '<span class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">For Sale</span>'
-        : '<span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">For Rent</span>';
+        : property.status === 'rent'
+        ? '<span class="absolute top-4 right-4 bg-secondary text-white px-3 py-1 rounded-full text-sm font-semibold">For Rent</span>'
+        : '<span class="absolute top-4 right-4 bg-purple-500 text-white px-3 py-1 rounded-full text-sm font-semibold">Shortlet</span>';
     
     const featuredBadge = property.featured 
         ? '<span class="absolute top-4 left-4 bg-accent text-green-500 px-3 py-1 rounded-full text-sm font-semibold">Featured</span>'
@@ -312,18 +314,18 @@ function generatePropertyCard(property) {
     let specsDisplay = '';
     if (property.type === 'commercial') {
         specsDisplay = `
-            <span><i class="fas fa-building mr-1"></i> ${property.floors || 'Multi'} Floors</span>
-            <span><i class="fas fa-ruler-combined mr-1"></i> ${property.size} sqm</span>
+<span><i class="fas fa-building mr-1"></i> ${property.floors || 'Multi'} Floors</span>
+<span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
         `;
     } else if (property.type === 'land') {
         specsDisplay = `
-            <span><i class="fas fa-ruler-combined mr-1"></i> ${property.size} sqm</span>
+            <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
         `;
     } else {
         specsDisplay = `
             <span><i class="fas fa-bed mr-1"></i> ${property.bedrooms} Beds</span>
             <span><i class="fas fa-bath mr-1"></i> ${property.bathrooms} Baths</span>
-            <span><i class="fas fa-ruler-combined mr-1"></i> ${property.size} sqm</span>
+            <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
         `;
     }
     
@@ -340,6 +342,7 @@ function generatePropertyCard(property) {
             <div class="p-5">
                 <h3 class="text-lg font-semibold text-gray-900 mb-2">${property.title}</h3>
                 <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> ${property.address}</p>
+                ${property.price > 0 ? `<p class="text-lg font-bold text-primary mb-3">${property.priceDisplay}</p>` : ''}
                 <div class="flex justify-between text-sm text-gray-600 mb-4">
                     ${specsDisplay}
                 </div>
@@ -414,6 +417,7 @@ document.addEventListener('DOMContentLoaded', async function() {
     // Load properties for homepage
     await fetchProperties();
     renderFeaturedProperties(propertiesData);
+    renderFeaturedShortlets();
     
     // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');
@@ -828,15 +832,54 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    // Sort Properties
-    const sortProperties = document.getElementById('sortProperties');
-    
-    if (sortProperties) {
-        sortProperties.addEventListener('change', function() {
-            const sortBy = this.value;
-            alert('Properties sorted by: ' + sortBy);
-        });
-    }
+      // Sort Properties
+      const sortProperties = document.getElementById('sortProperties');
+      
+      if (sortProperties) {
+          sortProperties.addEventListener('change', function() {
+              const sortBy = this.value;
+              alert('Properties sorted by: ' + sortBy);
+          });
+      }
 
-    console.log('ATHARRYS PROPERTIES website loaded successfully!');
+      // Render featured shortlet properties on homepage
+      function renderFeaturedShortlets() {
+          const carouselTrackShortlet = document.getElementById('carouselTrackShortlet');
+          const prevBtnShortlet = document.getElementById('prevBtnShortlet');
+          const nextBtnShortlet = document.getElementById('nextBtnShortlet');
+          
+          if (!carouselTrackShortlet) return;
+          
+          // Get featured shortlet properties
+          const featuredShortlets = propertiesData.filter(p => p.featured && p.status === 'shortlet');
+          const displayShortlets = featuredShortlets.length > 0 ? featuredShortlets : 
+                                 propertiesData.filter(p => p.status === 'shortlet').slice(0, 3);
+          
+          if (displayShortlets.length === 0) {
+              carouselTrackShortlet.innerHTML = `
+                  <div class="col-span-full text-center py-12">
+                      <p class="text-gray-600">No shortlet properties available at the moment.</p>
+                  </div>
+              `;
+              
+              // Hide navigation buttons if no properties
+              if (prevBtnShortlet) prevBtnShortlet.style.display = 'none';
+              if (nextBtnShortlet) nextBtnShortlet.style.display = 'none';
+              return;
+          }
+          
+          // Show navigation buttons
+          if (prevBtnShortlet) prevBtnShortlet.style.display = 'block';
+          if (nextBtnShortlet) nextBtnShortlet.style.display = 'block';
+          
+          // For now, we'll just display the properties without carousel functionality
+          // In a full implementation, you would add carousel logic here
+          const shortletsHTML = displayShortlets.map(generatePropertyCard).join('');
+          carouselTrackShortlet.innerHTML = shortletsHTML;
+          
+          // Attach favorite button listeners to newly added buttons
+          attachFavoriteListeners();
+      }
+
+      console.log('ATHARRYS PROPERTIES website loaded successfully!');
 });

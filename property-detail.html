@@ -119,16 +119,21 @@
                                 <div class="text-2xl font-bold text-gray-900" id="bathrooms">4</div>
                                 <p class="text-gray-600">Bathrooms</p>
                             </div>
-                            <div class="text-center p-4 bg-gray-50 rounded-lg">
-                                <i class="fas fa-ruler-combined text-3xl text-primary mb-2"></i>
-                                <div class="text-2xl font-bold text-gray-900" id="area">450</div>
-                                <p class="text-gray-600">Square Meters</p>
-                            </div>
-                            <div class="text-center p-4 bg-gray-50 rounded-lg">
-                                <i class="fas fa-car text-3xl text-primary mb-2"></i>
-                                <div class="text-2xl font-bold text-gray-900" id="parking">3</div>
-                                <p class="text-gray-600">Parking Spaces</p>
-                            </div>
+<div class="text-center p-4 bg-gray-50 rounded-lg">
+    <i class="fas fa-swimming-pool text-3xl text-primary mb-2"></i>
+    <div class="text-2xl font-bold text-gray-900" id="pool">1</div>
+    <p class="text-gray-600">Pool</p>
+</div>
+                         <div class="text-center p-4 bg-gray-50 rounded-lg">
+                             <i class="fas fa-car text-3xl text-primary mb-2"></i>
+                             <div class="text-2xl font-bold text-gray-900" id="parking">3</div>
+                             <p class="text-gray-600">Parking Spaces</p>
+                         </div>
+                         <div class="text-center p-4 bg-gray-50 rounded-lg">
+                             <i class="fas fa-dollar-sign text-3xl text-primary mb-2"></i>
+                             <div class="text-2xl font-bold text-gray-900" id="price">0</div>
+                             <p class="text-gray-600" id="priceLabel">Price</p>
+                         </div>
                         </div>
                     </div>
 
@@ -136,9 +141,7 @@
                     <div class="bg-white rounded-xl shadow-lg p-8 mb-8">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6">Description</h2>
                         <div class="text-gray-600 space-y-4">
-                            <p id="propertyDescription">This stunning luxury villa is located in the prestigious Lekki Phase 1 area of Lagos. The property features 5 spacious bedrooms, 4 modern bathrooms, and a beautifully designed living area. The villa boasts high ceilings, premium finishes throughout, and large windows that offer natural light and stunning views.</p>
-                            <p>The open-plan kitchen is equipped with top-of-the-line appliances and features a center island perfect for entertaining. The master suite includes a walk-in closet and an en-suite bathroom with a soaking tub and separate shower.</p>
-                            <p>Outdoor amenities include a private swimming pool, landscaped garden, and covered terrace. The property is situated in a secure gated community with 24/7 security and is close to schools, shopping centers, and major highways.</p>
+                            <p id="propertyDescription"></p>
                         </div>
                     </div>
 
@@ -280,14 +283,14 @@
                         <h3 class="text-xl font-semibold text-gray-900 mb-4">Contact Agent</h3>
                         <div class="flex items-center gap-4 mb-4">
                             <img src="images/agent1.jpg" alt="Agent" class="w-12 h-12 rounded-full object-cover" onerror="this.src='images/logo.png'">
-                            <div>
+                            <!-- <div>
                                 <h4 class="font-semibold text-gray-900">Chinedu Okonkwo</h4>
                                 <p class="text-sm text-gray-600">Senior Property Consultant</p>
-                            </div>
+                            </div> -->
                         </div>
                         <div class="space-y-2 text-sm text-gray-600 mb-4">
-                            <p><i class="fas fa-phone mr-2 text-primary"></i> +234 802 345 6789</p>
-                            <p><i class="fas fa-envelope mr-2 text-primary"></i> <span style="word-break: break-all;">chinedu@atharrysproperties.com</span></p>
+                            <p><i class="fas fa-phone mr-2 text-primary"></i>+234 902 773 0330</p>
+                            <p><i class="fas fa-envelope mr-2 text-primary"></i> <span style="word-break: break-all;">atharryshomes@gmail.com</span></p>
                         </div>
                         <div class="flex gap-2">
                             <button id="openContactModal" class="flex-1 text-center border-2 border-primary text-primary px-4 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors">
@@ -420,7 +423,7 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-envelope"></i>
-                            <span style="word-break: break-all;">info@atharrysproperties.com</span>
+                            <span style="word-break: break-all;">atharryshomes@gmail.com</span>
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-clock"></i>
@@ -461,10 +464,10 @@
                 </div>
                 <div class="flex items-center gap-4 mb-6">
                     <img src="images/agent1.jpg" alt="Agent" class="w-16 h-16 rounded-full object-cover">
-                    <div>
+                    <!-- <div>
                         <h4 class="font-semibold text-gray-900">Chinedu Okonkwo</h4>
                         <p class="text-sm text-gray-600">Senior Property Consultant</p>
-                    </div>
+                    </div> -->
                 </div>
                 <!-- Replace FORMSPREE_ID with your Formspree form ID from https://formspree.io -->
                 <form id="contactAgentForm" action="https://formspree.io/f/FORMSPREE_ID" method="POST" class="space-y-4">

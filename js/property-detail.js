@@ -269,11 +269,15 @@ function updatePageContent(property) {
     if (area) area.textContent = property.size;
     if (parking) parking.textContent = property.parkingSpaces || 'N/A';
     
-    // Update price
-    const priceElement = document.getElementById('propertyPrice');
-    if (priceElement) {
-        priceElement.textContent = property.priceDisplay;
-    }
+     // Update price
+     const priceElement = document.getElementById('price');
+     const priceLabel = document.getElementById('priceLabel');
+     if (priceElement) {
+         priceElement.textContent = property.priceDisplay;
+     }
+     if (priceLabel) {
+         priceLabel.textContent = property.status === 'shortlet' ? 'Price/Night' : 'Price';
+     }
     
     // Update description
     const description = document.getElementById('propertyDescription');

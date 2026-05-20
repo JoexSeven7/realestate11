@@ -48,15 +48,16 @@
     };
     let sliderIndex = 0;
 
-    // ===== EMBEDDED FALLBACK DATA =====
-    const embeddedPropertiesData = [
-        { id: 1, title: "Luxury Villa in Lekki", slug: "luxury-villa-lekki", type: "residential", status: "sale", location: "lagos", address: "Lekki Phase 1, Lagos", bedrooms: 5, bathrooms: 4, size: 450, price: 0, priceDisplay: "Contact for price", features: ["parking", "pool", "garden", "security"], image: "images/build1.jpeg", images: ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"], description: "Experience luxury living at its finest in this stunning 5-bedroom villa.", featured: true, createdAt: "2024-01-15" },
-        { id: 2, title: "Modern Apartment in Victoria Island", slug: "modern-apartment-vi", type: "residential", status: "rent", location: "lagos", address: "Victoria Island, Lagos", bedrooms: 3, bathrooms: 2, size: 180, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "gym"], image: "images/build2.jpeg", images: ["images/build2.jpeg", "images/build4.jpeg", "images/build5.jpeg"], description: "Contemporary 3-bedroom apartment in the heart of Victoria Island.", featured: true, createdAt: "2024-02-01" },
-        { id: 3, title: "Executive Office Space in Abuja", slug: "executive-office-abuja", type: "commercial", status: "rent", location: "abuja", address: "Central Business District, Abuja", bedrooms: 0, bathrooms: 4, size: 350, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "elevator", "gym"], image: "images/build3.jpeg", images: ["images/build3.jpeg", "images/build5.jpeg", "images/build6.jpeg"], description: "Premium office space in the heart of Abuja's business district.", featured: false, createdAt: "2024-02-10" },
-        { id: 4, title: "Beachfront Plot in Port Harcourt", slug: "beachfront-plot-ph", type: "land", status: "sale", location: "portharcourt", address: "Oil Mill Field, Port Harcourt", bedrooms: 0, bathrooms: 0, size: 1200, price: 0, priceDisplay: "Contact for price", features: ["security"], image: "images/build4.jpeg", images: ["images/build4.jpeg", "images/build1.jpeg", "images/build2.jpeg"], description: "Prime beachfront plot perfect for development.", featured: true, createdAt: "2024-02-15" },
-        { id: 5, title: "Penthouse Suite in Ikoyi", slug: "penthouse-ikoyi", type: "residential", status: "sale", location: "lagos", address: "Ikoyi, Lagos", bedrooms: 4, bathrooms: 4, size: 320, price: 0, priceDisplay: "Contact for price", features: ["parking", "pool", "security", "elevator"], image: "images/build5.jpeg", images: ["images/build5.jpeg", "images/build6.jpeg", "images/build1.jpeg"], description: "Luxurious penthouse with panoramic views of Ikoyi.", featured: true, createdAt: "2024-02-20" },
-        { id: 6, title: "Commercial Plaza in Ibadan", slug: "commercial-plaza-ibadan", type: "commercial", status: "sale", location: "ibadan", address: "Ring Road, Ibadan", bedrooms: 0, bathrooms: 8, size: 2500, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "elevator"], image: "images/build6.jpeg", images: ["images/build6.jpeg", "images/build3.jpeg", "images/build4.jpeg"], description: "Multi-story commercial plaza in prime location.", featured: false, createdAt: "2024-02-25" }
-    ];
+     // ===== EMBEDDED FALLBACK DATA =====
+     const embeddedPropertiesData = [
+         { id: 1, title: "Luxury Villa in Lekki", slug: "luxury-villa-lekki", type: "residential", status: "sale", location: "lagos", address: "Lekki Phase 1, Lagos", bedrooms: 5, bathrooms: 4, size: 450, price: 0, priceDisplay: "Contact for price", features: ["parking", "pool", "garden", "security"], image: "images/build1.jpeg", images: ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"], description: "Experience luxury living at its finest in this stunning 5-bedroom villa.", featured: true, createdAt: "2024-01-15" },
+         { id: 2, title: "Modern Apartment in Victoria Island", slug: "modern-apartment-vi", type: "residential", status: "rent", location: "lagos", address: "Victoria Island, Lagos", bedrooms: 3, bathrooms: 2, size: 180, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "gym"], image: "images/build2.jpeg", images: ["images/build2.jpeg", "images/build4.jpeg", "images/build5.jpeg"], description: "Contemporary 3-bedroom apartment in the heart of Victoria Island.", featured: true, createdAt: "2024-02-01" },
+         { id: 3, title: "Executive Office Space in Abuja", slug: "executive-office-abuja", type: "commercial", status: "rent", location: "abuja", address: "Central Business District, Abuja", bedrooms: 0, bathrooms: 4, size: 350, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "elevator", "gym"], image: "images/build3.jpeg", images: ["images/build3.jpeg", "images/build5.jpeg", "images/build6.jpeg"], description: "Premium office space in the heart of Abuja's business district.", featured: false, createdAt: "2024-02-10" },
+         { id: 4, title: "Beachfront Plot in Port Harcourt", slug: "beachfront-plot-ph", type: "land", status: "sale", location: "portharcourt", address: "Oil Mill Field, Port Harcourt", bedrooms: 0, bathrooms: 0, size: 1200, price: 0, priceDisplay: "Contact for price", features: ["security"], image: "images/build4.jpeg", images: ["images/build4.jpeg", "images/build1.jpeg", "images/build2.jpeg"], description: "Prime beachfront plot perfect for development.", featured: true, createdAt: "2024-02-15" },
+         { id: 5, title: "Penthouse Suite in Ikoyi", slug: "penthouse-ikoyi", type: "residential", status: "sale", location: "lagos", address: "Ikoyi, Lagos", bedrooms: 4, bathrooms: 4, size: 320, price: 0, priceDisplay: "Contact for price", features: ["parking", "pool", "security", "elevator"], image: "images/build5.jpeg", images: ["images/build5.jpeg", "images/build6.jpeg", "images/build1.jpeg"], description: "Luxurious penthouse with panoramic views of Ikoyi.", featured: true, createdAt: "2024-02-20" },
+         { id: 6, title: "Commercial Plaza in Ibadan", slug: "commercial-plaza-ibadan", type: "commercial", status: "sale", location: "ibadan", address: "Ring Road, Ibadan", bedrooms: 0, bathrooms: 8, size: 2500, price: 0, priceDisplay: "Contact for price", features: ["parking", "security", "elevator"], image: "images/build6.jpeg", images: ["images/build6.jpeg", "images/build3.jpeg", "images/build4.jpeg"], description: "Multi-story commercial plaza in prime location.", featured: false, createdAt: "2024-02-25" },
+         { id: 7, title: "Luxury Shortlet Apartment", slug: "luxury-shortlet-apartment", type: "residential", status: "shortlet", location: "lagos", address: "Victoria Island, Lagos", bedrooms: 2, bathrooms: 2, size: 120, price: 150000, priceDisplay: "₦150,000/night", features: ["parking", "pool", "gym", "security", "wifi", "kitchen"], image: "images/build1.jpeg", images: ["images/build1.jpeg", "images/build2.jpeg", "images/build3.jpeg"], description: "Experience luxury short-term living in this stunning 2-bedroom apartment with breathtaking city views. This modern residence offers premium finishes and state-of-the-art amenities perfect for business travelers and tourists seeking comfort and convenience.", featured: true, createdAt: "2024-03-01" }
+     ];
 
     // ===== LOAD PROPERTIES =====
     async function loadProperties() {
@@ -133,20 +134,24 @@
         
         gridContainer.innerHTML = filteredProperties.map(property => `
             <div class="property-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all" data-id="${property.id}">
-                <div class="relative overflow-hidden">
-                    <img src="${property.image}" alt="${property.title}" class="property-image w-full h-56 object-cover transition-transform duration-500" onerror="this.src='images/build1.jpeg'">
-                    <div class="absolute top-3 left-3">
-                        ${property.featured ? '<span class="bg-accent text-primary px-3 py-1 rounded-full text-sm font-semibold">Featured</span>' : ''}
-                    </div>
-                    <div class="absolute top-3 right-3">
-                        <span class="${property.status === 'sale' ? 'bg-green-500' : 'bg-secondary'} text-white px-3 py-1 rounded-full text-sm font-semibold">
-                            ${property.status === 'sale' ? 'For Sale' : 'For Rent'}
-                        </span>
-                    </div>
-                    <button class="favorite-btn absolute bottom-3 right-3 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors" data-id="${property.id}">
-                        <i class="far fa-heart text-gray-600"></i>
-                    </button>
-                </div>
+                 <div class="relative overflow-hidden">
+                     <img src="${property.image}" alt="${property.title}" class="property-image w-full h-56 object-cover transition-transform duration-500" onerror="this.src='images/build1.jpeg'">
+                     <div class="absolute top-3 left-3">
+                         ${property.featured ? '<span class="bg-accent text-primary px-3 py-1 rounded-full text-sm font-semibold">Featured</span>' : ''}
+                     </div>
+                     <div class="absolute top-3 right-3">
+                         <span class="
+                             ${property.status === 'sale' ? 'bg-green-500' : 
+                               property.status === 'shortlet' ? 'bg-purple-500' : 'bg-secondary'} 
+                             text-white px-3 py-1 rounded-full text-sm font-semibold">
+                             ${property.status === 'sale' ? 'For Sale' : 
+                               property.status === 'shortlet' ? 'Shortlet' : 'For Rent'}
+                         </span>
+                     </div>
+                     <button class="favorite-btn absolute bottom-3 right-3 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors" data-id="${property.id}">
+                         <i class="far fa-heart text-gray-600"></i>
+                     </button>
+                 </div>
                 <div class="p-5">
                     <div class="flex items-center gap-2 mb-2">
                         <span class="text-xs font-semibold uppercase px-2 py-1 bg-primary/10 text-primary rounded">${property.type}</span>
@@ -159,7 +164,7 @@
                     <div class="flex flex-wrap gap-3 text-sm text-gray-500 mb-4">
                         ${property.type !== 'land' ? `<span><i class="fas fa-bed mr-1"></i>${property.bedrooms || 0} Beds</span>` : ''}
                         ${property.type !== 'land' ? `<span><i class="fas fa-bath mr-1"></i>${property.bathrooms || 0} Baths</span>` : ''}
-                        <span><i class="fas fa-ruler-combined mr-1"></i>${property.size} sqm</span>
+                        <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
                     </div>
                     <div class="flex gap-2">
                         <a href="property-detail.html?id=${property.id}" class="flex-1 text-center border-2 border-primary text-primary px-3 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm font-semibold">View Details</a>
@@ -178,17 +183,21 @@
 
         listContainer.innerHTML = filteredProperties.map(property => `
             <div class="property-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all flex flex-col md:flex-row" data-id="${property.id}">
-                <div class="md:w-72 relative overflow-hidden">
-                    <img src="${property.image}" alt="${property.title}" class="w-full h-48 md:h-full object-cover" onerror="this.src='images/build1.jpeg'">
-                    <div class="absolute top-3 left-3">
-                        ${property.featured ? '<span class="bg-accent text-primary px-3 py-1 rounded-full text-sm font-semibold">Featured</span>' : ''}
-                    </div>
-                    <div class="absolute top-3 right-3">
-                        <span class="${property.status === 'sale' ? 'bg-green-500' : 'bg-secondary'} text-white px-3 py-1 rounded-full text-sm font-semibold">
-                            ${property.status === 'sale' ? 'For Sale' : 'For Rent'}
-                        </span>
-                    </div>
-                </div>
+                 <div class="md:w-72 relative overflow-hidden">
+                     <img src="${property.image}" alt="${property.title}" class="w-full h-48 md:h-full object-cover" onerror="this.src='images/build1.jpeg'">
+                     <div class="absolute top-3 left-3">
+                         ${property.featured ? '<span class="bg-accent text-primary px-3 py-1 rounded-full text-sm font-semibold">Featured</span>' : ''}
+                     </div>
+                     <div class="absolute top-3 right-3">
+                         <span class="
+                             ${property.status === 'sale' ? 'bg-green-500' : 
+                               property.status === 'shortlet' ? 'bg-purple-500' : 'bg-secondary'} 
+                             text-white px-3 py-1 rounded-full text-sm font-semibold">
+                             ${property.status === 'sale' ? 'For Sale' : 
+                               property.status === 'shortlet' ? 'Shortlet' : 'For Rent'}
+                         </span>
+                     </div>
+                 </div>
                 <div class="flex-1 p-5">
                     <div class="flex flex-wrap items-center gap-2 mb-2">
                         <span class="text-xs font-semibold uppercase px-2 py-1 bg-primary/10 text-primary rounded">${property.type}</span>
@@ -202,7 +211,7 @@
                     <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
                         ${property.type !== 'land' ? `<span class="flex items-center gap-1"><i class="fas fa-bed text-primary"></i>${property.bedrooms || 0} Bedrooms</span>` : ''}
                         ${property.type !== 'land' ? `<span class="flex items-center gap-1"><i class="fas fa-bath text-primary"></i>${property.bathrooms || 0} Bathrooms</span>` : ''}
-                        <span class="flex items-center gap-1"><i class="fas fa-ruler-combined text-primary"></i>${property.size} sqm</span>
+                        <span class="flex items-center gap-1"><i class="fas fa-swimming-pool text-primary"></i> 1</span>
                     </div>
                     <div class="flex flex-wrap gap-2">
                         <a href="property-detail.html?id=${property.id}" class="border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors font-semibold">View Details</a>
@@ -249,13 +258,13 @@
                     <span class="font-semibold text-primary">${property.priceDisplay}</span>
                 </td>
                 <td class="py-4 px-4">
-                    <span class="text-gray-600">${property.size} sqm</span>
+                    <span class="text-gray-600">1</span>
                 </td>
-                <td class="py-4 px-4">
-                    <span class="px-2 py-1 rounded-full text-xs font-semibold ${property.status === 'sale' ? 'bg-green-100 text-green-700' : 'bg-secondary/20 text-secondary'}">
-                        ${property.status === 'sale' ? 'For Sale' : 'For Rent'}
-                    </span>
-                </td>
+                 <td class="py-4 px-4">
+                     <span class="px-2 py-1 rounded-full text-xs font-semibold ${property.status === 'sale' ? 'bg-green-100 text-green-700' : property.status === 'shortlet' ? 'bg-purple-100 text-purple-700' : 'bg-secondary/20 text-secondary'}">
+                         ${property.status === 'sale' ? 'For Sale' : property.status === 'shortlet' ? 'Shortlet' : 'For Rent'}
+                     </span>
+                 </td>
                 <td class="py-4 px-4">
                     <a href="property-detail.html?id=${property.id}" class="text-primary hover:underline mr-2">View</a>
                     <a href="contact.html?property=${property.id}" class="text-secondary hover:underline">Contact</a>
@@ -277,19 +286,21 @@
                 <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-cover" onerror="this.src='images/build1.jpeg'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
-                    <div class="flex gap-2 mb-3">
-                        <span class="px-3 py-1 bg-primary rounded-full text-sm font-semibold">${featured.type}</span>
-                        <span class="px-3 py-1 ${featured.status === 'sale' ? 'bg-green-500' : 'bg-secondary'} rounded-full text-sm font-semibold">
-                            ${featured.status === 'sale' ? 'For Sale' : 'For Rent'}
-                        </span>
-                        ${featured.featured ? '<span class="px-3 py-1 bg-accent text-primary rounded-full text-sm font-semibold">Featured</span>' : ''}
-                    </div>
+                     <div class="flex gap-2 mb-3">
+                         <span class="px-3 py-1 bg-primary rounded-full text-sm font-semibold">${featured.type}</span>
+                         <span class="px-3 py-1 ${featured.status === 'sale' ? 'bg-green-500' : 
+                           featured.status === 'shortlet' ? 'bg-purple-500' : 'bg-secondary'} rounded-full text-sm font-semibold">
+                             ${featured.status === 'sale' ? 'For Sale' : 
+                               featured.status === 'shortlet' ? 'Shortlet' : 'For Rent'}
+                         </span>
+                         ${featured.featured ? '<span class="px-3 py-1 bg-accent text-primary rounded-full text-sm font-semibold">Featured</span>' : ''}
+                     </div>
                     <h2 class="text-3xl md:text-4xl font-bold mb-2">${featured.title}</h2>
                     <p class="text-xl mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${featured.address}</p>
                     <div class="flex flex-wrap gap-6 mb-6">
                         ${featured.type !== 'land' ? `<span><i class="fas fa-bed mr-2"></i>${featured.bedrooms || 0} Bedrooms</span>` : ''}
                         ${featured.type !== 'land' ? `<span><i class="fas fa-bath mr-2"></i>${featured.bathrooms || 0} Bathrooms</span>` : ''}
-                        <span><i class="fas fa-ruler-combined mr-2"></i>${featured.size} sqm</span>
+                        <span><i class="fas fa-swimming-pool mr-2"></i> 1</span>
                     </div>
                     <div class="flex gap-4">
                         <a href="property-detail.html?id=${featured.id}" class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">View Details</a>
