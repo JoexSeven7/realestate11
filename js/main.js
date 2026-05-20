@@ -4,49 +4,80 @@
 let propertiesData = [];
 
 // ============================================
-// LOADING OVERLAY
+// LOADING OVERLAY — brand-consistent design
 // ============================================
 
-// Create and inject loading overlay into the page
+// Brand colours (kept in sync with tailwind.config.js)
+const _BRAND = { primary: '#1a2744', secondary: '#8b2635' };
+
 function createLoadingOverlay() {
     if (document.getElementById('loading-overlay')) return;
-    
+
     const overlay = document.createElement('div');
     overlay.id = 'loading-overlay';
     overlay.setAttribute('aria-live', 'polite');
     overlay.setAttribute('aria-atomic', 'true');
     overlay.innerHTML = `
-        <div class="fixed inset-0 bg-gray-300/90 backdrop-blur-md z-[9999] hidden items-center justify-center">
-            <div class="flex flex-col items-center gap-6">
-                <div class="relative">
-                    <div class="w-20 h-20 rounded-full border-4 border-gray-200"></div>
-                    <div class="w-20 h-20 rounded-full border-6 border-blue-500 border-t-transparent absolute top-0 left-0 animate-spin"></div>
+        <div class="fixed inset-0 z-[9999] hidden items-center justify-center"
+             style="background:rgba(26,39,68,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
+            <div class="flex flex-col items-center gap-8 loader-enter">
+                <!-- Brand ring -->
+                <div class="relative w-20 h-20">
+                    <!-- outer glow ring -->
+                    <div class="absolute inset-0 rounded-full"
+                         style="background:linear-gradient(135deg,#1a2744,#8b2635);
+                                animation:loader-breathe 2s ease-in-out infinite;"></div>
+                    <!-- inner spinning track -->
+                    <div class="absolute inset-[4px] rounded-full bg-[#1a2744]/80"></div>
+                    <!-- animated arc -->
+                    <div class="absolute inset-[4px] rounded-full"
+                         style="border:3px solid transparent;
+                                border-top-color:#8b2635;
+                                border-right-color:#8b2635;
+                                animation:loader-spin 0.9s cubic-bezier(0.5,0,0.5,1) infinite;"></div>
                 </div>
-                <div class="text-center">
-                    <p class="text-blue-800 text-lg tracking-wider">
-                        Loading<span class="loading-dots"></span>
-                    </p>
-                   
-                </div>
+                <!-- Brand label -->
+                <p class="text-white text-lg font-medium tracking-[0.25em] uppercase"
+                   style="font-family:inherit;">
+                    ATHARRYS<span class="loading-dots"></span>
+                </p>
             </div>
         </div>
     `;
     document.body.appendChild(overlay);
-    
-    // Add animated dots CSS
+
+    // ── animated dots ──
     if (!document.getElementById('loading-dots-style')) {
         const style = document.createElement('style');
         style.id = 'loading-dots-style';
         style.textContent = `
             .loading-dots::after {
                 content: '';
-                animation: loading-dots 1.5s steps(4, end) infinite;
+                animation: loading-dots 1.6s steps(4,end) infinite;
             }
             @keyframes loading-dots {
-                0%, 20% { content: ''; }
-                40% { content: '.'; }
-                60% { content: '..'; }
-                80%, 100% { content: '...'; }
+                0%,20%  { content:''; }
+                40%     { content:'.'; }
+                60%     { content:'..'; }
+                80%,100%{ content:'...'; }
+            }
+            /* entrance: fade + scale-up */
+            .loader-enter {
+                animation: loader-enter 0.5s cubic-bezier(0.22,1,0.36,1) forwards;
+            }
+            @keyframes loader-enter {
+                from { opacity:0; transform:scale(0.85) translateY(12px); }
+                to   { opacity:1; transform:scale(1)   translateY(0);   }
+            }
+            /* ring spin */
+            @keyframes loader-spin {
+                0%   { transform:rotate(0deg);   }
+                100% { transform:rotate(360deg); }
+            }
+            /* outer glow pulse */
+            @keyframes loader-breathe {
+                0%,100% { opacity:0.6; transform:scale(1);   }
+                50%     { opacity:1;   transform:scale(1.04); }
             }
         `;
         document.head.appendChild(style);
