@@ -150,129 +150,27 @@ window.addEventListener('load', function() {
     setTimeout(hideLoader, 500);
 });
 
-// Embedded fallback data - used when fetch fails (e.g., when opened from file://)
-const embeddedPropertiesData = [
-    {
-        "id": 1,
-        "title": "Luxury Villa in Lekki",
-        "slug": "luxury-villa-lekki",
-        "type": "residential",
-        "status": "sale",
-        "location": "lagos",
-        "address": "Lekki Phase 1, Lagos",
-        "bedrooms": 5,
-        "bathrooms": 4,
-        "size": 450,
-        "price": 0,
-        "priceDisplay": "Contact for price",
-        "features": ["parking", "pool", "garden", "security"],
-        "image": "images/house2.jpeg",
-        "images": ["images/house2.jpeg", "images/house3.jpeg", "images/house5.jpeg"],
-        "description": "Experience luxury living at its finest in this stunning 5-bedroom villa located in the prestigious Lekki Phase 1.",
-        "featured": true,
-        "createdAt": "2024-01-15"
-    },
-    {
-        "id": 2,
-        "title": "Modern Apartment in Victoria Island",
-        "slug": "modern-apartment-vi",
-        "type": "residential",
-        "status": "rent",
-        "location": "lagos",
-        "address": "Victoria Island, Lagos",
-        "bedrooms": 3,
-        "bathrooms": 2,
-        "size": 180,
-        "price": 0,
-        "priceDisplay": "Contact for price",
-        "features": ["parking", "security", "gym"],
-        "image": "images/build2.jpeg",
-        "images": ["images/build2.jpeg", "images/build4.jpeg", "images/build5.jpeg"],
-        "description": "Contemporary 3-bedroom apartment in the heart of Victoria Island.",
-        "featured": true,
-        "createdAt": "2024-02-01"
-    },
-    {
-        "id": 3,
-        "title": "Executive Office Space in Abuja",
-        "slug": "executive-office-abuja",
-        "type": "commercial",
-        "status": "rent",
-        "location": "abuja",
-        "address": "Central Business District, Abuja",
-        "bedrooms": 0,
-        "bathrooms": 4,
-        "size": 350,
-        "price": 0,
-        "priceDisplay": "Contact for price",
-        "features": ["parking", "security", "elevator", "gym"],
-        "image": "images/build3.jpeg",
-        "images": ["images/build3.jpeg", "images/build5.jpeg", "images/build6.jpeg"],
-        "description": "Premium office space in the heart of Abuja's business district.",
-        "featured": false,
-        "createdAt": "2024-02-10"
-    },
-    {
-        "id": 4,
-        "title": "Beachfront Plot in Port Harcourt",
-        "slug": "beachfront-plot-ph",
-        "type": "land",
-        "status": "sale",
-        "location": "portharcourt",
-        "address": "Oil Mill Field, Port Harcourt",
-        "bedrooms": 0,
-        "bathrooms": 0,
-        "size": 1200,
-        "price": 0,
-        "priceDisplay": "Contact for price",
-        "features": ["security"],
-        "image": "images/build4.jpeg",
-        "images": ["images/build4.jpeg", "images/build1.jpeg", "images/build2.jpeg"],
-        "description": "Prime beachfront plot perfect for development.",
-        "featured": true,
-        "createdAt": "2024-02-15"
-    },
-    {
-        "id": 5,
-        "title": "Penthouse Suite in Ikoyi",
-        "slug": "penthouse-ikoyi",
-        "type": "residential",
-        "status": "sale",
-        "location": "lagos",
-        "address": "Ikoyi, Lagos",
-        "bedrooms": 4,
-        "bathrooms": 4,
-        "size": 320,
-        "price": 0,
-        "priceDisplay": "Contact for price",
-        "features": ["parking", "pool", "security", "elevator"],
-        "image": "images/build5.jpeg",
-        "images": ["images/build5.jpeg", "images/build6.jpeg", "images/build1.jpeg"],
-        "description": "Luxurious penthouse with panoramic views of Ikoyi.",
-        "featured": true,
-        "createdAt": "2024-02-20"
-    },
-    {
-        "id": 6,
-        "title": "Commercial Plaza in Ibadan",
-        "slug": "commercial-plaza-ibadan",
-        "type": "commercial",
-        "status": "sale",
-        "location": "ibadan",
-        "address": "Ring Road, Ibadan",
-        "bedrooms": 0,
-        "bathrooms": 8,
-        "size": 2500,
-        "price": 0,
-        "priceDisplay": "Contact for price",
-        "features": ["parking", "security", "elevator"],
-        "image": "images/build6.jpeg",
-        "images": ["images/build6.jpeg", "images/build3.jpeg", "images/build4.jpeg"],
-        "description": "Multi-story commercial plaza in prime location.",
-        "featured": false,
-        "createdAt": "2024-02-25"
-    }
-];
+ // Embedded fallback data - kept in sync with data/properties.json
+ const embeddedPropertiesData = [
+     {
+         "id": 1, "title": "Luxury Shortlet Apartment", "slug": "luxury-shortlet-apartment", "type": "residential", "status": "shortlet", "location": "Lekki Ikate", "address": "Lekki Ikate, Lagos", "bedrooms": 5, "bathrooms": 6, "size": 120, "price": 150000, "priceDisplay": "₦150,000/night", "features": ["parking", "pool", "gym", "security", "wifi", "kitchen"], "image": "images/house7.jpeg", "images": ["images/house7.jpeg","images/housevideo1.jpeg","images/house9.jpeg","images/house1.jpeg","images/house3.jpeg","images/house4.jpeg"], "description": "Experience luxury short-term living in this stunning 2-bedroom apartment with breathtaking city views. This modern residence offers premium finishes and state-of-the-art amenities perfect for business travelers and tourists seeking comfort and convenience.", "featured": true, "createdAt": "2024-03-01"
+     },
+     {
+         "id": 2, "title": "Royal pine estate, Lekki", "slug": "modern-apartment-vi", "type": "residential", "status": "rent", "location": "lagos", "address": "Lekki", "bedrooms": 3, "bathrooms": 2, "size": 180, "price": 0, "priceDisplay": "Contact for price", "features": ["parking", "security", "gym"], "image": "images/house24.jpeg", "images": ["images/house17.jpeg","images/house18.jpeg","images/house10.jpeg"], "description": "Contemporary 3-bedroom apartment in the heart of Lekki. This modern residence offers stunning city views, premium finishes, and convenient access to Lagos's business district. The open-concept living space is flooded with natural light, featuring a sleek kitchen and spacious bedrooms. Building amenities include a fully equipped gym, elevator access, and reliable backup power.", "featured": true, "createdAt": "2024-02-01"
+     },
+     {
+         "id": 3, "title": "Executive Office Space in Abuja", "slug": "executive-office-abuja", "type": "commercial", "status": "rent", "location": "abuja", "address": "Central Business District, Abuja", "bedrooms": 0, "bathrooms": 4, "size": 350, "price": 0, "priceDisplay": "Contact for price", "features": ["parking", "security", "elevator", "gym"], "image": "images/build6.jpeg", "images": ["images/build6.jpeg","images/build4.jpeg","images/build1.jpeg"], "description": "Premium office space in the heart of Abuja's business district. This contemporary workspace offers modern amenities, reliable power supply, and 24-hour security. Perfect for businesses seeking a prestigious address with all conveniences.", "featured": true, "createdAt": "2024-02-10"
+     },
+     {
+         "id": 4, "title": "Beachfront Plot in Port Harcourt", "slug": "beachfront-plot-ph", "type": "land", "status": "sale", "location": "portharcourt", "address": "Oil Mill Field, Port Harcourt", "bedrooms": 0, "bathrooms": 0, "size": 1200, "price": 0, "priceDisplay": "Contact for price", "features": ["security"], "image": "images/house2.jpeg", "images": ["images/.house2.jpeg"], "description": "Prime beachfront plot perfect for development. This extensive land parcel offers great investment potential with beach access and secure perimeter.", "featured": true, "createdAt": "2024-02-15"
+     },
+     {
+         "id": 5, "title": "Penthouse Suite in Ikoyi", "slug": "penthouse-ikoyi", "type": "residential", "status": "sale", "location": "lagos", "address": "Ikoyi, Lagos", "bedrooms": 4, "bathrooms": 4, "size": 320, "price": 0, "priceDisplay": "Contact for price", "features": ["parking", "pool", "security", "elevator"], "image": "images/house27.jpeg", "images": ["images/house27.jpeg","images/house26.jpeg"], "description": "Luxurious penthouse with panoramic views of Ikoyi. This exclusive residence offers the ultimate in luxury living with private amenities and premium finishes.", "featured": true, "createdAt": "2024-02-20"
+     },
+     {
+         "id": 6, "title": "Commercial Plaza in Ibadan", "slug": "commercial-plaza-ibadan", "type": "commercial", "status": "sale", "location": "ibadan", "address": "Ring Road, Ibadan", "bedrooms": 0, "bathrooms": 8, "size": 2500, "price": 0, "priceDisplay": "Contact for price", "features": ["parking", "security", "elevator"], "image": "images/build2.jpeg", "images": ["images/build2.jpeg"], "description": "Multi-story commercial plaza in prime location. This income-generating property offers excellent rental potential with multiple units and prime positioning.", "featured": false, "createdAt": "2024-02-25"
+     }
+ ];
 
 // Fetch properties from JSON file
 async function fetchProperties() {
