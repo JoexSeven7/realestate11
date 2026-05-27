@@ -59,33 +59,43 @@
                 <a href="contact.html" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Get in Touch</a>
             </div>
             <!-- Quick Search -->
-            <div class="bg-white rounded-xl shadow-2xl p-6 max-w-4xl mx-auto ">
+            <div class="bg-white rounded-xl shadow-2xl p-6 max-w-4xl mx-auto mb-16">
                 <form id="quickSearchForm" class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    
                     <div>
-                         <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
-                         <select id="propertyType" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-transparent">
-                             <option value="">All Types</option>
-                             <option value="residential">Residential</option>
-                             <option value="commercial">Commercial</option>
-                             <option value="land">Land</option>
-                             <option value="shortlet">Shortlet</option>
-                         </select>
+                        <label class="block text-sm font-medium text-gray-700 mb-2">Property Type</label>
+                        <div class="relative"> 
+                            <select id="propertyType" class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg appearance-none focus:border-transparent bg-white">
+                                <option value="">All Types</option>
+                                <option value="residential">Residential</option>
+                                </select>
+                            <svg class="w-4 h-4 text-gray-800 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
                     </div>
+                    
                     <div>
                         <label class="block text-sm font-medium text-gray-700 mb-2">Location</label>
-                        <select id="location" class="w-full px-4 py-3 border border-gray-300 rounded-lg focus:border-transparent">
-                            <option value="">Locations</option>
-                            <option value="lagos">Lagos</option>
-                        </select>
+                        <div class="relative">
+                            <select id="location" class="w-full pl-4 pr-10 py-3 border border-gray-300 rounded-lg appearance-none focus:border-transparent bg-white">
+                                <option value="">Locations</option>
+                                <option value="lagos">Lagos</option>
+                            </select>
+                            <svg class="w-4 h-4 text-gray-800 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path>
+                            </svg>
+                        </div>
                     </div>
+                    
                     <div class="flex items-end">
                         <button type="submit" class="w-full bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors flex items-center justify-center gap-2">
                             <i class="fas fa-search"></i> Search
                         </button>
                     </div>
+                    
                 </form>
-             </div>
-         </div>
+            </div>
       </section>
 
       <!-- Featured Shortlet Section -->
@@ -178,7 +188,7 @@
                 </button>
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 overflow-hidden" id="carouselTrack">
                     <!-- Property Card 1 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
                             <img src="images/house1.jpeg" alt="Luxury Villa" class="w-full h-48 object-cover">
                             <span class="absolute top-4 right-4 bg-green-500 text-white px-3 py-1 rounded-full text-sm font-semibold">For Sale</span>
@@ -186,7 +196,7 @@
                                 <i class="far fa-heart text-gray-600"></i>
                             </button>
                         </div>
-                        <div class="p-5">
+                        <div class="p-5 flex flex-col flex-grow">
                             <h3 class="text-lg font-semibold text-gray-900 mb-2">Luxury Villa in Lekki</h3>
                             <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> Lekki Phase 1, Lagos</p>
                             <div class="flex justify-between text-sm text-gray-600 mb-4">
@@ -194,11 +204,11 @@
                                 <span><i class="fas fa-bath mr-1"></i> 4 Baths</span>
                                 <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
                             </div>
-                            <a href="property-detail.html?id=1" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
+                            <a href="property-detail.html?id=1" class="block mt-auto text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
                         </div>
                     </div>
                     <!-- Property Card 2 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
                             <img src="images/build2.jpeg" alt="Modern Apartment" class="w-full h-48 object-cover">
                             <span class="absolute top-4 left-4 bg-accent text-green-500 px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
@@ -207,7 +217,7 @@
                                 <i class="far fa-heart text-gray-600"></i>
                             </button>
                         </div>
-                        <div class="p-5">
+                        <div class="p-5 flex flex-col flex-grow">
                             <h3 class="text-lg font-semibold text-gray-900 mb-2">Modern Apartment</h3>
                             <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> Victoria Island, Lagos</p>
                             <div class="flex justify-between text-sm text-gray-600 mb-4">
@@ -215,11 +225,11 @@
                                 <span><i class="fas fa-bath mr-1"></i> 2 Baths</span>
                                 <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
                             </div>
-                            <a href="property-detail.html?id=2" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
+                            <a href="property-detail.html?id=2" class="block mt-auto text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
                         </div>
                     </div>
                     <!-- Property Card 3 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
                             <img src="images/build3.jpeg" alt="Commercial Building" class="w-full h-48 object-cover">
                             <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
@@ -228,7 +238,7 @@
                                 <i class="far fa-heart text-gray-600"></i>
                             </button>
                         </div>
-                        <div class="p-5">
+                        <div class="p-5 flex flex-col flex-grow">
                             <h3 class="text-lg font-semibold text-gray-900 mb-2">Commercial Office Space</h3>
                             <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> Central Area, Abuja</p>
                             <div class="flex justify-between text-sm text-gray-600 mb-4">
@@ -236,11 +246,11 @@
                                 <span><i class="fas fa-parking mr-1"></i> 50 Spaces</span>
                                 <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
                             </div>
-                            <a href="property-detail.html?id=3" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
+                            <a href="property-detail.html?id=3" class="block mt-auto text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
                         </div>
                     </div>
                     <!-- Property Card 4 -->
-                    <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                    <div class="h-full flex flex-col bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
                         <div class="relative">
                             <img src="images/build5.jpeg" alt="Penthouse" class="w-full h-48 object-cover">
                             <span class="absolute top-4 left-4 bg-accent text-white px-3 py-1 rounded-full text-sm font-semibold">Featured</span>
@@ -249,7 +259,7 @@
                                 <i class="far fa-heart text-gray-600"></i>
                             </button>
                         </div>
-                        <div class="p-5">
+                        <div class="p-5 flex flex-col flex-grow">
                             <h3 class="text-lg font-semibold text-gray-900 mb-2">Luxury Penthouse</h3>
                             <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> Banana Island, Lagos</p>
                             <div class="flex justify-between text-sm text-gray-600 mb-4">
@@ -257,7 +267,7 @@
                                 <span><i class="fas fa-bath mr-1"></i> 5 Baths</span>
                                 <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
                             </div>
-                            <a href="property-detail.html?id=4" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
+                            <a href="property-detail.html?id=4" class="block mt-auto text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
                         </div>
                     </div>
                 </div>
@@ -282,8 +292,8 @@
                         <p class="text-sm">Years of Excellence</p>
                     </div>
                 </div>
-                <div>
-                    <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4">Welcome to ATHARRYS PROPERTIES LIMITED</h2>
+<div class="lg:pl-8">
+                     <h2 class="text-3xl md:text-4xl font-bold text-gray-900 mb-4 mt-16">Welcome to ATHARRYS PROPERTIES LIMITED</h2>
                     <p class="text-xl text-primary mb-6">Your Trusted Real Estate Partner Since 2019</p>
                     <p class="text-gray-600 mb-4">At ATHARRYS PROPERTIES LIMITED, we believe that finding the perfect property should be an exciting journey, not a stressful one. With over 7 years of experience in the Nigerian real estate market, we've helped thousands of families, investors, and businesses find their ideal properties.</p>
                     <p class="text-gray-600 mb-6">Our commitment to excellence, integrity, and customer satisfaction has made us one of the most trusted names in real estate. Whether you're buying, selling, renting, or investing, our team of experts is here to guide you every step of the way.</p>
