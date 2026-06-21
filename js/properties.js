@@ -182,7 +182,7 @@
                     <div class="flex flex-wrap gap-3 text-sm text-gray-500 mb-4">
                         ${property.type !== 'land' ? `<span><i class="fas fa-bed mr-1"></i>${property.bedrooms || 0} Beds</span>` : ''}
                         ${property.type !== 'land' ? `<span><i class="fas fa-bath mr-1"></i>${property.bathrooms || 0} Baths</span>` : ''}
-                        <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
+                        <span><i class="fas fa-swimming-pool mr-1"></i> ${property.pool}</span>
                     </div>
                     <div class="flex gap-2">
                         <a href="property-detail.html?id=${property.id}" class="flex-1 text-center border-2 border-primary text-primary px-3 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm font-semibold">View Details</a>

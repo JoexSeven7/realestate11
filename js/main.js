@@ -18,7 +18,7 @@ function createLoadingOverlay() {
     overlay.setAttribute('aria-live', 'polite');
     overlay.setAttribute('aria-atomic', 'true');
     overlay.innerHTML = `
-        <div class="fixed inset-0 z-[9999] hidden items-center justify-center"
+        <div class="fixed inset-0 z-[9999] hidden flex items-center justify-center"
              style="background:rgba(26,39,68,0.92);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);">
             <div class="flex flex-col items-center gap-8 loader-enter">
                 <!-- Brand ring -->
@@ -86,40 +86,23 @@ function createLoadingOverlay() {
 
 function showLoader() {
     const el = document.getElementById('loading-overlay');
-    if (el) el.querySelector('div').classList.remove('hidden');
+    if (el) {
+        const inner = el.querySelector('div');
+        inner.classList.remove('hidden');
+        inner.classList.add('flex');
+        document.body.style.overflow = 'hidden';
+    }
 }
 
 function hideLoader() {
     const el = document.getElementById('loading-overlay');
-    if (el) el.querySelector('div').classList.add('hidden');
+    if (el) {
+        el.querySelector('div').classList.add('hidden');
+        document.body.style.overflow = '';
+    }
 }
 
 // Initialize
-if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', createLoadingOverlay);
-} else {
-    createLoadingOverlay();
-}
-
-// Show loading overlay
-function showLoader() {
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-        overlay.querySelector('div').classList.remove('hidden');
-        overlay.querySelector('div').classList.add('flex');
-    }
-}
-
-// Hide loading overlay
-function hideLoader() {
-    const overlay = document.getElementById('loading-overlay');
-    if (overlay) {
-        overlay.querySelector('div').classList.add('hidden');
-        overlay.querySelector('div').classList.remove('flex');
-    }
-}
-
-// Initialize loading overlay when DOM is ready
 if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', createLoadingOverlay);
 } else {
