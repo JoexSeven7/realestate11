@@ -13,7 +13,7 @@
        "pool":1,
        "size": 120,
        "price": 150000,
-       "priceDisplay": "₦150,000/night",
+       "priceDisplay": "₦150,000",
        "features": ["parking", "pool", "gym", "security", "wifi", "kitchen"],
        "amenities": ["Swimming Pool", "Gym Access", "24/7 Security", "Parking Space", "High-speed WiFi", "Fully Equipped Kitchen", "Housekeeping Service", "Concierge"],
      "image": "images/house7.jpeg",
