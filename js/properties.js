@@ -4,6 +4,29 @@
 (function() {
     'use strict';
 
+    // ===== SECURITY UTILITIES =====
+    // HTML escape function to prevent XSS attacks
+    function escapeHtml(unsafe) {
+        if (typeof unsafe !== 'string') return unsafe;
+        return unsafe
+            .replace(/&/g, "&amp;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;");
+    }
+
+    // Escape attribute values to prevent XSS
+    function escapeAttr(value) {
+        if (typeof value !== 'string') return value;
+        return value
+            .replace(/&/g, "&amp;")
+            .replace(/"/g, "&quot;")
+            .replace(/'/g, "&#039;")
+            .replace(/</g, "&lt;")
+            .replace(/>/g, "&gt;");
+    }
+
     // ===== DOM ELEMENTS =====
     const gridContainer = document.getElementById('gridContainer');
     const listContainer = document.getElementById('listContainer');
@@ -151,9 +174,9 @@
         if (!gridContainer) return;
         
         gridContainer.innerHTML = filteredProperties.map(property => `
-            <div class="property-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all" data-id="${property.id}">
+            <div class="property-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all" data-id="${escapeAttr(property.id)}">
                  <div class="relative overflow-hidden">
-                     <img src="${property.image}" alt="${property.title}" class="property-image w-full h-56 object-cover transition-transform duration-500" onerror="this.src='images/build1.jpeg'">
+                     <img src="${escapeAttr(property.image)}" alt="${escapeAttr(property.title)}" class="property-image w-full h-56 object-cover transition-transform duration-500" onerror="this.src='images/build1.jpeg'">
                      <div class="absolute top-3 left-3">
                          ${property.featured ? '<span class="bg-accent text-primary px-3 py-1 rounded-full text-sm font-semibold">Featured</span>' : ''}
                      </div>
@@ -166,27 +189,27 @@
                                property.status === 'shortlet' ? 'Shortlet' : 'For Rent'}
                          </span>
                      </div>
-                     <button class="favorite-btn absolute bottom-3 right-3 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors" data-id="${property.id}">
+                     <button class="favorite-btn absolute bottom-3 right-3 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors" data-id="${escapeAttr(property.id)}">
                          <i class="far fa-heart text-gray-600"></i>
                      </button>
                  </div>
                 <div class="p-5">
                     <div class="flex items-center gap-2 mb-2">
-                        <span class="text-xs font-semibold uppercase px-2 py-1 bg-primary/10 text-primary rounded">${property.type}</span>
-                        <span class="text-xs text-gray-500"><i class="fas fa-map-marker-alt mr-1"></i>${property.location}</span>
+                        <span class="text-xs font-semibold uppercase px-2 py-1 bg-primary/10 text-primary rounded">${escapeHtml(property.type)}</span>
+                        <span class="text-xs text-gray-500"><i class="fas fa-map-marker-alt mr-1"></i>${escapeHtml(property.location)}</span>
                     </div>
                     <h3 class="text-lg font-semibold text-gray-900 mb-1 hover:text-primary transition-colors">
-                        <a href="property-detail.html?id=${property.id}">${property.title}</a>
+                        <a href="property-detail.html?id=${escapeAttr(property.id)}">${escapeHtml(property.title)}</a>
                     </h3>
-                    <p class="text-gray-600 text-sm mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i>${property.address}</p>
+                    <p class="text-gray-600 text-sm mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i>${escapeHtml(property.address)}</p>
                     <div class="flex flex-wrap gap-3 text-sm text-gray-500 mb-4">
-                        ${property.type !== 'land' ? `<span><i class="fas fa-bed mr-1"></i>${property.bedrooms || 0} Beds</span>` : ''}
-                        ${property.type !== 'land' ? `<span><i class="fas fa-bath mr-1"></i>${property.bathrooms || 0} Baths</span>` : ''}
-                        <span><i class="fas fa-swimming-pool mr-1"></i> ${property.pool}</span>
+                        ${property.type !== 'land' ? `<span><i class="fas fa-bed mr-1"></i>${escapeHtml(property.bedrooms || 0)} Beds</span>` : ''}
+                        ${property.type !== 'land' ? `<span><i class="fas fa-bath mr-1"></i>${escapeHtml(property.bathrooms || 0)} Baths</span>` : ''}
+                        <span><i class="fas fa-swimming-pool mr-1"></i> ${escapeHtml(property.pool)}</span>
                     </div>
                     <div class="flex gap-2">
-                        <a href="property-detail.html?id=${property.id}" class="flex-1 text-center border-2 border-primary text-primary px-3 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm font-semibold">View Details</a>
-                        <a href="contact.html?property=${property.id}" class="flex-1 text-center bg-secondary text-white px-3 py-2 rounded-lg hover:bg-maroonDark transition-colors text-sm font-semibold">Contact</a>
+                        <a href="property-detail.html?id=${escapeAttr(property.id)}" class="flex-1 text-center border-2 border-primary text-primary px-3 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors text-sm font-semibold">View Details</a>
+                        <a href="contact.html?property=${escapeAttr(property.id)}" class="flex-1 text-center bg-secondary text-white px-3 py-2 rounded-lg hover:bg-maroonDark transition-colors text-sm font-semibold">Contact</a>
                     </div>
                 </div>
             </div>
@@ -200,9 +223,9 @@
         if (!listContainer) return;
 
         listContainer.innerHTML = filteredProperties.map(property => `
-            <div class="property-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all flex flex-col md:flex-row" data-id="${property.id}">
+            <div class="property-card bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-all flex flex-col md:flex-row" data-id="${escapeAttr(property.id)}">
                  <div class="md:w-72 relative overflow-hidden">
-                     <img src="${property.image}" alt="${property.title}" class="w-full h-48 md:h-full object-cover" onerror="this.src='images/build1.jpeg'">
+                     <img src="${escapeAttr(property.image)}" alt="${escapeAttr(property.title)}" class="w-full h-48 md:h-full object-cover" onerror="this.src='images/build1.jpeg'">
                      <div class="absolute top-3 left-3">
                          ${property.featured ? '<span class="bg-accent text-primary px-3 py-1 rounded-full text-sm font-semibold">Featured</span>' : ''}
                      </div>
@@ -218,30 +241,30 @@
                  </div>
                 <div class="flex-1 p-5">
                     <div class="flex flex-wrap items-center gap-2 mb-2">
-                        <span class="text-xs font-semibold uppercase px-2 py-1 bg-primary/10 text-primary rounded">${property.type}</span>
-                        <span class="text-xs text-gray-500"><i class="fas fa-map-marker-alt mr-1"></i>${property.location}</span>
+                        <span class="text-xs font-semibold uppercase px-2 py-1 bg-primary/10 text-primary rounded">${escapeHtml(property.type)}</span>
+                        <span class="text-xs text-gray-500"><i class="fas fa-map-marker-alt mr-1"></i>${escapeHtml(property.location)}</span>
                     </div>
                     <h3 class="text-xl font-semibold text-gray-900 mb-2">
-                        <a href="property-detail.html?id=${property.id}" class="hover:text-primary transition-colors">${property.title}</a>
+                        <a href="property-detail.html?id=${escapeAttr(property.id)}" class="hover:text-primary transition-colors">${escapeHtml(property.title)}</a>
                     </h3>
-                    <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i>${property.address}</p>
-                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">${property.description || ''}</p>
+                    <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i>${escapeHtml(property.address)}</p>
+                    <p class="text-gray-500 text-sm mb-4 line-clamp-2">${escapeHtml(property.description || '')}</p>
                     <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
-                        ${property.type !== 'land' ? `<span class="flex items-center gap-1"><i class="fas fa-bed text-primary"></i>${property.bedrooms || 0} Bedrooms</span>` : ''}
-                        ${property.type !== 'land' ? `<span class="flex items-center gap-1"><i class="fas fa-bath text-primary"></i>${property.bathrooms || 0} Bathrooms</span>` : ''}
+                        ${property.type !== 'land' ? `<span class="flex items-center gap-1"><i class="fas fa-bed text-primary"></i>${escapeHtml(property.bedrooms || 0)} Bedrooms</span>` : ''}
+                        ${property.type !== 'land' ? `<span class="flex items-center gap-1"><i class="fas fa-bath text-primary"></i>${escapeHtml(property.bathrooms || 0)} Bathrooms</span>` : ''}
                         <span class="flex items-center gap-1"><i class="fas fa-swimming-pool text-primary"></i> 1</span>
                     </div>
                     <div class="flex flex-wrap gap-2">
-                        <a href="property-detail.html?id=${property.id}" class="border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors font-semibold">View Details</a>
-                        <a href="contact.html?property=${property.id}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-maroonDark transition-colors font-semibold">Contact Agent</a>
-                        <button class="favorite-btn border-2 border-gray-300 text-gray-600 px-4 py-2 rounded-lg hover:border-red-500 hover:text-red-500 transition-colors" data-id="${property.id}">
+                        <a href="property-detail.html?id=${escapeAttr(property.id)}" class="border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors font-semibold">View Details</a>
+                        <a href="contact.html?property=${escapeAttr(property.id)}" class="bg-secondary text-white px-4 py-2 rounded-lg hover:bg-maroonDark transition-colors font-semibold">Contact Agent</a>
+                        <button class="favorite-btn border-2 border-gray-300 text-gray-600 px-4 py-2 rounded-lg hover:border-red-500 hover:text-red-500 transition-colors" data-id="${escapeAttr(property.id)}">
                             <i class="far fa-heart"></i> Save
                         </button>
                     </div>
                 </div>
                 <div class="md:w-48 bg-gray-50 p-5 flex flex-col justify-center items-center text-center">
                     <p class="text-gray-500 text-sm mb-1">Price</p>
-                    <p class="text-2xl font-bold text-primary">${property.priceDisplay}</p>
+                    <p class="text-2xl font-bold text-primary">${escapeHtml(property.priceDisplay)}</p>
                     <span class="text-xs text-gray-400 mt-2">${property.status === 'sale' ? 'For Sale' : 'For Rent'}</span>
                 </div>
             </div>
@@ -254,26 +277,26 @@
     function renderTableView() {
         if (!tableContainer) return;
 
-        const tbody = tableContainer.querySelector('tbody') || tableContainer;
+const tbody = tableContainer.querySelector('tbody') || tableContainer;
         tbody.innerHTML = filteredProperties.map(property => `
             <tr class="hover:bg-gray-50 transition-colors">
                 <td class="py-4 px-4">
                     <div class="flex items-center gap-3">
-                        <img src="${property.image}" alt="${property.title}" class="w-16 h-12 object-cover rounded" onerror="this.src='images/build1.jpeg'">
+                        <img src="${escapeAttr(property.image)}" alt="${escapeAttr(property.title)}" class="w-16 h-12 object-cover rounded" onerror="this.src='images/build1.jpeg'">
                         <div>
-                            <a href="property-detail.html?id=${property.id}" class="font-semibold text-gray-900 hover:text-primary">${property.title}</a>
-                            <p class="text-xs text-gray-500">${property.address}</p>
+                            <a href="property-detail.html?id=${escapeAttr(property.id)}" class="font-semibold text-gray-900 hover:text-primary">${escapeHtml(property.title)}</a>
+                            <p class="text-xs text-gray-500">${escapeHtml(property.address)}</p>
                         </div>
                     </div>
                 </td>
                 <td class="py-4 px-4">
-                    <span class="capitalize text-gray-700">${property.type}</span>
+                    <span class="capitalize text-gray-700">${escapeHtml(property.type)}</span>
                 </td>
                 <td class="py-4 px-4">
-                    <span class="capitalize">${property.location}</span>
+                    <span class="capitalize">${escapeHtml(property.location)}</span>
                 </td>
                 <td class="py-4 px-4">
-                    <span class="font-semibold text-primary">${property.priceDisplay}</span>
+                    <span class="font-semibold text-primary">${escapeHtml(property.priceDisplay)}</span>
                 </td>
                 <td class="py-4 px-4">
                     <span class="text-gray-600">1</span>
@@ -284,8 +307,8 @@
                      </span>
                  </td>
                 <td class="py-4 px-4">
-                    <a href="property-detail.html?id=${property.id}" class="text-primary hover:underline mr-2">View</a>
-                    <a href="contact.html?property=${property.id}" class="text-secondary hover:underline">Contact</a>
+                    <a href="property-detail.html?id=${escapeAttr(property.id)}" class="text-primary hover:underline mr-2">View</a>
+                    <a href="contact.html?property=${escapeAttr(property.id)}" class="text-secondary hover:underline">Contact</a>
                 </td>
             </tr>
         `).join('');
@@ -301,28 +324,28 @@
         const featured = filteredProperties[sliderIndex] || filteredProperties[0];
         sliderHero.innerHTML = `
             <div class="relative h-96 md:h-[500px]">
-                <img src="${featured.image}" alt="${featured.title}" class="w-full h-full object-cover" onerror="this.src='images/build1.jpeg'">
+                <img src="${escapeAttr(featured.image)}" alt="${escapeAttr(featured.title)}" class="w-full h-full object-cover" onerror="this.src='images/build1.jpeg'">
                 <div class="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                 <div class="absolute bottom-0 left-0 right-0 p-8 text-white">
                      <div class="flex gap-2 mb-3">
-                         <span class="px-3 py-1 bg-primary rounded-full text-sm font-semibold">${featured.type}</span>
+                         <span class="px-3 py-1 bg-primary rounded-full text-sm font-semibold">${escapeHtml(featured.type)}</span>
                          <span class="px-3 py-1 ${featured.status === 'sale' ? 'bg-green-500' : 
                            featured.status === 'shortlet' ? 'bg-purple-500' : 'bg-secondary'} rounded-full text-sm font-semibold">
-                             ${featured.status === 'sale' ? 'For Sale' : 
-                               featured.status === 'shortlet' ? 'Shortlet' : 'For Rent'}
+                               ${featured.status === 'sale' ? 'For Sale' : 
+                                 featured.status === 'shortlet' ? 'Shortlet' : 'For Rent'}
                          </span>
                          ${featured.featured ? '<span class="px-3 py-1 bg-accent text-primary rounded-full text-sm font-semibold">Featured</span>' : ''}
                      </div>
-                    <h2 class="text-3xl md:text-4xl font-bold mb-2">${featured.title}</h2>
-                    <p class="text-xl mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${featured.address}</p>
+                    <h2 class="text-3xl md:text-4xl font-bold mb-2">${escapeHtml(featured.title)}</h2>
+                    <p class="text-xl mb-4"><i class="fas fa-map-marker-alt mr-2"></i>${escapeHtml(featured.address)}</p>
                     <div class="flex flex-wrap gap-6 mb-6">
-                        ${featured.type !== 'land' ? `<span><i class="fas fa-bed mr-2"></i>${featured.bedrooms || 0} Bedrooms</span>` : ''}
-                        ${featured.type !== 'land' ? `<span><i class="fas fa-bath mr-2"></i>${featured.bathrooms || 0} Bathrooms</span>` : ''}
+                        ${featured.type !== 'land' ? `<span><i class="fas fa-bed mr-2"></i>${escapeHtml(featured.bedrooms || 0)} Bedrooms</span>` : ''}
+                        ${featured.type !== 'land' ? `<span><i class="fas fa-bath mr-2"></i>${escapeHtml(featured.bathrooms || 0)} Bathrooms</span>` : ''}
                         <span><i class="fas fa-swimming-pool mr-2"></i> 1</span>
                     </div>
                     <div class="flex gap-4">
-                        <a href="property-detail.html?id=${featured.id}" class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">View Details</a>
-                        <a href="contact.html?property=${featured.id}" class="bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors">Contact Agent</a>
+                        <a href="property-detail.html?id=${escapeAttr(featured.id)}" class="bg-white text-primary px-6 py-3 rounded-lg font-semibold hover:bg-gray-100 transition-colors">View Details</a>
+                        <a href="contact.html?property=${escapeAttr(featured.id)}" class="bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors">Contact Agent</a>
                     </div>
                 </div>
             </div>
@@ -331,10 +354,10 @@
         // Thumbnails
         sliderThumbnails.innerHTML = filteredProperties.map((property, index) => `
             <div class="slider-thumb flex-shrink-0 w-32 cursor-pointer rounded-lg overflow-hidden border-2 border-transparent hover:border-primary transition-colors ${index === sliderIndex ? 'border-primary' : ''}" data-index="${index}">
-                <img src="${property.image}" alt="${property.title}" class="w-32 h-20 object-cover" onerror="this.src='images/build1.jpeg'">
+                <img src="${escapeAttr(property.image)}" alt="${escapeAttr(property.title)}" class="w-32 h-20 object-cover" onerror="this.src='images/build1.jpeg'">
                 <div class="p-2 bg-white">
-                    <p class="text-xs font-semibold text-gray-900 truncate">${property.title}</p>
-                    <p class="text-xs text-gray-500">${property.priceDisplay}</p>
+                    <p class="text-xs font-semibold text-gray-900 truncate">${escapeHtml(property.title)}</p>
+                    <p class="text-xs text-gray-500">${escapeHtml(property.priceDisplay)}</p>
                 </div>
             </div>
         `).join('');
@@ -375,27 +398,58 @@
         });
     }
 
+    // ===== FAVORITE UTILITIES =====
+    function getFavorites() {
+        return JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+    }
+
+    function updateFavoriteButtonState(button, propertyId) {
+        const icon = button.querySelector('i');
+        if (getFavorites().includes(String(propertyId))) {
+            icon.classList.add('fas', 'text-red-500');
+            icon.classList.remove('far');
+        }
+    }
+
     // ===== FAVORITE LISTENERS =====
     function attachFavoriteListeners() {
         document.querySelectorAll('.favorite-btn').forEach(btn => {
+            const propertyId = btn.dataset.id;
+            updateFavoriteButtonState(btn, propertyId);
+            
             btn.addEventListener('click', function(e) {
                 e.preventDefault();
                 const icon = this.querySelector('i');
-                icon.classList.toggle('far');
-                icon.classList.toggle('fas');
-                icon.classList.toggle('text-red-500');
+                const isCurrentlyFavorited = getFavorites().includes(String(propertyId));
                 
-                const propertyId = this.dataset.id;
-                let favorites = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
-                
-                if (favorites.includes(propertyId)) {
-                    favorites = favorites.filter(id => id !== propertyId);
+                // Toggle visual state
+                if (isCurrentlyFavorited) {
+                    icon.classList.remove('fas', 'text-red-500');
+                    icon.classList.add('far');
                 } else {
-                    favorites.push(propertyId);
+                    icon.classList.remove('far');
+                    icon.classList.add('fas', 'text-red-500');
                 }
                 
+                // Update localStorage
+                let favorites = getFavorites();
+                if (isCurrentlyFavorited) {
+                    favorites = favorites.filter(id => id !== String(propertyId));
+                } else {
+                    favorites.push(String(propertyId));
+                }
                 localStorage.setItem('propertyFavorites', JSON.stringify(favorites));
+                updateFavoritesCount();
             });
+        });
+    }
+
+    function updateFavoritesCount() {
+        const count = getFavorites().length;
+        const badges = document.querySelectorAll('#favoritesCount');
+        badges.forEach(badge => {
+            badge.textContent = count;
+            badge.classList.toggle('hidden', count === 0);
         });
     }
 
@@ -495,21 +549,47 @@
         // Initialize additional features
         initSliderNavigation();
         initFiltersToggle();
-
+        
         // Quick filters
         document.querySelectorAll('.quick-filter').forEach(btn => {
             btn.addEventListener('click', function() {
                 const filter = this.dataset.filter;
-                if (filter === 'featured') currentFilters.sortBy = 'featured';
-                if (filter === 'sale') currentFilters.status = 'sale';
-                if (filter === 'rent') currentFilters.status = 'rent';
-                if (filter === 'new') currentFilters.sortBy = 'newest';
-                filterProperties();
+                if (filter === 'featured') {
+                    currentFilters = { type: '', status: '', bedrooms: '', location: '', search: '', sortBy: 'featured' };
+                    filterProperties();
+                } else if (filter === 'sale') {
+                    currentFilters = { type: '', status: 'sale', bedrooms: '', location: '', search: '', sortBy: 'featured' };
+                    filterProperties();
+                } else if (filter === 'rent') {
+                    currentFilters = { type: '', status: 'rent', bedrooms: '', location: '', search: '', sortBy: 'featured' };
+                    filterProperties();
+                } else if (filter === 'new') {
+                    currentFilters = { type: '', status: '', bedrooms: '', location: '', search: '', sortBy: 'newest' };
+                    filterProperties();
+                } else if (filter === 'favorites') {
+                    const favorites = getFavorites();
+                    if (favorites.length > 0) {
+                        filteredProperties = propertiesData.filter(p => favorites.includes(String(p.id)));
+                        loadingState.classList.add('hidden');
+                        noResults.classList.add('hidden');
+                        resultsCount.textContent = filteredProperties.length;
+                        renderGridView();
+                        renderListView();
+                        renderTableView();
+                        renderSliderView();
+                    } else {
+                        filteredProperties = [];
+                        updateAllViews();
+                    }
+                }
             });
         });
-
+        
         // Set default view
         switchView('grid');
+        
+        // Update favorites count on load
+        updateFavoritesCount();
 
         console.log('[Properties] Initialized with', propertiesData.length, 'properties');
     }

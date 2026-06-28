@@ -1,11 +1,14 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Browse our extensive collection of properties for sale and rent. Find your perfect home or investment opportunity with ATHARRYS PROPERTIES LIMITED.">
-    <meta name="keywords" content="properties for sale, properties for rent, real estate listings, ATHARRYS PROPERTIES">
-    <title>Properties | </title>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-Content-Type-Options" content="nosniff">
+     <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
+     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self';">
+     <meta name="description" content="Browse our extensive collection of properties for sale and rent. Find your perfect home or investment opportunity with ATHARRYS PROPERTIES LIMITED.">
+     <meta name="keywords" content="properties for sale, properties for rent, real estate listings, ATHARRYS PROPERTIES">
+     <title>Properties | </title>
     <link rel="stylesheet" href="css/output.css">
     <link rel="stylesheet" href="css/fontawesome.min.css">
    
@@ -72,12 +75,19 @@
                     <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
                     <span class="block w-6 h-0.5 bg-gray-600"></span>
                 </button>
-                <ul class="hidden md:flex space-x-8 items-center" id="navMenu">
+<ul class="hidden md:flex space-x-8 items-center" id="navMenu">
                     <li><a href="index.html" class="text-gray-700 hover:text-primary transition-colors">Home</a></li>
                     <li><a href="properties.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Properties</a></li>
                     <li><a href="about.html" class="text-gray-700 hover:text-primary transition-colors">About Us</a></li>
                     <li><a href="services.html" class="text-gray-700 hover:text-primary transition-colors">Services</a></li>
                     <li><a href="blog.html" class="text-gray-700 hover:text-primary transition-colors">Blog</a></li>
+                    <li class="relative">
+                        <a href="properties.html?favorites=true" class="text-gray-700 hover:text-primary transition-colors" aria-label="View favorites">
+                            <i class="far fa-heart text-xl relative">
+                                <span id="favoritesCount" class="absolute -top-1 -right-1 bg-secondary text-white text-[10px] rounded-full w-4 h-4 flex items-center justify-center hidden" style="z-index: 10;">0</span>
+                            </i>
+                        </a>
+                    </li>
                     <li><a href="contact.html" class="bg-secondary text-white px-6 py-2 rounded-lg hover:bg-maroonDark transition-colors">Contact Us</a></li>
                 </ul>
             </div>
@@ -87,6 +97,7 @@
             <ul class="px-4 py-4 space-y-3">
                 <li><a href="index.html" class="block text-gray-700 hover:text-primary">Home</a></li>
                 <li><a href="properties.html" class="block text-primary font-semibold">Properties</a></li>
+                <li><a href="properties.html?favorites=true" class="block text-gray-700 hover:text-primary"><i class="far fa-heart mr-2"></i> My Favorites</a></li>
                 <li><a href="about.html" class="block text-gray-700 hover:text-primary">About Us</a></li>
                 <li><a href="services.html" class="block text-gray-700 hover:text-primary">Services</a></li>
                 <li><a href="blog.html" class="block text-gray-700 hover:text-primary">Blog</a></li>
@@ -213,6 +224,9 @@
                     <button class="quick-filter px-3 py-1.5 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="sale">For Sale</button>
                     <button class="quick-filter px-3 py-1.5 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="rent">For Rent</button>
                     <button class="quick-filter px-3 py-1.5 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="new">New Listings</button>
+                    <button class="quick-filter px-3 py-1.5 rounded-full bg-gray-200 text-sm text-gray-700 hover:bg-primary hover:text-white transition-colors" data-filter="favorites">
+                        <i class="fas fa-heart mr-1"></i> My Favorites
+                    </button>
                 </div>
             </div>
 

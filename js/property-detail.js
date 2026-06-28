@@ -1,8 +1,36 @@
 // Property detail page JavaScript - Dynamic JSON-based implementation
 
+// ===== SECURITY UTILITIES =====
+// HTML escape function to prevent XSS attacks
+function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return unsafe;
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Escape attribute values to prevent XSS
+function escapeAttr(value) {
+    if (typeof value !== 'string') return value;
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
 // Global property data
 let currentProperty = null;
 let allProperties = [];
+
+// ===== FAVORITE UTILITIES =====
+function getFavorites() {
+    return JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+}
 
 // Embedded fallback data - kept in sync with data/properties.json
 const propertyDetailData = [
@@ -87,7 +115,7 @@ function updatePageContent(property) {
     currentProperty = property;
     
     // Update page title
-    document.title = `${property.title} | ATHARRYS PROPERTIES LIMITED`;
+    document.title = `${escapeHtml(property.title)} | ATHARRYS PROPERTIES LIMITED`;
     
     // Update header section
     const propertyTitle = document.getElementById('propertyTitle');
@@ -95,13 +123,13 @@ function updatePageContent(property) {
     const breadcrumbTitle = document.getElementById('breadcrumbTitle');
     
     if (propertyTitle) propertyTitle.textContent = property.title;
-    if (propertyLocation) propertyLocation.innerHTML = `<i class="fas fa-map-marker-alt mr-2"></i> ${property.address}`;
+    if (propertyLocation) propertyLocation.innerHTML = `<i class="fas fa-map-marker-alt mr-2"></i> ${escapeHtml(property.address)}`;
     if (breadcrumbTitle) breadcrumbTitle.textContent = property.title;
     
     // Update header background image
     const headerSection = document.querySelector('.pt-32.pb-20');
     if (headerSection) {
-        headerSection.style.backgroundImage = `url('${property.image}')`;
+        headerSection.style.backgroundImage = `url('${escapeAttr(property.image)}')`;
     }
     
     // Update main image
@@ -120,6 +148,9 @@ function updatePageContent(property) {
         if (property.status === 'sale') {
             propertyStatus.textContent = 'For Sale';
             propertyStatus.className = 'bg-green-500 text-white px-4 py-2 rounded-full text-sm font-semibold';
+        } else if (property.status === 'shortlet') {
+            propertyStatus.textContent = 'Shortlet';
+            propertyStatus.className = 'bg-purple-500 text-white px-4 py-2 rounded-full text-sm font-semibold';
         } else {
             propertyStatus.textContent = 'For Rent';
             propertyStatus.className = 'bg-secondary text-white px-4 py-2 rounded-full text-sm font-semibold';
@@ -130,6 +161,33 @@ function updatePageContent(property) {
     const featuredBadge = document.querySelector('.bg-accent');
     if (featuredBadge && !property.featured) {
         featuredBadge.style.display = 'none';
+    }
+    
+    // Update favorite button state
+    const favoriteDetailBtn = document.getElementById('favoriteDetailBtn');
+    if (favoriteDetailBtn) {
+        const icon = favoriteDetailBtn.querySelector('i');
+        const propertyId = String(property.id);
+        if (getFavorites().includes(propertyId)) {
+            icon.classList.remove('far');
+            icon.classList.add('fas', 'text-red-500');
+        }
+        
+        favoriteDetailBtn.addEventListener('click', function() {
+            let favorites = getFavorites();
+            const isFavorited = favorites.includes(propertyId);
+            if (isFavorited) {
+                favorites = favorites.filter(id => id !== propertyId);
+                icon.classList.remove('fas', 'text-red-500');
+                icon.classList.add('far');
+            } else {
+                favorites.push(propertyId);
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-red-500');
+            }
+            localStorage.setItem('propertyFavorites', JSON.stringify(favorites));
+            updateFavoritesCount();
+        });
     }
     
     // Update property specs
@@ -163,7 +221,7 @@ function updatePageContent(property) {
     const highlightsList = document.getElementById('highlightsList');
     if (highlightsList && property.highlights) {
         highlightsList.innerHTML = property.highlights.map(highlight => 
-            `<li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span>${highlight}</span></li>`
+            `<li class="flex items-start gap-3"><i class="fas fa-check-circle text-green-500 mt-1"></i><span>${escapeHtml(highlight)}</span></li>`
         ).join('');
     }
     
@@ -173,7 +231,7 @@ function updatePageContent(property) {
         amenitiesList.innerHTML = property.amenities.map(amenity => 
             `<div class="flex items-center gap-3 p-3 bg-gray-50 rounded-lg">
                 <i class="fas fa-check text-primary"></i>
-                <span>${amenity}</span>
+                <span>${escapeHtml(amenity)}</span>
             </div>`
         ).join('');
     }
@@ -187,19 +245,19 @@ function updatePageContent(property) {
     // Update property type
     const propertyType = document.getElementById('propertyType');
     if (propertyType) {
-        propertyType.textContent = property.type.charAt(0).toUpperCase() + property.type.slice(1);
+        propertyType.textContent = escapeHtml(property.type.charAt(0).toUpperCase() + property.type.slice(1));
     }
     
     // Update contact form property reference
     const propertyInput = document.querySelector('input[name="property"]');
     if (propertyInput) {
-        propertyInput.value = property.title;
+        propertyInput.value = escapeHtml(property.title);
     }
     
     // Update schedule viewing form property name
     const viewingPropertyNameInput = document.getElementById('viewingPropertyName');
     if (viewingPropertyNameInput) {
-        viewingPropertyNameInput.value = property.title;
+        viewingPropertyNameInput.value = escapeHtml(property.title);
     }
 }
 
@@ -209,8 +267,8 @@ function updateThumbnails() {
     if (!thumbnailContainer || propertyImages.length === 0) return;
     
     thumbnailContainer.innerHTML = propertyImages.map((img, index) => `
-        <div class="thumbnail cursor-pointer border-2 ${index === 0 ? 'border-primary' : 'border-transparent hover:border-gray-300'} rounded-lg overflow-hidden" data-index="${index}">
-            <img src="${img}" alt="Property Image ${index + 1}" class="w-full h-20 object-cover" onerror="this.src='images/build1.jpeg'">
+        <div class="thumbnail cursor-pointer border-2 ${index === 0 ? 'border-primary' : 'border-transparent hover:border-gray-300'} rounded-lg overflow-hidden" data-index="${escapeAttr(index)}">
+            <img src="${escapeAttr(img)}" alt="Property Image ${escapeHtml(index + 1)}" class="w-full h-20 object-cover" onerror="this.src='images/build1.jpeg'">
         </div>
     `).join('');
     
@@ -227,7 +285,7 @@ function updateThumbnails() {
 function updateMainImage(index) {
     if (!mainImage || propertyImages.length === 0) return;
     
-    mainImage.src = propertyImages[index];
+    mainImage.src = escapeAttr(propertyImages[index]);
     currentImageIndex = index;
     
     // Update thumbnail active state
@@ -450,6 +508,15 @@ function initShareButtons() {
     });
 }
 
+function updateFavoritesCount() {
+    const count = getFavorites().length;
+    const badges = document.querySelectorAll('#favoritesCount');
+    badges.forEach(badge => {
+        badge.textContent = count;
+        badge.classList.toggle('hidden', count === 0);
+    });
+}
+
 // Initialize other buttons
 function initOtherButtons() {
     // Download Brochure
@@ -501,6 +568,9 @@ async function initializePage() {
     
     // Initialize contact modal
     initContactModal();
+    
+    // Update favorites count on load
+    updateFavoritesCount();
     
     // Initialize forms
     initForms();

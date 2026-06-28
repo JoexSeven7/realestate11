@@ -1,12 +1,77 @@
 // Contact page JavaScript
 
+// ===== SECURITY UTILITIES =====
+// HTML escape function to prevent XSS attacks
+function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return unsafe;
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Email validation
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Phone validation (Nigeria format)
+function validatePhone(phone) {
+    const phoneRegex = /^(\+234|0)[0-9]{10}$/;
+    return phoneRegex.test(phone.replace(/\s+/g, ''));
+}
+
 document.addEventListener('DOMContentLoaded', function() {
     // Contact Form - Handle Formspree submission
     const contactForm = document.getElementById('contactForm');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    
+    // Add validation listeners
+    if (emailInput) {
+        emailInput.addEventListener('blur', function() {
+            const email = this.value.trim();
+            if (email && !validateEmail(email)) {
+                this.classList.add('border-red-500');
+            } else {
+                this.classList.remove('border-red-500');
+            }
+        });
+    }
+    if (phoneInput) {
+        phoneInput.addEventListener('blur', function() {
+            const phone = this.value.trim();
+            if (phone && !validatePhone(phone)) {
+                this.classList.add('border-red-500');
+            } else {
+                this.classList.remove('border-red-500');
+            }
+        });
+    }
     
     if (contactForm) {
         contactForm.addEventListener('submit', async function(e) {
             e.preventDefault();
+            
+            const email = emailInput.value;
+            const phone = phoneInput.value;
+            
+            // Validate email
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                if (emailInput) emailInput.classList.add('border-red-500');
+                return;
+            }
+            
+            // Validate phone
+            if (phone && !validatePhone(phone)) {
+                alert('Please enter a valid phone number (e.g., +234XXXXXXXXXX).');
+                phoneInput.classList.add('border-red-500');
+                return;
+            }
             
             const submitBtn = contactForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;

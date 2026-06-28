@@ -4,6 +4,76 @@
 let propertiesData = [];
 
 // ============================================
+// SECURITY UTILITIES
+// ============================================
+
+// HTML escape function to prevent XSS attacks
+function escapeHtml(unsafe) {
+    if (typeof unsafe !== 'string') return unsafe;
+    return unsafe
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+}
+
+// Escape attribute values to prevent XSS
+function escapeAttr(value) {
+    if (typeof value !== 'string') return value;
+    return value
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
+}
+
+// ============================================
+// INPUT VALIDATION
+// ============================================
+
+// Email validation
+function validateEmail(email) {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email);
+}
+
+// Phone validation (Nigeria format)
+function validatePhone(phone) {
+    const phoneRegex = /^(\+234|0)[0-9]{10}$/;
+    return phoneRegex.test(phone.replace(/\s+/g, ''));
+}
+
+// Validate email input with visual feedback
+function validateEmailInput(inputElement) {
+    const email = inputElement.value.trim();
+    const isValid = validateEmail(email);
+    if (!isValid && email) {
+        inputElement.classList.add('border-red-500');
+        inputElement.classList.remove('border-gray-300');
+        return false;
+    }
+    inputElement.classList.remove('border-red-500');
+    inputElement.classList.add('border-gray-300');
+    return true;
+}
+
+// Validate phone input with visual feedback
+function validatePhoneInput(inputElement) {
+    const phone = inputElement.value.trim();
+    const isValid = validatePhone(phone);
+    if (!isValid && phone) {
+        inputElement.classList.add('border-red-500');
+        inputElement.classList.remove('border-gray-300');
+        return false;
+    }
+    inputElement.classList.remove('border-red-500');
+    inputElement.classList.add('border-gray-300');
+    return true;
+}
+
+// ============================================
 // LOADING OVERLAY — brand-consistent design
 // ============================================
 
@@ -244,21 +314,21 @@ function generatePropertyCard(property) {
     return `
         <div class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
             <div class="relative">
-                <img src="${property.image}" alt="${property.title}" class="w-full h-48 object-cover" onerror="this.src='images/build1.jpeg'">
+                <img src="${escapeAttr(property.image)}" alt="${escapeAttr(property.title)}" class="w-full h-48 object-cover" onerror="this.src='images/build1.jpeg'">
                 ${featuredBadge}
                 ${statusBadge}
-                <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors favorite-btn" data-id="${property.id}">
+                <button class="absolute bottom-4 right-4 bg-white p-2 rounded-full shadow hover:bg-gray-100 transition-colors favorite-btn" data-id="${escapeAttr(property.id)}">
                     <i class="far fa-heart text-gray-600"></i>
                 </button>
             </div>
             <div class="p-5">
-                <h3 class="text-lg font-semibold text-gray-900 mb-2">${property.title}</h3>
-                <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> ${property.address}</p>
-                ${property.price > 0 ? `<p class="text-lg font-bold text-primary mb-3">${property.priceDisplay}</p>` : ''}
+                <h3 class="text-lg font-semibold text-gray-900 mb-2">${escapeHtml(property.title)}</h3>
+                <p class="text-gray-600 mb-3"><i class="fas fa-map-marker-alt text-primary mr-2"></i> ${escapeHtml(property.address)}</p>
+                ${property.price > 0 ? `<p class="text-lg font-bold text-primary mb-3">${escapeHtml(property.priceDisplay)}</p>` : ''}
                 <div class="flex justify-between text-sm text-gray-600 mb-4">
                     ${specsDisplay}
                 </div>
-                <a href="property-detail.html?id=${property.id}" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
+                <a href="property-detail.html?id=${escapeAttr(property.id)}" class="block text-center border-2 border-primary text-primary px-4 py-2 rounded-lg hover:bg-primary hover:text-white transition-colors">View Details</a>
             </div>
         </div>
     `;
@@ -296,26 +366,32 @@ function attachFavoriteListeners() {
         btn.addEventListener('click', function(e) {
             e.preventDefault();
             const icon = this.querySelector('i');
-            icon.classList.toggle('far');
-            icon.classList.toggle('fas');
-            icon.classList.toggle('text-red-500');
-            
-            // Save to localStorage
             const propertyId = this.dataset.id;
-            let favorites = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+            const isCurrentlyFavorited = getFavorites().includes(String(propertyId));
             
-            if (favorites.includes(propertyId)) {
-                favorites = favorites.filter(id => id !== propertyId);
+            // Toggle visual state based on current state
+            if (isCurrentlyFavorited) {
+                icon.classList.remove('fas', 'text-red-500');
+                icon.classList.add('far');
             } else {
-                favorites.push(propertyId);
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-red-500');
             }
             
+            // Update localStorage
+            let favorites = getFavorites();
+            if (isCurrentlyFavorited) {
+                favorites = favorites.filter(id => id !== String(propertyId));
+            } else {
+                favorites.push(String(propertyId));
+            }
             localStorage.setItem('propertyFavorites', JSON.stringify(favorites));
+            updateFavoritesCount();
         });
     });
     
     // Restore favorite states from localStorage
-    const favorites = JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+    const favorites = getFavorites();
     favoriteButtons.forEach(btn => {
         if (favorites.includes(btn.dataset.id)) {
             const icon = btn.querySelector('i');
@@ -325,11 +401,27 @@ function attachFavoriteListeners() {
     });
 }
 
+function getFavorites() {
+    return JSON.parse(localStorage.getItem('propertyFavorites') || '[]');
+}
+
+function updateFavoritesCount() {
+    const count = getFavorites().length;
+    const badges = document.querySelectorAll('#favoritesCount');
+    badges.forEach(badge => {
+        badge.textContent = count;
+        badge.classList.toggle('hidden', count === 0);
+    });
+}
+
 document.addEventListener('DOMContentLoaded', async function() {
     // Load properties for homepage
     await fetchProperties();
     renderFeaturedProperties(propertiesData);
     renderFeaturedShortlets();
+    
+    // Update favorites count on load
+    updateFavoritesCount();
     
     // Mobile Navigation Toggle
     const navToggle = document.getElementById('navToggle');
@@ -413,11 +505,28 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Newsletter Form - Handle Formspree submission
     const newsletterForm = document.getElementById('newsletterForm');
+    const newsletterEmail = document.getElementById('newsletterEmail');
+    
+    if (newsletterEmail) {
+        newsletterEmail.addEventListener('blur', function() {
+            validateEmailInput(this);
+        });
+    }
     
     if (newsletterForm) {
         newsletterForm.addEventListener('submit', async function(e) {
             e.preventDefault();
-            const email = document.getElementById('newsletterEmail').value;
+            const email = newsletterEmail.value;
+            
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                if (newsletterEmail) {
+                    newsletterEmail.classList.add('border-red-500');
+                    newsletterEmail.focus();
+                }
+                return;
+            }
+            
             const submitBtn = newsletterForm.querySelector('button[type="submit"]');
             const originalBtnText = submitBtn.textContent;
             
@@ -439,7 +548,7 @@ document.addEventListener('DOMContentLoaded', async function() {
                 });
                 
                 if (response.ok) {
-                    alert('Thank you for subscribing! You will receive our newsletter at: ' + email);
+                    alert('Thank you for subscribing! You will receive our newsletter at: ' + escapeHtml(email));
                     newsletterForm.reset();
                 } else {
                     alert('There was a problem subscribing. Please try again.');
@@ -566,25 +675,7 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     });
 
-    // Property favorite buttons
-    const favoriteButtons = document.querySelectorAll('.property-favorite');
-    
-    favoriteButtons.forEach(button => {
-        button.addEventListener('click', function(e) {
-            e.preventDefault();
-            const icon = this.querySelector('i');
-            
-            if (icon.classList.contains('far')) {
-                icon.classList.remove('far');
-                icon.classList.add('fas', 'text-red-500');
-            } else {
-                icon.classList.remove('fas', 'text-red-500');
-                icon.classList.add('far');
-            }
-        });
-    });
-
-    // Map tabs for contact page
+// Map tabs for contact page
     const mapTabs = document.querySelectorAll('.map-tab');
     const officeCards = document.querySelectorAll('.office-card');
     const officeMap = document.getElementById('officeMap');
@@ -706,19 +797,48 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Contact Form
     const contactForm = document.getElementById('contactForm');
+    const emailInput = document.getElementById('email');
+    const phoneInput = document.getElementById('phone');
+    
+    // Add validation listeners for contact form
+    if (emailInput) {
+        emailInput.addEventListener('blur', function() {
+            validateEmailInput(this);
+        });
+    }
+    if (phoneInput) {
+        phoneInput.addEventListener('blur', function() {
+            validatePhoneInput(this);
+        });
+    }
     
     if (contactForm) {
         contactForm.addEventListener('submit', function(e) {
             e.preventDefault();
             const firstName = document.getElementById('firstName').value;
             const lastName = document.getElementById('lastName').value;
-            const email = document.getElementById('email').value;
-            const phone = document.getElementById('phone').value;
+            const email = emailInput.value;
+            const phone = phoneInput.value;
             const subject = document.getElementById('subject').value;
             const message = document.getElementById('message').value;
             
+            // Validate email
+            if (!validateEmail(email)) {
+                alert('Please enter a valid email address.');
+                emailInput.classList.add('border-red-500');
+                emailInput.focus();
+                return;
+            }
+            
+            // Validate phone (optional but if provided should be valid)
+            if (phone && !validatePhone(phone)) {
+                alert('Please enter a valid phone number (e.g., +234XXXXXXXXXX).');
+                phoneInput.classList.add('border-red-500');
+                return;
+            }
+            
             // Simulate form submission
-            alert('Thank you ' + firstName + '! Your message has been sent. We will get back to you within 24 hours.');
+            alert('Thank you ' + escapeHtml(firstName) + '! Your message has been sent. We will get back to you within 24 hours.');
             contactForm.reset();
         });
     }
