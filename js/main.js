@@ -619,17 +619,6 @@ document.addEventListener('DOMContentLoaded', async function() {
         });
     }
 
-    // Blog Search Form
-    const blogSearchForm = document.getElementById('blogSearchForm');
-    
-    if (blogSearchForm) {
-        blogSearchForm.addEventListener('submit', function(e) {
-            e.preventDefault();
-            const searchTerm = document.getElementById('blogSearchInput').value;
-            alert('Searching for: ' + searchTerm);
-        });
-    }
-
     // Quick Search Form
     const quickSearchForm = document.getElementById('quickSearchForm');
     

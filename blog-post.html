@@ -6,12 +6,12 @@
      <meta http-equiv="X-Content-Type-Options" content="nosniff">
      <meta http-equiv="X-Frame-Options" content="SAMEORIGIN">
      <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self';">
-     <meta name="description" content="Stay updated with the latest real estate news, market insights, investment tips, and property buying guides from ATHARRYS PROPERTIES.">
+     <meta name="description" content="Read the latest real estate insights, market trends, and expert advice from ATHARRYS PROPERTIES.">
      <meta name="keywords" content="real estate blog, market insights, investment tips, ATHARRYS PROPERTIES">
-     <title>Blog | ATHARRYS PROPERTIES LIMITED</title>
+     <title>Blog Post | ATHARRYS PROPERTIES LIMITED</title>
     <link rel="stylesheet" href="css/output.css">
     <link rel="stylesheet" href="css/fontawesome.min.css">
-
+   
 </head>
 <body class="font-sans antialiased">
     <!-- Navigation -->
@@ -28,7 +28,7 @@
                     <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
                     <span class="block w-6 h-0.5 bg-gray-600"></span>
                 </button>
-                <ul class="hidden md:flex space-x-8 items-center" id="navMenu">
+<ul class="hidden md:flex space-x-8 items-center" id="navMenu">
                     <li><a href="index.html" class="text-gray-700 hover:text-primary transition-colors">Home</a></li>
                     <li><a href="properties.html" class="text-gray-700 hover:text-primary transition-colors">Properties</a></li>
                     <li><a href="about.html" class="text-gray-700 hover:text-primary transition-colors">About Us</a></li>
@@ -40,7 +40,7 @@
         </div>
         <!-- Mobile Menu -->
         <div class="md:hidden hidden bg-white border-t" id="mobileMenu">
-            <ul class="px-4 py-4 space-y-3">
+<ul class="px-4 py-4 space-y-3">
                 <li><a href="index.html" class="block text-gray-700 hover:text-primary">Home</a></li>
                 <li><a href="properties.html" class="block text-gray-700 hover:text-primary">Properties</a></li>
                 <li><a href="about.html" class="block text-gray-700 hover:text-primary">About Us</a></li>
@@ -55,145 +55,49 @@
     <section class="relative pt-32 pb-20 bg-cover bg-center bg-no-repeat" style="background-image: url('images/blog-header.jpg');">
         <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Blog & News</h1>
-            <p class="text-xl text-gray-200 mb-6">Stay informed with the latest real estate insights, market trends, and expert advice</p>
+            <h1 class="text-4xl md:text-5xl font-bold text-white mb-4" id="postTitle">Blog Post</h1>
+            <p class="text-xl text-gray-200 mb-6">Stay informed with the latest real estate insights</p>
             <nav class="flex justify-center items-center gap-2 text-gray-300">
                 <a href="index.html" class="hover:text-white transition-colors">Home</a>
                 <span>/</span>
-                <span class="text-white">Blog</span>
+                <a href="blog.html" class="hover:text-white transition-colors">Blog</a>
+                <span>/</span>
+                <span class="text-white">Post</span>
             </nav>
         </div>
     </section>
 
-    <!-- Blog Section -->
+    <!-- Blog Post Section -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex flex-col lg:flex-row gap-8">
-                <!-- Blog Posts -->
+                <!-- Main Content -->
                 <div class="lg:w-2/3">
-                    <!-- Featured Post -->
-                    <article class="bg-white rounded-xl shadow-lg overflow-hidden mb-8">
-                        <div class="relative">
-                            <img src="images/estatee.jpg" alt="Featured Blog Post" class="w-full h-64 md:h-80 object-cover">
-                            <span class="absolute top-4 left-4 bg-primary text-white px-4 py-2 rounded-full text-sm font-semibold">Market Insights</span>
-                        </div>
+                    <article class="bg-white rounded-xl shadow-lg overflow-hidden">
+                        <img id="postImage" src="images/build1.jpeg" alt="Blog Post" class="w-full h-64 md:h-96 object-cover">
                         <div class="p-8">
-                            <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-4">
+                            <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-4" id="postMeta">
                                 <span><i class="far fa-calendar mr-1"></i> February 8, 2024</span>
                                 <span><i class="far fa-user mr-1"></i> Emeka Atharrys</span>
                                 <span><i class="far fa-clock mr-1"></i> 8 min read</span>
                             </div>
-                            <h2 class="text-2xl font-bold text-gray-900 mb-4">2024 Real Estate Market Outlook: What to Expect in Nigeria</h2>
-                            <p class="text-gray-600 mb-6">As we move into 2024, the Nigerian real estate market shows promising signs of growth and opportunity. In this comprehensive analysis, we explore key trends, emerging markets, and investment opportunities that savvy investors should watch...</p>
-                            <a href="blog-post.html?id=1" class="text-primary font-semibold hover:text-blue-700 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
+                            <div class="prose max-w-none text-gray-600 leading-relaxed" id="postBody">
+                                <p>Loading...</p>
+                            </div>
                         </div>
                     </article>
 
-                    <!-- Blog Posts Grid -->
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6" id="blogGrid">
-                        <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow blog-card" data-id="2">
-                            <div class="relative">
-                                <img src="images/taskss.webp" alt="Blog Post" class="w-full h-48 object-cover">
-                                <span class="absolute top-4 left-4  bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold">Investment Tips</span>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex gap-4 text-sm text-gray-600 mb-3">
-                                    <span><i class="far fa-calendar mr-1"></i> February 5, 2024</span>
-                                    <span><i class="far fa-clock mr-1"></i> 5 min read</span>
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3">5 Essential Tips for First-Time Property Investors</h3>
-                                <p class="text-gray-600 mb-4">Investing in real estate can be overwhelming for beginners. Here are five essential tips to help you make smart investment decisions...</p>
-                                <a href="blog-post.html?id=2" class="text-primary font-semibold hover:text-blue-700 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow blog-card" data-id="3">
-                            <div class="relative">
-                                <img src="images/invest.jpg" alt="Blog Post" class="w-full h-48 object-cover">
-                                <span class="absolute top-4 left-4 bg-green-500 text-white px-3 py-1 rounded-full text-xs font-semibold">Buying Guide</span>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex gap-4 text-sm text-gray-600 mb-3">
-                                    <span><i class="far fa-calendar mr-1"></i> February 1, 2024</span>
-                                    <span><i class="far fa-clock mr-1"></i> 7 min read</span>
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3">The Complete Guide to Buying Your First Home in Nigeria</h3>
-                                <p class="text-gray-600 mb-4">From saving for a down payment to closing the deal, this guide covers everything you need to know about buying your first home...</p>
-                                <a href="blog-post.html?id=3" class="text-primary font-semibold hover:text-blue-700 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow blog-card" data-id="4">
-                            <div class="relative">
-                                <img src="images/nigblog.jpg" alt="Blog Post" class="w-full h-48 object-cover">
-                                <span class="absolute top-4 left-4 bg-secondary text-white px-3 py-1 rounded-full text-xs font-semibold">Market Updates</span>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex gap-4 text-sm text-gray-600 mb-3">
-                                    <span><i class="far fa-calendar mr-1"></i> January 28, 2024</span>
-                                    <span><i class="far fa-clock mr-1"></i> 4 min read</span>
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3">Lagos Property Prices: Q4 2023 Analysis</h3>
-                                <p class="text-gray-600 mb-4">A detailed analysis of property price trends in Lagos during the fourth quarter of 2023, including insights into emerging neighborhoods...</p>
-                                <a href="blog-post.html?id=4" class="text-primary font-semibold hover:text-blue-700 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow blog-card" data-id="5">
-                            <div class="relative">
-                                <img src="images/taxinc.jpg" alt="Blog Post" class="w-full h-48 object-cover">
-                                <span class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold">Property Management</span>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex gap-4 text-sm text-gray-600 mb-3">
-                                    <span><i class="far fa-calendar mr-1"></i> January 25, 2024</span>
-                                    <span><i class="far fa-clock mr-1"></i> 6 min read</span>
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3">Maximizing Rental Income: Strategies for Landlords</h3>
-                                <p class="text-gray-600 mb-4">Learn proven strategies to increase your rental income while maintaining high tenant satisfaction and property value...</p>
-                                <a href="blog-post.html?id=5" class="text-primary font-semibold hover:text-blue-700 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow blog-card" data-id="6">
-                            <div class="relative">
-                                <img src="images/realestatess.jpg" alt="Blog Post" class="w-full h-48 object-cover">
-                                <span class="absolute top-4 left-4 bg-red-500 text-white px-3 py-1 rounded-full text-xs font-semibold">Commercial Real Estate</span>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex gap-4 text-sm text-gray-600 mb-3">
-                                    <span><i class="far fa-calendar mr-1"></i> January 20, 2024</span>
-                                    <span><i class="far fa-clock mr-1"></i> 5 min read</span>
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3">Why Abuja is Becoming a Commercial Real Estate Hub</h3>
-                                <p class="text-gray-600 mb-4">Explore the factors driving commercial real estate growth in Abuja and what this means for investors and businesses...</p>
-                                <a href="blog-post.html?id=6" class="text-primary font-semibold hover:text-blue-700 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </article>
-
-                        <article class="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow blog-card" data-id="7">
-                            <div class="relative">
-                                <img src="images/legal.jpg" alt="Blog Post" class="w-full h-48 object-cover">
-                                <span class="absolute top-4 left-4 bg-gray-700 text-white px-3 py-1 rounded-full text-xs font-semibold">Legal</span>
-                            </div>
-                            <div class="p-6">
-                                <div class="flex gap-4 text-sm text-gray-600 mb-3">
-                                    <span><i class="far fa-calendar mr-1"></i> January 15, 2024</span>
-                                    <span><i class="far fa-clock mr-1"></i> 8 min read</span>
-                                </div>
-                                <h3 class="text-lg font-semibold text-gray-900 mb-3">Understanding Property Documentation in Nigeria</h3>
-                                <p class="text-gray-600 mb-4">A comprehensive guide to property documents you need to know when buying or selling real estate in Nigeria...</p>
-                                <a href="blog-post.html?id=7" class="text-primary font-semibold hover:text-blue-700 transition-colors">Read More <i class="fas fa-arrow-right ml-2"></i></a>
-                            </div>
-                        </article>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div id="paginationContainer" class="flex justify-center items-center gap-2 mt-10">
-                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-400 cursor-not-allowed"><i class="fas fa-chevron-left"></i></button>
-                        <button class="px-4 py-2 rounded-lg bg-primary text-white">1</button>
-                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300">2</button>
-                        <button class="px-4 py-2 rounded-lg bg-gray-200 text-gray-700 hover:bg-gray-300"><i class="fas fa-chevron-right"></i></button>
+                    <!-- Prev/Next Navigation -->
+                    <div class="flex justify-between items-center mt-8 gap-4">
+                        <a href="blog.html" class="flex-1 sm:flex-none text-center border-2 border-primary text-primary px-4 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i> Back to Blog
+                        </a>
+                        <button id="prevPostBtn" class="flex-1 sm:flex-none text-center border-2 border-primary text-primary px-4 py-3 rounded-lg font-semibold hover:bg-primary hover:text-white transition-colors">
+                            <i class="fas fa-arrow-left mr-2"></i> Previous Post
+                        </button>
+                        <button id="nextPostBtn" class="flex-1 sm:flex-none text-center bg-secondary text-white px-4 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors">
+                            Next Post <i class="fas fa-arrow-right ml-2"></i>
+                        </button>
                     </div>
                 </div>
 
@@ -255,15 +159,6 @@
                                     </div>
                                 </a>
                             </li>
-                            <li>
-                                <a href="blog-post.html?id=4" class="flex gap-4 group">
-                                    <img src="images/blog-3-thumb.jpg" alt="Recent Post" class="w-16 h-16 object-cover rounded-lg">
-                                    <div>
-                                        <h4 class="font-semibold text-gray-900 group-hover:text-primary transition-colors">Lagos Property Prices: Q4 2023 Analysis</h4>
-                                        <span class="text-sm text-gray-500">January 28, 2024</span>
-                                    </div>
-                                </a>
-                            </li>
                         </ul>
                     </div>
 
@@ -279,10 +174,6 @@
                             <a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Buying</a>
                             <a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Selling</a>
                             <a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Rent</a>
-                            <a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Commercial</a>
-                            <a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Residential</a>
-                            <a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Market</a>
-                            <a href="#" class="px-3 py-1 bg-gray-100 text-gray-700 rounded-full text-sm hover:bg-primary hover:text-white transition-colors">Tips</a>
                         </div>
                     </div>
 
@@ -353,6 +244,10 @@
                         </li>
                         <li class="flex items-center gap-3">
                             <i class="fas fa-phone"></i>
+                            <span>+234 801 234 5678</span>
+                        </li>
+                        <li class="flex items-center gap-3">
+                            <i class="fab fa-whatsapp"></i>
                             <span>+234 902 773 0330</span>
                         </li>
                         <li class="flex items-center gap-3">
