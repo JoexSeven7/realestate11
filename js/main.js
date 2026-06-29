@@ -435,19 +435,17 @@ document.addEventListener('DOMContentLoaded', async function() {
 
     // Navbar Scroll Effect
     const navbar = document.getElementById('navbar');
-    let lastScroll = 0;
-    
-    window.addEventListener('scroll', function() {
-        const currentScroll = window.pageYOffset;
-        
-        if (currentScroll > 100) {
-            navbar.classList.add('shadow-lg');
-        } else {
-            navbar.classList.remove('shadow-lg');
-        }
-        
-        lastScroll = currentScroll;
-    });
+    if (navbar) {
+        window.addEventListener('scroll', function() {
+            if (window.pageYOffset > 50) {
+                navbar.classList.remove('bg-white/80');
+                navbar.classList.add('bg-gray-100/95');
+            } else {
+                navbar.classList.remove('bg-gray-100/95');
+                navbar.classList.add('bg-white/80');
+            }
+        });
+    }
 
     // Back to Top Button
     const backToTop = document.getElementById('backToTop');
