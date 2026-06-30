@@ -260,7 +260,58 @@ function updatePageContent(property) {
         viewingPropertyNameInput.value = escapeHtml(property.title);
     }
 }
+// Get similar properties based on current property type/status
+function getSimilarProperties(property, limit = 2) {
+    if (!property || allProperties.length === 0) return [];
+    
+    // First try matching by type
+    let similar = allProperties.filter(p => p.id !== property.id && p.type === property.type);
+    
+    // If not enough, try matching by status
+    if (similar.length < limit) {
+        const byStatus = allProperties.filter(p => 
+            p.id !== property.id && 
+            p.status === property.status && 
+            !similar.some(s => s.id === p.id)
+        );
+        similar = [...similar, ...byStatus];
+    }
+    
+    // If still not enough, just take any other properties
+    if (similar.length < limit) {
+        const others = allProperties.filter(p => 
+            p.id !== property.id && 
+            !similar.some(s => s.id === p.id)
+        );
+        similar = [...similar, ...others];
+    }
+    
+    return similar.slice(0, limit);
+}
 
+// Render similar properties
+function renderSimilarProperties() {
+    const container = document.getElementById('similarPropertiesList');
+    if (!container || !currentProperty) return;
+    
+    const similar = getSimilarProperties(currentProperty);
+    
+    if (similar.length === 0) {
+        container.innerHTML = '<p class="text-gray-500 text-sm">No similar properties found.</p>';
+        return;
+    }
+    
+    container.innerHTML = similar.map(prop => `
+        <div class="flex gap-4">
+            <img src="${escapeAttr(prop.image)}" alt="${escapeHtml(prop.title)}" class="w-24 h-24 object-cover rounded-lg" onerror="this.src='images/build1.jpeg'">
+            <div class="flex-1">
+                <h4 class="font-semibold text-gray-900 mb-1">${escapeHtml(prop.title)}</h4>
+                <p class="text-sm text-gray-600 mb-2"><i class="fas fa-map-marker-alt text-primary mr-1"></i> ${escapeHtml(prop.address)}</p>
+                <a href="property-detail.html?id=${prop.id}" class="text-sm text-primary font-semibold hover:text-blue-700 transition-colors">View Details <i class="fas fa-arrow-right ml-1"></i></a>
+            </div>
+        </div>
+    `).join('');
+}
 // Update thumbnail gallery
 function updateThumbnails() {
     const thumbnailContainer = document.querySelector('.grid.grid-cols-5');
@@ -530,6 +581,9 @@ function initOtherButtons() {
     
     // Start Virtual Tour
     const startTour = document.getElementById('startTour');
+
+    // Render similar properties
+    renderSimilarProperties();
     
     if (startTour) {
         startTour.addEventListener('click', function() {

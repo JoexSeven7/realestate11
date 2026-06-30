@@ -303,13 +303,63 @@ function initBlogPostPage() {
     loadBlogPost(id);
 }
 
+// ========== RECENT POSTS ==========
+
+function getRecentPosts(excludeId = null, limit = 4) {
+    if (allPosts.length === 0) return [];
+
+    // Sort by date descending (newest first)
+    const sorted = [...allPosts].sort((a, b) => {
+        const dateA = new Date(a.date);
+        const dateB = new Date(b.date);
+        return dateB - dateA;
+    });
+
+    // Exclude current post if viewing a single post
+    const filtered = excludeId
+        ? sorted.filter(p => p.id !== excludeId)
+        : sorted;
+
+    return filtered.slice(0, limit);
+}
+
+function renderRecentPosts() {
+    const container = document.getElementById('recentPostsList');
+    if (!container) return;
+
+    // Get current post ID from URL if on blog-post page
+    const params = new URLSearchParams(window.location.search);
+    const currentId = params.get('id') ? parseInt(params.get('id')) : null;
+
+    const recentPosts = getRecentPosts(currentId);
+
+    if (recentPosts.length === 0) {
+        container.innerHTML = '<li class="text-gray-500 text-sm">No recent posts found.</li>';
+        return;
+    }
+
+    container.innerHTML = recentPosts.map(post => `
+        <li>
+            <a href="blog-post.html?id=${post.id}" class="flex gap-4 group">
+                <img src="${escapeAttr(post.image)}" alt="${escapeHtml(post.title)}" class="w-16 h-16 object-cover rounded-lg" onerror="this.src='images/build1.jpeg'">
+                <div>
+                    <h4 class="font-semibold text-gray-900 group-hover:text-primary transition-colors">${escapeHtml(post.title)}</h4>
+                    <span class="text-sm text-gray-500">${escapeHtml(post.date)}</span>
+                </div>
+            </a>
+        </li>
+    `).join('');
+}
+
 // ========== INITIALIZATION ==========
 
 // Blog listing page (static HTML enhancement)
 if (document.getElementById('blogGrid') && document.getElementById('paginationContainer')) {
-    document.addEventListener('DOMContentLoaded', function() {
+    document.addEventListener('DOMContentLoaded', async function() {
+        await fetchBlogPosts();
         initStaticBlog();
         initStaticBlogSearch();
+        renderRecentPosts();
     });
 }
 
@@ -318,5 +368,6 @@ if (document.getElementById('postBody')) {
     document.addEventListener('DOMContentLoaded', async function() {
         await fetchBlogPosts();
         initBlogPostPage();
+        renderRecentPosts();
     });
 }
