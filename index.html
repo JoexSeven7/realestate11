@@ -15,6 +15,7 @@
       <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
      <link rel="stylesheet" href="css/output.css">
      <link rel="stylesheet" href="css/fontawesome.min.css">   
+     <link rel="stylesheet" href="css/custom.css">
 </head>
 <body class="font-sans antialiased">
     <!-- Navigation -->
@@ -63,8 +64,23 @@
     </nav>
 
     <!-- Hero Section -->
-    <section class="relative pt-16 md:pt-0 min-h-screen flex items-center justify-center bg-cover bg-center bg-no-repeat" style="background-image: url('images/newhome1.jpg');">
-         <div class="absolute inset-0 bg-gradient-to-r from-[#7a8daf]/40 via-[#8f9fb8]/30 to-[#a65d66]/40"></div>
+    <section class="relative pt-16 md:pt-0 min-h-screen flex items-center justify-center" id="heroSection">
+        <!-- Video Backgrounds -->
+        <div class="absolute inset-0 z-0" id="heroVideoContainer">
+            <video id="heroVideoA" class="absolute inset-0 w-full h-full object-cover" 
+                   muted loop playsinline preload="auto" poster="images/newhome1.jpg"></video>
+            <video id="heroVideoB" class="absolute inset-0 w-full h-full object-cover opacity-0" 
+                   muted loop playsinline preload="auto" poster="images/newhome1.jpg"></video>
+        </div>
+        
+        <!-- Gradient Overlay -->
+        <div class="absolute inset-0 bg-gradient-to-r from-[#7a8daf]/40 via-[#8f9fb8]/30 to-[#a65d66]/40 z-[1]"></div>
+        
+        <!-- Interactive Hotspots (desktop only) -->
+        <!-- Interactive Hotspots (desktop only) -->
+        <div class="absolute inset-0 z-[30] hidden md:block" id="hotspotsContainer" style="pointer-events: none;"></div>
+        
+        <!-- Hero Content -->
         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center">
             <h1 class="text-3xl md:text-6xl font-bold text-primary mb-4 md:mb-6 leading-tight">Your Dream Property Awaits</h1>
             <p class="text-base md:text-2xl text-primary mb-6 md:mb-8 max-w-3xl mx-auto">Discover exceptional real estate opportunities with ATHARRYS HOMES LIMITED. Your trusted partner in property management and investment.</p>
@@ -73,7 +89,7 @@
                 <a href="contact.html" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Get in Touch</a>
             </div>
             <!-- Quick Search -->
-            <div class="bg-white/60 backdrop-blur rounded-xl shadow-lg p-4 md:p-6 w-full md:max-w-4xl md:mx-auto mb-16">
+            <div class="bg-white/60 backdrop-blur rounded-xl shadow-lg p-4 md:p-6 w-full md:max-w-4xl md:mx-auto mb-16 hidden md:block">
                 <form id="quickSearchForm" class="grid grid-cols-1 md:grid-cols-3 gap-3 md:gap-4">
                     
                     <div>
@@ -535,6 +551,7 @@
         <i class="fab fa-whatsapp text-2xl"></i>
     </a>
 
+    <script src="js/hero.js"></script>
     <script src="js/main.js"></script>
 </body>
 </html>
