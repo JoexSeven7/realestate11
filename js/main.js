@@ -307,7 +307,7 @@ function generatePropertyCard(property) {
         specsDisplay = `
             <span><i class="fas fa-bed mr-1"></i> ${property.bedrooms} Beds</span>
             <span><i class="fas fa-bath mr-1"></i> ${property.bathrooms} Baths</span>
-            <span><i class="fas fa-swimming-pool mr-1"></i> 1</span>
+            <span><i class="fas fa-swimming-pool mr-1"></i>${property.pool} Pool</span>
         `;
     }
     
