@@ -132,9 +132,9 @@
       "priceDisplay": "Contact for price",
       "features": ["security"],
       "amenities": ["24/7 Security", "Perimeter Fence"],
-      "image": "images/house2.jpeg",
+      "image":         "images/house2.jpeg",
       "images": [
-        "images/.house2.jpeg"
+        "images/house2.jpeg"
       ],
       "description": "Prime beachfront plot perfect for development. This extensive land parcel offers great investment potential with beach access and secure perimeter.",
       "highlights": [

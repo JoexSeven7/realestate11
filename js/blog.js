@@ -249,6 +249,10 @@ function getFallbackPosts() {
 }
 
 function renderBlogPost(post) {
+    // Reveal the article only after JS has populated it (no hardcoded HTML flash)
+    const postArticle = document.getElementById('postArticle');
+    if (postArticle) postArticle.classList.remove('hidden');
+
     if (!post) {
         const postBody = document.getElementById('postBody');
         if (postBody) postBody.innerHTML = '<p>Post not found.</p>';
@@ -263,6 +267,13 @@ function renderBlogPost(post) {
         image.onerror = function() { this.src = 'images/build1.jpeg'; };
     }
     document.getElementById('postBody').innerHTML = post.content;
+
+    // Populate category badge on the article image
+    const postCategoryBadge = document.getElementById('postCategoryBadge');
+    if (postCategoryBadge) {
+        postCategoryBadge.textContent = post.category;
+        postCategoryBadge.classList.remove('hidden');
+    }
 
     const currentIndex = allPosts.findIndex(p => p.id === post.id);
     const prevBtn = document.getElementById('prevPostBtn');

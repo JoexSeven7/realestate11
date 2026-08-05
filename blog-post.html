@@ -4,7 +4,7 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-Content-Type-Options" content="nosniff">
-     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self';">
+     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io;">
      <meta name="description" content="Read the latest real estate insights, market trends, and expert advice from ATHARRYS PROPERTIES.">
      <meta name="keywords" content="real estate blog, market insights, investment tips, ATHARRYS PROPERTIES">
      <title>Blog Post | ATHARRYS PROPERTIES LIMITED</title>
@@ -76,13 +76,14 @@
             <div class="flex flex-col lg:flex-row gap-8">
                 <!-- Main Content -->
                 <div class="lg:w-2/3">
-                    <article class="bg-white rounded-xl shadow-lg overflow-hidden">
-                        <img id="postImage" src="images/build1.jpeg" alt="Blog Post" class="w-full h-64 md:h-96 object-cover">
+                    <article id="postArticle" class="bg-white rounded-xl shadow-lg overflow-hidden hidden">
+                        <div class="relative">
+                            <img id="postImage" src="images/build1.jpeg" alt="Blog Post" class="w-full h-64 md:h-96 object-cover">
+                            <span id="postCategoryBadge" class="absolute top-4 left-4 bg-primary text-white px-3 py-1 rounded-full text-xs font-semibold hidden"></span>
+                        </div>
                         <div class="p-8">
                             <div class="flex flex-wrap gap-4 text-sm text-gray-600 mb-4" id="postMeta">
-                                <span><i class="far fa-calendar mr-1"></i> February 8, 2024</span>
-                                <span><i class="far fa-user mr-1"></i> Emeka Atharrys</span>
-                                <span><i class="far fa-clock mr-1"></i> 8 min read</span>
+                                <span><i class="far fa-circle mr-1"></i> Loading post…</span>
                             </div>
                             <div class="prose max-w-none text-gray-600 leading-relaxed" id="postBody">
                                 <p>Loading...</p>

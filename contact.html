@@ -4,7 +4,7 @@
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0">
      <meta http-equiv="X-Content-Type-Options" content="nosniff">
-     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; frame-src https://www.google.com https://maps.google.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self';">
+     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; frame-src https://www.google.com https://maps.google.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io;">
      <meta name="description" content="Contact ATHARRYS PROPERTIES LIMITED for all your real estate needs. Visit our offices, call us, or send a message. We respond within 24 hours.">
      <meta name="keywords" content="contact us, real estate contact, ATHARRYS PROPERTIES">
      <title>Contact Us | ATHARRYS PROPERTIES LIMITED</title>
@@ -147,7 +147,7 @@
                     <div class="bg-white p-8 rounded-xl shadow-lg">
                         <h2 class="text-2xl font-bold text-gray-900 mb-6">Send Us a Message</h2>
                         <!-- Replace FORMSPREE_ID with your Formspree form ID from https://formspree.io -->
-                        <form  action="https://formspree.io/f/xykqypyw"
+                        <form id="contactForm" action="https://formspree.io/f/xykqypyw"
                         method="POST" class="space-y-4">
                             <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                                 <div>

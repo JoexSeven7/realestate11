@@ -19,8 +19,8 @@ let slideshowTimer = null;
 const heroHotspots = [
     {
         id: 'pool',
-        top: '62%',
-        left: '58%',
+        top: '85%',
+        left: '85%',
         icon: 'fa-swimming-pool',
         title: 'Private Infinity Pool',
         desc: 'Temperature-controlled pool with panoramic garden views.'
@@ -35,8 +35,8 @@ const heroHotspots = [
     },
     {
         id: 'view',
-        top: '28%',
-        left: '72%',
+        top: '35%',
+        left: '90%',
         icon: 'fa-mountain-sun',
         title: 'Scenic Lekki Views',
         desc: 'Unobstructed views of the peninsula from the master suite.'
@@ -44,7 +44,7 @@ const heroHotspots = [
     {
         id: 'security',
         top: '75%',
-        left: '35%',
+        left: '10%',
         icon: 'fa-shield-halved',
         title: '24/7 Smart Security',
         desc: 'CCTV surveillance, perimeter fencing, and access control.'
