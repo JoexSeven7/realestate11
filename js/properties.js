@@ -67,7 +67,8 @@
         location: '',
         bedrooms: '',
         search: '',
-        sortBy: 'featured'
+        sortBy: 'featured',
+        favorites: false
     };
     let sliderIndex = 0;
 
@@ -98,6 +99,10 @@
     // ===== FILTER PROPERTIES =====
     function filterProperties() {
         filteredProperties = propertiesData.filter(property => {
+            if (currentFilters.favorites) {
+                const favs = getFavorites();
+                if (!favs.includes(String(property.id))) return false;
+            }
             if (currentFilters.type && property.type !== currentFilters.type) return false;
             if (currentFilters.status && property.status !== currentFilters.status) return false;
             if (currentFilters.location && property.location !== currentFilters.location) return false;
@@ -167,6 +172,24 @@
         renderListView();
         renderTableView();
         renderSliderView();
+
+        // Ensure the active view container is visible. A previous empty-results
+        // state (or view switch) may have hidden it, and updateAllViews must
+        // restore it so results actually appear.
+        showActiveView();
+    }
+
+    // ===== SHOW ACTIVE VIEW =====
+    function showActiveView() {
+        Object.keys(viewContainers).forEach(view => {
+            if (view === currentView) {
+                viewContainers[view].classList.remove('hidden');
+                viewContainers[view].classList.add('block');
+            } else {
+                viewContainers[view].classList.add('hidden');
+                viewContainers[view].classList.remove('block');
+            }
+        });
     }
 
     // ===== RENDER GRID VIEW =====
@@ -412,16 +435,19 @@ const tbody = tableContainer.querySelector('tbody') || tableContainer;
     }
 
     // ===== FAVORITE LISTENERS =====
+        // ===== FAVORITE LISTENERS (event-delegated) =====
+    let favoriteDelegated = false;
     function attachFavoriteListeners() {
-        document.querySelectorAll('.favorite-btn').forEach(btn => {
-            const propertyId = btn.dataset.id;
-            updateFavoriteButtonState(btn, propertyId);
-            
-            btn.addEventListener('click', function(e) {
+        if (!favoriteDelegated) {
+            favoriteDelegated = true;
+            document.addEventListener('click', function(e) {
+                const btn = e.target.closest('.favorite-btn');
+                if (!btn) return;
                 e.preventDefault();
-                const icon = this.querySelector('i');
+                const icon = btn.querySelector('i');
+                const propertyId = btn.dataset.id;
                 const isCurrentlyFavorited = getFavorites().includes(String(propertyId));
-                
+
                 // Toggle visual state
                 if (isCurrentlyFavorited) {
                     icon.classList.remove('fas', 'text-red-500');
@@ -430,7 +456,7 @@ const tbody = tableContainer.querySelector('tbody') || tableContainer;
                     icon.classList.remove('far');
                     icon.classList.add('fas', 'text-red-500');
                 }
-                
+
                 // Update localStorage
                 let favorites = getFavorites();
                 if (isCurrentlyFavorited) {
@@ -441,6 +467,20 @@ const tbody = tableContainer.querySelector('tbody') || tableContainer;
                 localStorage.setItem('propertyFavorites', JSON.stringify(favorites));
                 updateFavoritesCount();
             });
+        }
+
+        // Sync visual states for all current favorite buttons
+        const favorites = getFavorites();
+        document.querySelectorAll('.favorite-btn').forEach(btn => {
+            const icon = btn.querySelector('i');
+            if (!icon) return;
+            if (favorites.includes(btn.dataset.id)) {
+                icon.classList.remove('far');
+                icon.classList.add('fas', 'text-red-500');
+            } else {
+                icon.classList.remove('fas', 'text-red-500');
+                icon.classList.add('far');
+            }
         });
     }
 
@@ -455,7 +495,7 @@ const tbody = tableContainer.querySelector('tbody') || tableContainer;
 
     // ===== RESET FILTERS =====
     function resetFiltersFn() {
-        currentFilters = { type: '', status: '', location: '', bedrooms: '', search: '', sortBy: 'featured' };
+        currentFilters = { type: '', status: '', location: '', bedrooms: '', search: '', sortBy: 'featured', favorites: false };
         
         if (filterType) filterType.value = '';
         if (filterStatus) filterStatus.value = '';
@@ -525,9 +565,15 @@ const tbody = tableContainer.querySelector('tbody') || tableContainer;
         // Load properties
         propertiesData = await loadProperties();
         filteredProperties = [...propertiesData];
-        
+
+        // Support the nav "My Favorites" deep link (?favorites=true)
+        const params = new URLSearchParams(window.location.search);
+        if (params.get('favorites') === 'true') {
+            currentFilters.favorites = true;
+        }
+
         // Initial render
-        updateAllViews();
+        filterProperties();
         
         // Setup view tabs
         viewTabs.forEach(btn => {
@@ -567,20 +613,8 @@ const tbody = tableContainer.querySelector('tbody') || tableContainer;
                     currentFilters = { type: '', status: '', bedrooms: '', location: '', search: '', sortBy: 'newest' };
                     filterProperties();
                 } else if (filter === 'favorites') {
-                    const favorites = getFavorites();
-                    if (favorites.length > 0) {
-                        filteredProperties = propertiesData.filter(p => favorites.includes(String(p.id)));
-                        loadingState.classList.add('hidden');
-                        noResults.classList.add('hidden');
-                        resultsCount.textContent = filteredProperties.length;
-                        renderGridView();
-                        renderListView();
-                        renderTableView();
-                        renderSliderView();
-                    } else {
-                        filteredProperties = [];
-                        updateAllViews();
-                    }
+                    currentFilters = { type: '', status: '', location: '', bedrooms: '', search: '', sortBy: 'featured', favorites: true };
+                    filterProperties();
                 }
             });
         });

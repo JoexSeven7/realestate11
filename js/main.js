@@ -360,16 +360,22 @@ function renderFeaturedProperties(properties) {
 }
 
 // Attach favorite button listeners
+// Attach favorite button listeners via event delegation.
+// A single delegated listener (bound only once) prevents the bug where calling
+// this after every render added duplicate click handlers, causing a single
+// click to toggle a favorite on AND off again (so nothing was saved).
+let favoriteDelegated = false;
 function attachFavoriteListeners() {
-    const favoriteButtons = document.querySelectorAll('.favorite-btn');
-    favoriteButtons.forEach(btn => {
-        btn.addEventListener('click', function(e) {
+    if (!favoriteDelegated) {
+        favoriteDelegated = true;
+        document.addEventListener('click', function(e) {
+            const btn = e.target.closest('.favorite-btn');
+            if (!btn) return;
             e.preventDefault();
-            const icon = this.querySelector('i');
-            const propertyId = this.dataset.id;
+            const icon = btn.querySelector('i');
+            const propertyId = btn.dataset.id;
             const isCurrentlyFavorited = getFavorites().includes(String(propertyId));
-            
-            // Toggle visual state based on current state
+
             if (isCurrentlyFavorited) {
                 icon.classList.remove('fas', 'text-red-500');
                 icon.classList.add('far');
@@ -377,8 +383,7 @@ function attachFavoriteListeners() {
                 icon.classList.remove('far');
                 icon.classList.add('fas', 'text-red-500');
             }
-            
-            // Update localStorage
+
             let favorites = getFavorites();
             if (isCurrentlyFavorited) {
                 favorites = favorites.filter(id => id !== String(propertyId));
@@ -388,15 +393,19 @@ function attachFavoriteListeners() {
             localStorage.setItem('propertyFavorites', JSON.stringify(favorites));
             updateFavoritesCount();
         });
-    });
-    
-    // Restore favorite states from localStorage
+    }
+
+    // Sync visual states for all current favorite buttons (runs on every render)
     const favorites = getFavorites();
-    favoriteButtons.forEach(btn => {
+    document.querySelectorAll('.favorite-btn').forEach(btn => {
+        const icon = btn.querySelector('i');
+        if (!icon) return;
         if (favorites.includes(btn.dataset.id)) {
-            const icon = btn.querySelector('i');
             icon.classList.remove('far');
             icon.classList.add('fas', 'text-red-500');
+        } else {
+            icon.classList.remove('fas', 'text-red-500');
+            icon.classList.add('far');
         }
     });
 }
