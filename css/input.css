@@ -9,15 +9,15 @@
 /* Custom CSS Variables */
 @layer base {
     :root {
-        --color-primary: #1a2744;
-        --color-secondary: #8b2635;
-        --color-accent: #ffffff;
-        --color-dark: #1a2744;
+        --color-primary: #1e3a8a;
+        --color-secondary: #db2777;
+        --color-accent: #f59e0b;
+        --color-dark: #1e3a8a;
         --color-light: #f3f4f6;
-        --color-maroon: #8b2635;
-        --color-maroonDark: #6b1a1a;
-        --color-navy: #1a2744;
-        --color-navyLight: #2a3754;
+        --color-maroon: #db2777;
+        --color-maroonDark: #9d174d;
+        --color-navy: #1e3a8a;
+        --color-navyLight: #3730a3;
     }
 }
 

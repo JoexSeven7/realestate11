@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+     <meta charset="UTF-8">
+     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+     <meta http-equiv="X-Content-Type-Options" content="nosniff">
+     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline'; style-src 'self' 'unsafe-inline' https://cdnjs.cloudflare.com; frame-src https://www.google.com https://maps.google.com https://maps.googleapis.com; img-src 'self' data: https:; font-src 'self' https://cdnjs.cloudflare.com 'unsafe-inline'; connect-src 'self' https://formspree.io; form-action 'self' https://formspree.io;">
+     <meta name="description" content="Browse AY-PRINT's card catalog: business cards, ad cards, info cards, invitations, and custom prints. Filter by category, search, and request a quote.">
+     <meta name="keywords" content="card catalog, business cards, ad cards, info cards, custom cards, AY-PRINT">
+     <title>Products | AY-PRINT</title>
+      <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+      <link rel="manifest" href="site.webmanifest">
+      <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+     <link rel="stylesheet" href="css/output.css">
+     <link rel="stylesheet" href="css/fontawesome.min.css">
+     <link rel="stylesheet" href="css/custom.css">
+     <style>
+         .product-card { transition: all 0.3s ease; }
+         .product-card:hover { transform: translateY(-5px); }
+         .product-card:hover .product-image { transform: scale(1.05); }
+         .view-container { transition: opacity 0.3s ease; }
+         .view-container.hidden { display: none; opacity: 0; }
+         .product-table { border-collapse: collapse; width: 100%; }
+         .product-table th { background: #1e3a8a; color: white; padding: 12px; text-align: left; font-weight: 600; }
+         .product-table td { padding: 12px; border-bottom: 1px solid #e5e7eb; }
+         .product-table tr:hover { background: #f9fafb; }
+     </style>
+</head>
+<body class="font-sans antialiased">
+     <!-- Navigation -->
+     <nav class="bg-white/60 backdrop-blur shadow-sm fixed w-full top-0 z-50 transition-all duration-300" id="navbar">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="flex justify-between items-center h-20">
+                 <div class="flex-shrink-0">
+                     <a href="index.html" class="flex items-center">
+                         <img src="images/logo.png" alt="AY-PRINT" class="h-12 w-auto">
+                     </a>
+                 </div>
+                 <button class="md:hidden p-2 rounded-lg hover:bg-gray-100" id="navToggle" aria-label="Toggle navigation">
+                     <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
+                     <span class="block w-6 h-0.5 bg-gray-600 mb-1"></span>
+                     <span class="block w-6 h-0.5 bg-gray-600"></span>
+                 </button>
+                 <ul class="hidden md:flex space-x-8 items-center" id="navMenu">
+                     <li><a href="index.html" class="text-gray-700 hover:text-primary transition-colors">Home</a></li>
+                     <li><a href="products.html" class="text-primary font-semibold border-b-2 border-primary pb-1">Products</a></li>
+                     <li><a href="order.html" class="text-gray-700 hover:text-primary transition-colors">Get a Quote</a></li>
+                     <li><a href="about.html" class="text-gray-700 hover:text-primary transition-colors">About Us</a></li>
+                     <li><a href="contact.html" class="bg-secondary text-white px-6 py-2 rounded-lg hover:bg-maroonDark transition-colors">Contact Us</a></li>
+                 </ul>
+             </div>
+         </div>
+         <div class="md:hidden hidden bg-white/60 backdrop-blur border-t" id="mobileMenu">
+             <ul class="px-4 py-4 space-y-3">
+                 <li><a href="index.html" class="block text-gray-700 hover:text-primary">Home</a></li>
+                 <li><a href="products.html" class="block text-primary font-semibold">Products</a></li>
+                 <li><a href="order.html" class="block text-gray-700 hover:text-primary">Get a Quote</a></li>
+                 <li><a href="about.html" class="block text-gray-700 hover:text-primary">About Us</a></li>
+                 <li><a href="contact.html" class="block bg-primary text-white px-6 py-2 rounded-lg text-center">Contact Us</a></li>
+             </ul>
+         </div>
+     </nav>
+
+     <!-- Page Header -->
+     <section class="relative pt-32 pb-20 bg-cover bg-center bg-no-repeat" style="background-image: url('images/intro.jpeg');">
+         <div class="absolute inset-0 bg-gradient-to-r from-black/70 to-black/50"></div>
+         <div class="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+             <h1 class="text-4xl md:text-5xl font-bold text-white mb-4">Our Cards & Products</h1>
+             <p class="text-xl text-gray-200 mb-6">Browse our catalog and request a quote in minutes</p>
+             <nav class="flex justify-center items-center gap-2 text-gray-300">
+                 <a href="index.html" class="hover:text-white transition-colors">Home</a>
+                 <span>/</span>
+                 <span class="text-white">Products</span>
+             </nav>
+         </div>
+     </section>
+
+     <!-- Catalog Section -->
+     <section class="py-16 bg-gray-50">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <!-- Filter & Sort Bar -->
+             <div class="bg-white rounded-xl shadow-lg p-6 mb-8">
+                 <div class="flex flex-col lg:flex-row lg:items-end gap-4">
+                     <div class="flex-1">
+                         <label class="block text-sm font-medium text-gray-700 mb-2">Search</label>
+                         <div class="relative">
+                             <i class="fas fa-search absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"></i>
+                             <input type="text" id="searchInput" placeholder="Search cards..." class="w-full pl-10 pr-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-transparent">
+                         </div>
+                     </div>
+                     <div>
+                         <label class="block text-sm font-medium text-gray-700 mb-2">Category</label>
+                         <div class="relative">
+                             <select id="filterCategory" class="w-full lg:w-56 pl-4 pr-10 py-3 border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white">
+                                 <option value="">All Categories</option>
+                                 <option value="business">Business Cards</option>
+                                 <option value="ad">Ad Cards & Flyers</option>
+                                 <option value="info">Business Info Cards</option>
+                                 <option value="invitation">Invitations & Greetings</option>
+                                 <option value="custom">Custom & Loyalty</option>
+                             </select>
+                             <svg class="w-4 h-4 text-gray-800 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                         </div>
+                     </div>
+                     <div>
+                         <label class="block text-sm font-medium text-gray-700 mb-2">Sort By</label>
+                         <div class="relative">
+                             <select id="sortProducts" class="w-full lg:w-56 pl-4 pr-10 py-3 border border-gray-300 rounded-lg appearance-none focus:ring-2 focus:ring-primary focus:border-transparent bg-white">
+                                 <option value="featured">Featured</option>
+                                 <option value="newest">Newest</option>
+                                 <option value="price-low">Price: Low to High</option>
+                                 <option value="price-high">Price: High to Low</option>
+                             </select>
+                             <svg class="w-4 h-4 text-gray-800 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                         </div>
+                     </div>
+                     <div class="flex gap-2">
+                         <button id="applyFilters" class="bg-secondary text-white px-6 py-3 rounded-lg font-semibold hover:bg-maroonDark transition-colors">Apply</button>
+                         <button id="resetFilters" class="bg-gray-200 text-gray-700 px-6 py-3 rounded-lg font-semibold hover:bg-gray-300 transition-colors">Reset</button>
+                     </div>
+                 </div>
+             </div>
+
+             <!-- View Tabs -->
+             <div class="flex items-center justify-between mb-6">
+                 <p class="text-gray-600"><span id="resultsCount">0</span> products found</p>
+                 <div class="flex gap-2">
+                     <button class="view-tab-btn bg-primary text-white px-4 py-2 rounded-lg text-sm font-semibold" data-view="grid"><i class="fas fa-th-large mr-1"></i> Grid</button>
+                     <button class="view-tab-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-semibold" data-view="list"><i class="fas fa-list mr-1"></i> List</button>
+                     <button class="view-tab-btn bg-gray-200 text-gray-700 px-4 py-2 rounded-lg text-sm font-semibold" data-view="table"><i class="fas fa-table mr-1"></i> Table</button>
+                 </div>
+             </div>
+
+             <!-- Loading / No Results -->
+             <div id="loadingState" class="text-center py-12"><i class="fas fa-spinner fa-spin text-3xl text-primary"></i></div>
+             <div id="noResults" class="hidden text-center py-12 text-gray-600">No products match your filters.</div>
+
+             <!-- Grid View -->
+             <div id="gridView" class="view-container block">
+                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="gridContainer"></div>
+             </div>
+
+             <!-- List View -->
+             <div id="listView" class="view-container hidden">
+                 <div class="space-y-4" id="listContainer"></div>
+             </div>
+
+             <!-- Table View -->
+             <div id="tableView" class="view-container hidden">
+                 <div class="bg-white rounded-xl shadow-lg overflow-x-auto">
+                     <table class="product-table min-w-full" id="tableContainer"></table>
+                 </div>
+             </div>
+         </div>
+     </section>
+
+     <!-- CTA -->
+     <section class="py-20 bg-gradient-to-r from-[#1e3a8a] via-[#3730a3] to-[#db2777]">
+         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+             <h2 class="text-3xl md:text-4xl font-bold text-white mb-4">Don't see exactly what you need?</h2>
+             <p class="text-xl text-blue-100 mb-8">Send us your idea and get a tailored quote for fully custom cards.</p>
+             <a href="order.html" class="bg-white text-primary px-8 py-4 rounded-lg font-semibold hover:bg-gray-100 transition-colors">Request a Custom Quote</a>
+         </div>
+     </section>
+
+     <!-- Footer -->
+     <footer class="bg-gray-900 text-white py-16">
+         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+             <div class="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-12">
+                 <div>
+                     <img src="images/logo.png" alt="AY-PRINT" class="h-12 w-auto mb-6">
+                      <p class="text-gray-400 mb-6">AY-PRINT is your trusted partner for premium card printing — business cards, ad cards, info cards, invitations, and custom prints, delivered fast across Nigeria.</p>
+                 </div>
+                 <div>
+                     <h3 class="text-lg font-semibold mb-6">Quick Links</h3>
+                     <ul class="space-y-3">
+                         <li><a href="index.html" class="text-gray-400 hover:text-white transition-colors">Home</a></li>
+                         <li><a href="products.html" class="text-gray-400 hover:text-white transition-colors">Products</a></li>
+                         <li><a href="order.html" class="text-gray-400 hover:text-white transition-colors">Get a Quote</a></li>
+                         <li><a href="about.html" class="text-gray-400 hover:text-white transition-colors">About Us</a></li>
+                         <li><a href="contact.html" class="text-gray-400 hover:text-white transition-colors">Contact Us</a></li>
+                     </ul>
+                 </div>
+                 <div>
+                     <h3 class="text-lg font-semibold mb-6">Our Products</h3>
+                     <ul class="space-y-3">
+                         <li><a href="products.html?category=business" class="text-gray-400 hover:text-white transition-colors">Business Cards</a></li>
+                         <li><a href="products.html?category=ad" class="text-gray-400 hover:text-white transition-colors">Ad Cards & Flyers</a></li>
+                         <li><a href="products.html?category=info" class="text-gray-400 hover:text-white transition-colors">Business Info Cards</a></li>
+                         <li><a href="products.html?category=invitation" class="text-gray-400 hover:text-white transition-colors">Invitations & Greetings</a></li>
+                         <li><a href="products.html?category=custom" class="text-gray-400 hover:text-white transition-colors">Custom & Loyalty Cards</a></li>
+                     </ul>
+                 </div>
+                 <div>
+                     <h3 class="text-lg font-semibold mb-6">Contact Us</h3>
+                     <ul class="space-y-3 text-gray-400">
+                         <li class="flex items-start gap-3"><i class="fas fa-map-marker-alt mt-1"></i><span>Placeholder Address, Lagos, Nigeria</span></li>
+                         <li class="flex items-center gap-3"><i class="fas fa-phone"></i><span>+234 801 234 5678</span></li>
+                         <li class="flex items-center gap-3"><i class="fab fa-whatsapp"></i><span>+234 902 773 0330</span></li>
+                         <li class="flex items-center gap-3"><i class="fas fa-envelope"></i><span style="word-break: break-all;">info@ayprint.com</span></li>
+                     </ul>
+                 </div>
+             </div>
+             <div class="border-t border-gray-800 mt-12 pt-8 flex flex-col md:flex-row justify-between items-center">
+                 <p class="text-gray-400 text-sm">&copy; 2024 AY-PRINT. All rights reserved.</p>
+             </div>
+         </div>
+     </footer>
+
+     <button class="fixed bottom-8 right-8 bg-secondary text-white w-12 h-12 rounded-full shadow-lg hover:bg-maroonDark transition-colors opacity-0 invisible" id="backToTop" aria-label="Back to top"><i class="fas fa-arrow-up"></i></button>
+     <a href="https://wa.me/2349027730330" target="_blank" rel="noopener noreferrer" class="fixed bottom-24 right-8 bg-green-500 text-white w-14 h-14 rounded-full shadow-lg hover:bg-green-600 transition-all duration-300 hover:scale-110 flex items-center justify-center z-50" aria-label="Contact on WhatsApp"><i class="fab fa-whatsapp text-2xl"></i></a>
+
+     <script src="js/main.js"></script>
+     <script src="js/products.js"></script>
+</body>
+</html>

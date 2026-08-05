@@ -8,21 +8,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: '#1a2744',
-        secondary: '#8b2635',
-        accent: '#ffffff',
-        dark: '#1a2744',
+        primary: '#1e3a8a',
+        secondary: '#db2777',
+        accent: '#f59e0b',
+        dark: '#1e3a8a',
         light: '#f3f4f6',
-        maroon: '#8b2635',
-        maroonDark: '#6b1a1a',
-        navy: '#1a2744',
-        navyLight: '#2a3754',
-        gradientStart: '#1a2744',
-        gradientEnd: '#8b2635',
+        maroon: '#db2777',
+        maroonDark: '#9d174d',
+        navy: '#1e3a8a',
+        navyLight: '#3730a3',
+        gradientStart: '#1e3a8a',
+        gradientEnd: '#db2777',
       },
       backgroundImage: {
-        'gradient-royal': 'linear-gradient(135deg, #1a2744 0%, #8b2635 100%)',
-        'gradient-royal-light': 'linear-gradient(135deg, #2a3754 0%, #a63645 100%)',
+        'gradient-royal': 'linear-gradient(135deg, #1e3a8a 0%, #db2777 100%)',
+        'gradient-royal-light': 'linear-gradient(135deg, #3730a3 0%, #f0468f 100%)',
       },
       animation: {
         'spin': 'spin 1s linear infinite',

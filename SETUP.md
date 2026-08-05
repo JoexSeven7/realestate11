@@ -1,4 +1,4 @@
-# ATHARRYS PROPERTIES - Local Development Setup
+# AY-PRINT — Local Development Setup
 
 ## Quick Start (Windows)
 
@@ -30,9 +30,9 @@ npm run build:css
 
 ### Step 4: Replace Formspree ID
 In these files, replace `FORMSPREE_ID` with your actual Formspree form ID:
-- `contact.html`
-- `index.html`  
-- `property-detail.html`
+- `index.html` (newsletter)
+- `contact.html` (general inquiry)
+- `order.html` (quote request)
 
 Get your free form ID at: https://formspree.io
 
@@ -53,41 +53,31 @@ Then open: http://localhost:3000
 
 ---
 
-## File Changes Summary
+## Pages
+| File | Purpose |
+|------|---------|
+| `index.html` | Home |
+| `products.html` | Card catalog (filter/search/sort) |
+| `product-detail.html` | Single product details (`?id=N`) |
+| `order.html` | Quote/order request form (`?product=N` prefills) |
+| `about.html` | About the company |
+| `contact.html` | Contact + FAQ |
 
-| File | Change |
-|------|--------|
-| `css/input.css` | Tailwind input (source) |
-| `css/output.css` | Tailwind compiled (generated) |
-| `css/fontawesome.min.css` | Font Awesome styles |
-| `tailwind.config.js` | Tailwind configuration |
-| `package.json` | npm dependencies |
-| `setup.bat` | Windows setup script |
-| All `.html` files | Changed from CDN to local CSS |
-
----
+## Data
+Products are loaded from `data/products.json`. Each page's JS also keeps an
+embedded fallback copy so the site works when opened directly via `file://`.
 
 ## Production Checklist
-
 - [ ] Run `npm install`
 - [ ] Run `npm run build:css`
 - [ ] Download & setup Font Awesome
-- [ ] Replace `FORMSPREE_ID` with actual Formspree ID
+- [ ] Replace `FORMSPREE_ID` in `index.html`, `contact.html`, `order.html`
+- [ ] Swap placeholder logo, images, address, phone, email, and social links
 - [ ] Test all forms work
 - [ ] Deploy to hosting provider
 
----
-
 ## Troubleshooting
-
-### "npm is not recognized"
-Install Node.js from: https://nodejs.org
-
-### "Cannot find module 'tailwindcss'"
-Run: `npm install`
-
-### Forms not working
-Make sure you replaced `FORMSPREE_ID` with your actual Formspree form ID.
-
-### Icons not showing
-Download Font Awesome webfonts folder and place in project root.
+- **"npm is not recognized"** — Install Node.js from https://nodejs.org
+- **"Cannot find module 'tailwindcss'"** — Run `npm install`
+- **Forms not working** — Replace `FORMSPREE_ID` with your actual Formspree form ID
+- **Icons not showing** — Download Font Awesome webfonts folder and place in project root
